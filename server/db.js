@@ -13,8 +13,7 @@ const User = mongoose.model('Profiles', profileSchema);
 
 const addUser = async (name) => {
     const user = new User({
-        name,
-
+        name
     });
     const result = await user.save();
     console.log(result);

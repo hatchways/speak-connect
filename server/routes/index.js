@@ -1,7 +1,7 @@
-var express = require("express");
-var router = express.Router();
+let express = require("express");
+let router = express.Router();
 
-router.get("/welcome", function (req, res, next) {
+router.get("/", (req, res, next) => {
   res.status(200).send({ welcomeMessage: "Welcome to the server..." });
 });
 
