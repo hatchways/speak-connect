@@ -35,8 +35,7 @@ function Ping(props) {
   return (
     <div>
       <Typography>
-        Step 3: Add your first name to server/.env, refresh and test the result
-        below
+        Step 3:Enter your name
       </Typography>
       <Typography>{result}</Typography>
 
