@@ -18,6 +18,19 @@ const useStyles = makeStyles(theme => ({
 function NavBar(props) {
   const classes = useStyles();
 
+  function generateNavBarLinks() {
+    const { pathname } = props.location;
+    console.log("pathname =", pathname);
+
+    if (pathname === "/") {
+      return <Link to={"/login"}>Login</Link>;
+    } else if (pathname === "/login") {
+      return <Link to={"/"}>SignUp</Link>;
+    } else {
+      alert("NOOOO");
+    }
+  }
+
   return (
     <div className={classes.root}>
       <AppBar position="static">
@@ -33,9 +46,7 @@ function NavBar(props) {
           <Typography variant="h6" color="inherit">
             VOICE DISCUSS
           </Typography>
-          <span>
-            <Link to={props.linkedDirectory}>Login</Link>
-          </span>
+          <span>{generateNavBarLinks()}</span>
         </Toolbar>
       </AppBar>
     </div>

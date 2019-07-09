@@ -58,7 +58,7 @@ class Register extends Component {
 
     return (
       <div className={classes.landingContainer}>
-        <NavBar linkedDirectory={"/login"} />
+        <NavBar location={this.props.location} />
         <h1>Welcome to Twitter Audio</h1>
         <h2> Sign up</h2>
         <form onSubmit={this.handleSubmit}>
