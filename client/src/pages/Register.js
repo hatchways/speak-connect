@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { withStyles } from "@material-ui/core/styles";
 //import { Router } from "react-router-dom";
+import NavBar from "../components/NavBar";
 
 import axios from "axios";
 
@@ -57,6 +58,7 @@ class Register extends Component {
 
     return (
       <div className={classes.landingContainer}>
+        <NavBar />
         <h1>Welcome to Twitter Audio</h1>
         <h2> Sign up</h2>
         <form onSubmit={this.handleSubmit}>
