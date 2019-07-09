@@ -7,11 +7,15 @@ import IconButton from "@material-ui/core/IconButton";
 import MenuIcon from "@material-ui/icons/Menu";
 
 import { Link } from "react-router-dom";
+import logo from "../assets/logo.png";
 
 const useStyles = makeStyles(theme => ({
-  root: {},
-  menuButton: {
-    marginRight: theme.spacing(2)
+  root: {
+    background: "linear-gradient(45deg, #FE6B8B 30%, #FF8E53 90%)"
+  },
+  logo: {
+    marginRight: theme.spacing(2),
+    height: "45px"
   }
 }));
 
@@ -22,30 +26,22 @@ function NavBar(props) {
     const { pathname } = props.location;
     console.log("pathname =", pathname);
 
+    // links based on current location
     if (pathname === "/") {
       return <Link to={"/login"}>Login</Link>;
     } else if (pathname === "/login") {
       return <Link to={"/"}>SignUp</Link>;
     } else {
-      alert("NOOOO");
+      // in profile section!
+      // TODO
     }
   }
 
   return (
     <div className={classes.root}>
       <AppBar position="static">
-        <Toolbar variant="dense">
-          <IconButton
-            edge="start"
-            className={classes.menuButton}
-            color="inherit"
-            aria-label="Menu"
-          >
-            <MenuIcon />
-          </IconButton>
-          <Typography variant="h6" color="inherit">
-            VOICE DISCUSS
-          </Typography>
+        <Toolbar variant="regular">
+          <img src={logo} className={classes.logo} />
           <span>{generateNavBarLinks()}</span>
         </Toolbar>
       </AppBar>
