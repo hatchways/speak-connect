@@ -13,58 +13,67 @@ const registerPageStyle = theme => ({
 class Register extends Component {
   state = {
     userName: " ",
-    userEmail: " "
+    userEmail: " ",
+    userPassword: " ",
+    confirmPassword: " "
 
   };
 
-  //componentDidMount() {
-
-  // axios.get("api/users").then(res => console.log(res));
-  //}
 
   handleSubmit = async (e) => {
     e.preventDefault();
     let userData = {
       name: this.state.userName,
-      email: this.state.userEmail
+      email: this.state.userEmail,
+      password: this.state.userPassword
     }
-    //make http post request to send name and email to server
-    await axios.post("/api/users", userData)
-      .then((res) => console.log('http result', res))
-      .catch(err => console.log(err))
-
+    //make http post request to send name,email and password to server
+    const { data } = await axios.post("/api/users", userData)
+    console.log("new user info:", data);
     //clear input fields
     this.setState({
       userName: " ",
-      userEmail: " "
+      userEmail: " ",
+      userPassword: "",
+      confirmPassword: " "
     })
 
     //direct user to profile page
-
     this.props.history.replace("/profile")
   }
 
   handleChange = (e) => {
 
-    if (e.target.name == "userName") {
+    if (e.target.name === "userName") {
       this.setState({ userName: e.target.value })
     }
-    else {
+    else if (e.target.name === "userEmail") {
       this.setState({ userEmail: e.target.value })
     }
+
+    else {
+      this.setState({ userPassword: e.target.value })
+    }
+
   }
   render() {
 
     const { classes } = this.props;
-    const { userName, userEmail } = this.state
+    const { userName, userEmail, userPassword } = this.state
 
     return (
       <div className={classes.landingContainer}>
         <h1>Welcome to Twitter Audio</h1>
         <h2> Sign up</h2>
         <form onSubmit={this.handleSubmit}>
-          Name:<input type="text" value={userName} name="userName" onChange={this.handleChange} /> <br /><br />
-          Email:<input type="text" value={userEmail} name="userEmail" onChange={this.handleChange} /> <br /><br />
+          Name <br />
+          <input type="text" value={userName} name="userName" onChange={this.handleChange} /> <br /><br />
+          Email <br />
+          <input type="text" value={userEmail} name="userEmail" onChange={this.handleChange} /> <br /><br />
+          Password<br />
+          <input type="text" value={userPassword} name="userPassword" onChange={this.handleChange} /> <br /><br />
+          Confirm Password<br />
+          <input type="text" value={userPassword} name="userPassword" onChange={this.handleChange} /> <br /><br />
           <input type="submit" value="Sign up" />
         </form>
       </div>
