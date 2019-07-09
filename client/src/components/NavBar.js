@@ -34,7 +34,7 @@ function NavBar(props) {
             VOICE DISCUSS
           </Typography>
           <span>
-            <Link to={props.directory}>Login</Link>
+            <Link to={props.linkedDirectory}>Login</Link>
           </span>
         </Toolbar>
       </AppBar>
