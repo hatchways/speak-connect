@@ -4,19 +4,30 @@ mongoose.connect('mongodb://localhost/profiledb', { useNewUrlParser: true })
     .then(() => console.log('Connected to MongoDb...'))
     .catch(err => console.error('Could not connect to MongoDB', err))
 
-const profileSchema = new mongoose.Schema({
+const userSchema = new mongoose.Schema({
     name: String,
+    email: String
 
 })
 
-const User = mongoose.model('Profiles', profileSchema);
+const Users = mongoose.model('Users', userSchema);
 
-const addUser = async (name) => {
-    const user = new User({
-        name
+const addUser = async (name, email) => {
+    const user = new Users({
+        name,
+        email
     });
     const result = await user.save();
-    console.log(result);
+    console.log("user saved...", result);
+
+    getUsers();
+}
+
+const getUsers = async () => {
+
+    const users = await Users.find();
+
+    console.log("List of all users", users)
 }
 
 module.exports = addUser
