@@ -16,11 +16,6 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, "public")));
 
 app.use("/api/users", indexRouter);
-//app.use("/ping", pingRouter);
-
-//app.get("/api/users", (req, res) => {
-//res.send('data saved to server..')
-//})
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {

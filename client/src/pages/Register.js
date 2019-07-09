@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { withStyles } from "@material-ui/core/styles";
-//import { Link } from "react-router-dom";
+//import { Router } from "react-router-dom";
 
 import axios from "axios";
 
@@ -38,6 +38,10 @@ class Register extends Component {
       userName: " ",
       userEmail: " "
     })
+
+    //direct user to profile page
+
+    this.props.history.replace("/profile")
   }
 
   handleChange = (e) => {
