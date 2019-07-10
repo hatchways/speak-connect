@@ -154,6 +154,19 @@ class Register extends Component {
                 variant="outlined"
               />
             </Grid>
+            <Grid item>
+              <TextField
+                id="confirmPassword"
+                name="confirmPassword"
+                label="Confirm Password"
+                className={classes.textField}
+                value={confirmPassword}
+                onChange={this.handleChange}
+                type="password"
+                margin="normal"
+                variant="outlined"
+              />
+            </Grid>
 
             <Grid item>
               <Button
