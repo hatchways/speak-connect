@@ -27,7 +27,8 @@ class Register extends Component {
     userName: "",
     userEmail: "",
     userPassword: "",
-    confirmPassword: ""
+    confirmPassword: "",
+    errorMessage: ""
 
   };
 
@@ -100,7 +101,7 @@ class Register extends Component {
 
   render() {
     const { classes } = this.props;
-    const { userName, userEmail, userPassword, confirmPassword } = this.state
+    const { userName, userEmail, userPassword, confirmPassword, errorMessage } = this.state;
 
     return (
       <div className={classes.landingContainer}>
@@ -183,6 +184,10 @@ class Register extends Component {
                 Sign Up
               </Button>
             </Grid>
+            <Grid item className={classes.error}>
+              {errorMessage}
+            </Grid>
+
           </Grid>
           Name <br />
           <input type="text" value={userName} name="userName" onChange={this.handleChange} /> <br /><br />
