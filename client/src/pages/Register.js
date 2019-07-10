@@ -104,7 +104,6 @@ class Register extends Component {
     }
 
   }
-  render() {
 
   render() {
     const { classes } = this.props;
