@@ -5,29 +5,29 @@ mongoose.connect('mongodb://localhost/profiledb', { useNewUrlParser: true })
     .catch(err => console.error('Could not connect to MongoDB', err))
 
 const userSchema = new mongoose.Schema({
-    name: String,
-    email: String
+    name: { type: String, required: true },
+    email: { type: String, required: true },
+    password: { type: String, required: true }
 
 })
 
 const Users = mongoose.model('Users', userSchema);
 
-const addUser = async (name, email) => {
+const addUser = async (name, email, password) => {
     const user = new Users({
         name,
-        email
+        email,
+        password
     });
-    const result = await user.save();
-    console.log("user saved...", result);
 
-    getUsers();
-}
-
-const getUsers = async () => {
-
-    const users = await Users.find();
-
-    console.log("List of all users", users)
+    try {
+        const result = await user.save();
+        return result;
+    }
+    catch (e) {
+        console.log('unable to register user')
+        return e.message
+    }
 }
 
 module.exports = addUser

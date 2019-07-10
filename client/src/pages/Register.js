@@ -22,10 +22,11 @@ class Register extends Component {
 
   handleSubmit = async (e) => {
     e.preventDefault();
-    let userData = {
+    const userData = {
       name: this.state.userName,
       email: this.state.userEmail,
-      password: this.state.userPassword
+      password: this.state.userPassword,
+      confirmPassword: this.state.confirmPassword
     }
     //make http post request to send name,email and password to server
     const { data } = await axios.post("/api/users", userData)
@@ -51,15 +52,19 @@ class Register extends Component {
       this.setState({ userEmail: e.target.value })
     }
 
-    else {
+    else if (e.target.name === "userPassword") {
       this.setState({ userPassword: e.target.value })
+    }
+
+    else {
+      this.setState({ confirmPassword: e.target.value })
     }
 
   }
   render() {
 
     const { classes } = this.props;
-    const { userName, userEmail, userPassword } = this.state
+    const { userName, userEmail, userPassword, confirmPassword } = this.state
 
     return (
       <div className={classes.landingContainer}>
@@ -73,7 +78,7 @@ class Register extends Component {
           Password<br />
           <input type="text" value={userPassword} name="userPassword" onChange={this.handleChange} /> <br /><br />
           Confirm Password<br />
-          <input type="text" value={userPassword} name="userPassword" onChange={this.handleChange} /> <br /><br />
+          <input type="text" value={confirmPassword} name="confirmPassword" onChange={this.handleChange} /> <br /><br />
           <input type="submit" value="Sign up" />
         </form>
       </div>
