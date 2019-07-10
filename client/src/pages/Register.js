@@ -31,10 +31,10 @@ const registerPageStyle = theme => ({
 
 class Register extends Component {
   state = {
-    userName: " ",
-    userEmail: " ",
-    userPassword: " ",
-    confirmPassword: " "
+    userName: "",
+    userEmail: "",
+    userPassword: "",
+    confirmPassword: ""
 
   };
 
@@ -76,10 +76,10 @@ class Register extends Component {
     console.log("new user info:", data);
     //clear input fields
     this.setState({
-      userName: " ",
-      userEmail: " ",
+      userName: "",
+      userEmail: "",
       userPassword: "",
-      confirmPassword: " "
+      confirmPassword: ""
     })
 
     //direct user to profile page
