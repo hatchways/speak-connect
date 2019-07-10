@@ -9,6 +9,9 @@ import InputLabel from "@material-ui/core/InputLabel";
 import OutlinedInput from "@material-ui/core/OutlinedInput";
 import TextField from "@material-ui/core/TextField";
 import Button from "@material-ui/core/Button";
+import { flexbox } from "@material-ui/system";
+import Box from "@material-ui/core/Box";
+import Grid from "@material-ui/core/Grid";
 
 import axios from "axios";
 
@@ -99,40 +102,64 @@ class Register extends Component {
     return (
       <div className={classes.landingContainer}>
         <NavBar location={this.props.location} />
-        <h1>Sign Up</h1>
+        <form onSubmit={this.handleSubmit}>
+          <Grid container direction="column" alignItems="center">
+            <Grid item>
+              <h1 item>Sign Up</h1>
+            </Grid>
 
-        <form className={classes.container} onSubmit={this.handleSubmit}>
-          <TextField
-            id="outlined-name"
-            name="userName"
-            label="Name"
-            placeholder="Placeholder"
-            className={classes.textField}
-            value={userName}
-            onChange={this.handleChange}
-            margin="normal"
-            variant="outlined"
-          />
-          <TextField
-            id="outlined-email-input"
-            name="userEmail"
-            label="Email"
-            className={classes.textField}
-            type="email"
-            value={userEmail}
-            onChange={this.handleChange}
-            autoComplete="email"
-            margin="normal"
-            variant="outlined"
-          />
-          <Button
-            variant="contained"
-            label="Submit"
-            type="submit"
-            value="Sign up"
-          >
-            Signup
-          </Button>
+            <Grid item>
+              <TextField
+                id="name"
+                name="userName"
+                label="Name"
+                placeholder="Placeholder"
+                className={classes.textField}
+                value={userName}
+                onChange={this.handleChange}
+                margin="normal"
+                variant="outlined"
+              />
+            </Grid>
+
+            <Grid item>
+              <TextField
+                id="input"
+                name="userEmail"
+                label="Email"
+                className={classes.textField}
+                type="email"
+                value={userEmail}
+                onChange={this.handleChange}
+                autoComplete="email"
+                margin="normal"
+                variant="outlined"
+              />
+            </Grid>
+
+            <Grid item>
+              <TextField
+                id="input"
+                label="Password"
+                className={classes.textField}
+                type="password"
+                autoComplete="current-password"
+                margin="normal"
+                variant="outlined"
+              />
+            </Grid>
+
+            <Grid item>
+              <Button
+                variant="contained"
+                label="Submit"
+                type="submit"
+                value="Sign up"
+              >
+                Sign Up
+              </Button>
+            </Grid>
+          </Grid>
         </form>
       </div>
     );
