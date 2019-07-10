@@ -4,7 +4,9 @@ import { BrowserRouter, Route } from "react-router-dom";
 
 import { theme } from "./themes/theme";
 import Register from "./pages/Register";
+import Login from "./pages/Login";
 import Profile from "./pages/Profile";
+
 import "./App.css";
 
 function App() {
@@ -12,6 +14,7 @@ function App() {
     <MuiThemeProvider theme={theme}>
       <BrowserRouter>
         <Route path="/" exact component={Register} />
+        <Route path="/login" component={Login} />
         <Route path="/profile" component={Profile} />
       </BrowserRouter>
     </MuiThemeProvider>
