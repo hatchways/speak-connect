@@ -66,18 +66,28 @@ class Register extends Component {
       confirmPassword: this.state.confirmPassword
     }
     //make http post request to send name,email and password to server
-    const { data } = await axios.post("/api/users", userData)
-    console.log("new user info:", data);
-    //clear input fields
-    this.setState({
-      userName: "",
-      userEmail: "",
-      userPassword: "",
-      confirmPassword: ""
-    })
+    // const { data } = await axios.post("/api/users", userData)
+    // console.log("new user info:", data);
 
-    //direct user to profile page
-    this.props.history.replace("/profile")
+    await axios.post("/api/users", userData)
+      .then(response => {
+        console.log("success! Data receieved = ", response.data);
+        //clear input fields
+        this.setState({
+          userName: "",
+          userEmail: "",
+          userPassword: "",
+          confirmPassword: ""
+        })
+
+        //direct user to profile page
+        this.props.history.replace("/profile");
+
+      })
+      .catch(error => {
+        console.log("ERROR = ", error.response.data);
+        this.setState({ errorMessage: error.response.data })
+      });
   }
 
   handleChange = (e) => {
