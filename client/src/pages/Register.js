@@ -7,12 +7,22 @@ import FormHelperText from "@material-ui/core/FormHelperText";
 import Input from "@material-ui/core/Input";
 import InputLabel from "@material-ui/core/InputLabel";
 import OutlinedInput from "@material-ui/core/OutlinedInput";
+import TextField from "@material-ui/core/TextField";
+import Button from "@material-ui/core/Button";
 
 import axios from "axios";
 
 const registerPageStyle = theme => ({
   landingContainer: {
     //margin: theme.spacing.unit * 2
+  },
+  container: {
+    display: "flex",
+    flexWrap: "wrap"
+  },
+  textField: {
+    marginLeft: theme.spacing(1),
+    marginRight: theme.spacing(1)
   }
 });
 
@@ -26,6 +36,30 @@ class Register extends Component {
 
   // axios.get("api/users").then(res => console.log(res));
   //}
+
+  /*
+  <form onSubmit={this.handleSubmit}>
+  Name:
+  <input
+    type="text"
+    value={userName}
+    name="userName"
+    onChange={this.handleChange}
+  />
+  <br />
+  <br />
+  Email:
+  <input
+    type="text"
+    value={userEmail}
+    name="userEmail"
+    onChange={this.handleChange}
+  />
+  <br />
+  <br />
+  <input type="submit" value="Sign up" />
+</form>
+*/
 
   handleSubmit = async e => {
     e.preventDefault();
@@ -57,6 +91,7 @@ class Register extends Component {
       this.setState({ userEmail: e.target.value });
     }
   };
+
   render() {
     const { classes } = this.props;
     const { userName, userEmail } = this.state;
@@ -65,45 +100,40 @@ class Register extends Component {
       <div className={classes.landingContainer}>
         <NavBar location={this.props.location} />
         <h1>Sign Up</h1>
-        <form onSubmit={this.handleSubmit}>
-          Name:
-          <input
-            type="text"
-            value={userName}
+
+        <form className={classes.container} onSubmit={this.handleSubmit}>
+          <TextField
+            id="outlined-name"
             name="userName"
-            onChange={this.handleChange}
-          />
-          <br />
-          <br />
-          Email:
-          <input
-            type="text"
-            value={userEmail}
-            name="userEmail"
-            onChange={this.handleChange}
-          />
-          <br />
-          <br />
-          <input type="submit" value="Sign up" />
-        </form>
-
-        <FormControl>
-          <InputLabel htmlFor="my-input">Email address</InputLabel>
-          <Input id="my-input" aria-describedby="my-helper-text" />
-          <FormHelperText id="my-helper-text">
-            We'll never share your email.
-          </FormHelperText>
-        </FormControl>
-
-        <FormControl className={classes.formControl} variant="outlined">
-          <InputLabel htmlFor="component-outlined">Full Name</InputLabel>
-          <OutlinedInput
-            id="component-outlined"
+            label="Name"
+            placeholder="Placeholder"
+            className={classes.textField}
             value={userName}
             onChange={this.handleChange}
-            labelWidth={0}
+            margin="normal"
+            variant="outlined"
           />
-        </FormControl>
+          <TextField
+            id="outlined-email-input"
+            name="userEmail"
+            label="Email"
+            className={classes.textField}
+            type="email"
+            value={userEmail}
+            onChange={this.handleChange}
+            autoComplete="email"
+            margin="normal"
+            variant="outlined"
+          />
+          <Button
+            variant="contained"
+            label="Submit"
+            type="submit"
+            value="Sign up"
+          >
+            Signup
+          </Button>
+        </form>
       </div>
     );
   }
