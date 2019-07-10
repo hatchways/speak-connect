@@ -19,6 +19,14 @@ const registerPageStyle = theme => ({
   textField: {
     marginLeft: theme.spacing(1),
     marginRight: theme.spacing(1)
+  },
+  button: {
+    color: 'white',
+    marginTop: theme.spacing(2),
+    marginBottom: theme.spacing(1)
+  },
+  error: {
+    color: 'red'
   }
 });
 
@@ -98,11 +106,9 @@ class Register extends Component {
     else if (e.target.name === "userEmail") {
       this.setState({ userEmail: e.target.value })
     }
-
     else if (e.target.name === "userPassword") {
       this.setState({ userPassword: e.target.value })
     }
-
     else {
       this.setState({ confirmPassword: e.target.value })
     }
@@ -128,7 +134,7 @@ class Register extends Component {
                 id="name"
                 name="userName"
                 label="Name"
-                placeholder="Placeholder"
+                placeholder="Full Name"
                 className={classes.textField}
                 value={userName}
                 onChange={this.handleChange}
@@ -188,6 +194,7 @@ class Register extends Component {
                 variant="contained"
                 label="Submit"
                 color="secondary"
+                className={classes.button}
                 type="submit"
                 value="Sign up"
               >
