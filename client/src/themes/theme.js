@@ -4,8 +4,18 @@ export const theme = createMuiTheme({
   typography: {
     fontFamily: '"Roboto"'
   },
-  primary: "#f04040",
-  secondary: "#1f1f1f",
   error: "#d8000c",
-  bgcolor: "#f6f6f6"
+  bgcolor: "#f6f6f6",
+
+  palette: {
+    primary: {
+      main: '#ffffff'
+    },
+    secondary: {
+      light: '#ffffff',
+      main: '#3956E1',
+      dark: '#000000',
+      contrastText: '#000',
+    }
+  }
 });
