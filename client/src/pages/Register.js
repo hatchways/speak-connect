@@ -2,15 +2,8 @@ import React, { Component } from "react";
 import { withStyles } from "@material-ui/core/styles";
 //import { Router } from "react-router-dom";
 import NavBar from "../components/NavBar";
-import FormControl from "@material-ui/core/FormControl";
-import FormHelperText from "@material-ui/core/FormHelperText";
-import Input from "@material-ui/core/Input";
-import InputLabel from "@material-ui/core/InputLabel";
-import OutlinedInput from "@material-ui/core/OutlinedInput";
 import TextField from "@material-ui/core/TextField";
 import Button from "@material-ui/core/Button";
-import { flexbox } from "@material-ui/system";
-import Box from "@material-ui/core/Box";
 import Grid from "@material-ui/core/Grid";
 
 import axios from "axios";
@@ -115,7 +108,7 @@ class Register extends Component {
         <form onSubmit={this.handleSubmit}>
           <Grid container direction="column" alignItems="center">
             <Grid item>
-              <h1 item>Sign Up</h1>
+              <h1 >Sign Up</h1>
             </Grid>
 
             <Grid item>
@@ -134,7 +127,7 @@ class Register extends Component {
 
             <Grid item>
               <TextField
-                id="input"
+                id="email"
                 name="userEmail"
                 label="Email"
                 className={classes.textField}
@@ -149,9 +142,12 @@ class Register extends Component {
 
             <Grid item>
               <TextField
-                id="input"
+                id="password"
+                name="userPassword"
                 label="Password"
                 className={classes.textField}
+                value={userPassword}
+                onChange={this.handleChange}
                 type="password"
                 autoComplete="current-password"
                 margin="normal"
@@ -163,6 +159,7 @@ class Register extends Component {
               <Button
                 variant="contained"
                 label="Submit"
+                color="secondary"
                 type="submit"
                 value="Sign up"
               >
