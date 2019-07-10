@@ -1,5 +1,5 @@
 const mongoose = require('mongoose');
-const Users = require('./models/user');
+const Users = require('./models/userModel');
 
 mongoose.connect('mongodb://localhost/profiledb', { useNewUrlParser: true })
     .then(() => console.log('Connected to MongoDb...'))
