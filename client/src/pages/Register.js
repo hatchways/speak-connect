@@ -113,6 +113,7 @@ class Register extends Component {
 
             <Grid item>
               <TextField
+                required
                 id="name"
                 name="userName"
                 label="Name"
@@ -127,6 +128,7 @@ class Register extends Component {
 
             <Grid item>
               <TextField
+                required
                 id="email"
                 name="userEmail"
                 label="Email"
@@ -142,6 +144,7 @@ class Register extends Component {
 
             <Grid item>
               <TextField
+                required
                 id="password"
                 name="userPassword"
                 label="Password"
@@ -156,6 +159,7 @@ class Register extends Component {
             </Grid>
             <Grid item>
               <TextField
+                required
                 id="confirmPassword"
                 name="confirmPassword"
                 label="Confirm Password"
