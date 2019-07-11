@@ -41,8 +41,17 @@ class Login extends Component {
     const { data } = await axios.post("/api/auth", credentials);
     console.log("User authenticated ?", data);
 
-    //direct user to profile page
-    this.props.history.replace("/profile");
+    await axios
+      .post("/api/auth", credentials)
+      .then(response => {
+        console.log("Success!!!", response.data);
+        //direct user to profile page
+        this.props.history.replace("/profile");
+      })
+      .catch(error => {
+        console.log("ERROR:", error);
+        this.setState({ errorMessage: error });
+      });
 
   };
 

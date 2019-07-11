@@ -4,8 +4,6 @@ const addUser = require("../db");
 const validate = require("../validate/validateNew");
 const Users = require("../models/userModel");
 const hash = require("../hash");
-const jwt = require("jsonwebtoken");
-const config = require("config");
 
 router.post("/", async (req, res, next) => {
 
