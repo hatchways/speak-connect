@@ -69,9 +69,9 @@ function NavBar(props) {
     if (pathname === "/" || pathname === "/login") {
       // generate link for the opposite page
       const oppositeLink = pathname === "/" ? "/login" : "/";
-      const displayText = oppositeLink === "/" ? "Signup" : "Login";
+      const displayText = oppositeLink === "/" ? "Sign up" : "Log in";
       return (
-        <Link to={oppositeLink}>
+        <Link to={oppositeLink} className={classes.link}>
           <Button
             variant="contained"
             color="secondary"

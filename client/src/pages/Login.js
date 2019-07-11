@@ -18,7 +18,8 @@ const loginPageStyle = theme => ({
   button: {
     color: "white",
     marginTop: theme.spacing(3),
-    marginBottom: theme.spacing(1)
+    marginBottom: theme.spacing(1),
+    textTransform: "none"
   }
 });
 
@@ -96,7 +97,7 @@ class Login extends Component {
                 type="submit"
                 value="Sign up"
               >
-                Log In
+                Log in
               </Button>
             </Grid>
             <Grid item className={classes.error}>
