@@ -17,7 +17,7 @@ export const theme = createMuiTheme({
       light: "#ffffff",
       main: "#3956E1", // blue
       dark: "#1b34ab",
-      contrastText: "#e80000"
+      contrastText: "#ffffff"
     }
   }
 });

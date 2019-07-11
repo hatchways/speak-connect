@@ -14,18 +14,58 @@ const useStyles = makeStyles(theme => ({
     height: "45px"
   },
   button: {
-    color: "white"
+    margin: theme.spacing(0.5),
+    textTransform: "none"
+  },
+  link: {
+    textDecoration: "none"
   }
 }));
 
 function NavBar(props) {
   const classes = useStyles();
 
+  function loggedInNavLinks() {
+    return (
+      <div>
+        <Link to={"/Profile"} className={classes.link}>
+          <Button color="secondary" className={classes.button}>
+            Explore
+          </Button>
+        </Link>
+        <Link to={"/Profile"} className={classes.link}>
+          <Button color="secondary" className={classes.button}>
+            Messages
+          </Button>
+        </Link>
+        <Link to={"/Profile"} className={classes.link}>
+          <Button color="secondary" className={classes.button}>
+            Notifications
+          </Button>
+        </Link>
+        <Link to={"/Profile"} className={classes.link}>
+          <Button
+            variant="contained"
+            className={classes.button}
+            color="secondary"
+          >
+            Create Conversation
+          </Button>
+        </Link>
+        <Link to={"/Profile"} className={classes.link}>
+          <Button color="secondary" className={classes.button}>
+            username
+          </Button>
+        </Link>
+      </div>
+    );
+  }
+
   function generateNavBarLinks() {
     const { pathname } = props.location;
     console.log("pathname =", pathname);
 
-    // currently at register or login page
+    // currently in register or login page
     if (pathname === "/" || pathname === "/login") {
       // generate link for the opposite page
       const oppositeLink = pathname === "/" ? "/login" : "/";
@@ -42,9 +82,9 @@ function NavBar(props) {
         </Link>
       );
     }
-    // In profile section!
+    // else loggedin section!
     else {
-      // TODO
+      return loggedInNavLinks();
     }
   }
 
