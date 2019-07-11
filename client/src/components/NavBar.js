@@ -3,9 +3,6 @@ import { makeStyles } from "@material-ui/core/styles";
 import AppBar from "@material-ui/core/AppBar";
 import Toolbar from "@material-ui/core/Toolbar";
 import Button from "@material-ui/core/Button";
-import Typography from "@material-ui/core/Typography";
-import IconButton from "@material-ui/core/IconButton";
-import MenuIcon from "@material-ui/icons/Menu";
 
 import { Link } from "react-router-dom";
 import logo from "../assets/logo.png";
@@ -17,7 +14,7 @@ const useStyles = makeStyles(theme => ({
     height: "45px"
   },
   button: {
-    float: "right"
+    color: "white"
   }
 }));
 
@@ -28,12 +25,13 @@ function NavBar(props) {
     const { pathname } = props.location;
     console.log("pathname =", pathname);
 
-    // single link for register and login page
+    // currently at register or login page
     if (pathname === "/" || pathname === "/login") {
-      const link = pathname === "/" ? "/login" : "/";
-      const displayText = link === "/" ? "Signup" : "Login";
+      // generate link for the opposite page
+      const oppositeLink = pathname === "/" ? "/login" : "/";
+      const displayText = oppositeLink === "/" ? "Signup" : "Login";
       return (
-        <Link to={link}>
+        <Link to={oppositeLink}>
           <Button
             variant="contained"
             color="secondary"
@@ -43,8 +41,9 @@ function NavBar(props) {
           </Button>
         </Link>
       );
-    } else {
-      // in profile section!
+    }
+    // In profile section!
+    else {
       // TODO
     }
   }
