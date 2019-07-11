@@ -28,8 +28,15 @@ router.post("/", async (req, res, next) => {
     const { name, email } = req.body;
     const password = await hash(req.body.password);
 
-    //save user
-    const userSaved = await addUser(name, email, password);
+    //create new user object
+    user = new Users({
+      name,
+      email,
+      password
+    })
+
+    //save user into database
+    const userSaved = await addUser(user);
 
     if (typeof (userSaved.email) !== "undefined") {
       let response = {
@@ -37,7 +44,7 @@ router.post("/", async (req, res, next) => {
         email: req.body.email
       }
 
-      const token = jwt.sign({ name: req.body.name, email: req.body.email }, config.get("jwtKey"));
+      const token = user.generateToken();
       res.header('x-auth-token', token).status(200).send(response);
       console.log('User registered successfully', userSaved);
     }

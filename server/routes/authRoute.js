@@ -1,9 +1,7 @@
 const express = require("express");
 const router = express.Router();
-const addUser = require("../db");
 const validate = require("../validate/validateExisting");
 const Users = require("../models/userModel");
-const hash = require("../hash");
 const bcrypt = require("bcrypt");
 
 

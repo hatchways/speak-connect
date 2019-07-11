@@ -42,7 +42,7 @@ class Login extends Component {
     console.log("User authenticated ?", data);
 
     //direct user to profile page
-    //this.props.history.replace("/profile");
+    this.props.history.replace("/profile");
 
   };
 
