@@ -21,12 +21,12 @@ const registerPageStyle = theme => ({
     marginRight: theme.spacing(1)
   },
   button: {
-    color: 'white',
+    color: "white",
     marginTop: theme.spacing(2),
     marginBottom: theme.spacing(1)
   },
   error: {
-    color: 'red'
+    color: "red"
   }
 });
 
@@ -37,33 +37,7 @@ class Register extends Component {
     userPassword: "",
     confirmPassword: "",
     errorMessage: ""
-
   };
-
-
-  /*
-  <form onSubmit={this.handleSubmit}>
-  Name:
-  <input
-    type="text"
-    value={userName}
-    name="userName"
-    onChange={this.handleChange}
-  />
-  <br />
-  <br />
-  Email:
-  <input
-    type="text"
-    value={userEmail}
-    name="userEmail"
-    onChange={this.handleChange}
-  />
-  <br />
-  <br />
-  <input type="submit" value="Sign up" />
-</form>
-*/
 
   handleSubmit = async e => {
     e.preventDefault();
@@ -72,12 +46,13 @@ class Register extends Component {
       email: this.state.userEmail,
       password: this.state.userPassword,
       confirmPassword: this.state.confirmPassword
-    }
+    };
     //make http post request to send name,email and password to server
     // const { data } = await axios.post("/api/users", userData)
     // console.log("new user info:", data);
 
-    await axios.post("/api/users", userData)
+    await axios
+      .post("/api/users", userData)
       .then(response => {
         console.log("success! Data receieved = ", response.data);
         //clear input fields
@@ -86,38 +61,38 @@ class Register extends Component {
           userEmail: "",
           userPassword: "",
           confirmPassword: ""
-        })
+        });
 
         //direct user to profile page
         this.props.history.replace("/profile");
-
       })
       .catch(error => {
         console.log("ERROR = ", error.response.data);
-        this.setState({ errorMessage: error.response.data })
+        this.setState({ errorMessage: error.response.data });
       });
-  }
+  };
 
-  handleChange = (e) => {
-
+  handleChange = e => {
     if (e.target.name === "userName") {
-      this.setState({ userName: e.target.value })
+      this.setState({ userName: e.target.value });
+    } else if (e.target.name === "userEmail") {
+      this.setState({ userEmail: e.target.value });
+    } else if (e.target.name === "userPassword") {
+      this.setState({ userPassword: e.target.value });
+    } else {
+      this.setState({ confirmPassword: e.target.value });
     }
-    else if (e.target.name === "userEmail") {
-      this.setState({ userEmail: e.target.value })
-    }
-    else if (e.target.name === "userPassword") {
-      this.setState({ userPassword: e.target.value })
-    }
-    else {
-      this.setState({ confirmPassword: e.target.value })
-    }
-
-  }
+  };
 
   render() {
     const { classes } = this.props;
-    const { userName, userEmail, userPassword, confirmPassword, errorMessage } = this.state;
+    const {
+      userName,
+      userEmail,
+      userPassword,
+      confirmPassword,
+      errorMessage
+    } = this.state;
 
     return (
       <div className={classes.landingContainer}>
@@ -125,7 +100,7 @@ class Register extends Component {
         <form onSubmit={this.handleSubmit}>
           <Grid container direction="column" alignItems="center">
             <Grid item>
-              <h1 >Sign Up</h1>
+              <h1>Sign Up</h1>
             </Grid>
 
             <Grid item>
@@ -204,17 +179,7 @@ class Register extends Component {
             <Grid item className={classes.error}>
               {errorMessage}
             </Grid>
-
           </Grid>
-          Name <br />
-          <input type="text" value={userName} name="userName" onChange={this.handleChange} /> <br /><br />
-          Email <br />
-          <input type="text" value={userEmail} name="userEmail" onChange={this.handleChange} /> <br /><br />
-          Password<br />
-          <input type="text" value={userPassword} name="userPassword" onChange={this.handleChange} /> <br /><br />
-          Confirm Password<br />
-          <input type="text" value={confirmPassword} name="confirmPassword" onChange={this.handleChange} /> <br /><br />
-          <input type="submit" value="Sign up" />
         </form>
       </div>
     );
