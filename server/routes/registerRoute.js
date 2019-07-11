@@ -1,8 +1,11 @@
 const express = require("express");
 const router = express.Router();
 const addUser = require("../db");
-const validate = require("../validate");
+const validate = require("../validate/validateNew");
 const Users = require("../models/userModel");
+const hash = require("../hash");
+const jwt = require("jsonwebtoken");
+const config = require("config");
 
 router.post("/", async (req, res, next) => {
 
@@ -21,7 +24,11 @@ router.post("/", async (req, res, next) => {
   //save user into database
   try {
 
-    const { name, email, password } = req.body;
+    //hash password
+    const { name, email } = req.body;
+    const password = await hash(req.body.password);
+
+    //save user
     const userSaved = await addUser(name, email, password);
 
     if (typeof (userSaved.email) !== "undefined") {
@@ -29,7 +36,9 @@ router.post("/", async (req, res, next) => {
         name: req.body.name,
         email: req.body.email
       }
-      res.status(200).send(response);
+
+      const token = jwt.sign({ name: req.body.name, email: req.body.email }, config.get("jwtKey"));
+      res.header('x-auth-token', token).status(200).send(response);
       console.log('User registered successfully', userSaved);
     }
 
