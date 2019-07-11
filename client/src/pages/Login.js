@@ -8,7 +8,6 @@ import Grid from "@material-ui/core/Grid";
 
 import axios from "axios";
 
-
 const loginPageStyle = theme => ({
   container: {
     display: "flex",
@@ -22,6 +21,9 @@ const loginPageStyle = theme => ({
     color: "white",
     marginTop: theme.spacing(3),
     marginBottom: theme.spacing(1)
+  },
+  error: {
+    color: "red"
   }
 });
 
@@ -33,13 +35,11 @@ class Login extends Component {
   };
   handleSubmit = async e => {
     e.preventDefault();
-    //make http request to login 
+    //make http request to login
     let credentials = {
       email: this.state.userEmail,
       password: this.state.userPassword
-    }
-    const { data } = await axios.post("/api/auth", credentials);
-    console.log("User authenticated ?", data);
+    };
 
     await axios
       .post("/api/auth", credentials)
@@ -50,9 +50,8 @@ class Login extends Component {
       })
       .catch(error => {
         console.log("ERROR:", error);
-        this.setState({ errorMessage: error });
+        this.setState({ errorMessage: error.response.data });
       });
-
   };
 
   handleChange = e => {
