@@ -4,6 +4,7 @@ import NavBar from "../components/NavBar";
 import TextField from "@material-ui/core/TextField";
 import Button from "@material-ui/core/Button";
 import Grid from "@material-ui/core/Grid";
+import jwt_decode from "jwt_decode";
 
 import axios from "axios";
 
@@ -49,6 +50,20 @@ class Register extends Component {
       .post("/api/users", userData)
       .then(response => {
         console.log("success! Data received = ", response.data);
+
+        // the response is a jwt token (FOR NOW)
+        const token = response.headers["x-auth-token"];
+
+        // add token to local storage
+        window.localStorage.setItem("token", token);
+
+        // test if token is stored
+        const localStorageToken = window.localStorage.getItem("token");
+        const decoded = jwt_decode(token);
+
+        console.log("token from local storage = ", localStorageToken);
+        console.log("decoded token = ", decoded);
+
         //direct user to profile page
         this.props.history.replace("/profile");
       })
