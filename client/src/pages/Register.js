@@ -49,14 +49,6 @@ class Register extends Component {
       .post("/api/users", userData)
       .then(response => {
         console.log("success! Data received = ", response.data);
-        // //clear input fields
-        // this.setState({
-        //   userName: "",
-        //   userEmail: "",
-        //   userPassword: "",
-        //   confirmPassword: ""
-        // });
-
         //direct user to profile page
         this.props.history.replace("/profile");
       })
