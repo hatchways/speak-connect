@@ -49,13 +49,6 @@ class Register extends Component {
       .post("/api/users", userData)
       .then(response => {
         console.log("success! Data received = ", response.data);
-        // //clear input fields
-        // this.setState({
-        //   userName: "",
-        //   userEmail: "",
-        //   userPassword: "",
-        //   confirmPassword: ""
-        // });
 
         // the jwt token is in the response header
         const token = response.headers["x-auth-token"];
