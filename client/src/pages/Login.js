@@ -40,7 +40,6 @@ class Login extends Component {
       email: this.state.userEmail,
       password: this.state.userPassword
     };
-
     await axios
       .post("/api/auth", credentials)
       .then(response => {
@@ -53,7 +52,6 @@ class Login extends Component {
         this.setState({ errorMessage: error.response.data });
       });
   };
-
   handleChange = e => {
     if (e.target.name === "userEmail") {
       this.setState({ userEmail: e.target.value });
