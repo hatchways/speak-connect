@@ -38,9 +38,6 @@ class Login extends Component {
       email: this.state.userEmail,
       password: this.state.userPassword
     }
-    const { data } = await axios.post("/api/auth", credentials);
-    console.log("User authenticated ?", data);
-
     await axios
       .post("/api/auth", credentials)
       .then(response => {
@@ -55,7 +52,6 @@ class Login extends Component {
       });
 
   };
-
   handleChange = e => {
     if (e.target.name === "userEmail") {
       this.setState({ userEmail: e.target.value });
