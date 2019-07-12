@@ -6,6 +6,8 @@ import TextField from "@material-ui/core/TextField";
 import Button from "@material-ui/core/Button";
 import Grid from "@material-ui/core/Grid";
 
+import axios from "axios";
+
 const loginPageStyle = theme => ({
   container: {
     display: "flex",
@@ -31,10 +33,23 @@ class Login extends Component {
   };
   handleSubmit = async e => {
     e.preventDefault();
-    //direct user to profile page
-    this.props.history.replace("/profile");
+    //make http request to login
+    let credentials = {
+      email: this.state.userEmail,
+      password: this.state.userPassword
+    };
+    await axios
+      .post("/api/auth", credentials)
+      .then(response => {
+        console.log("Success!!!", response.data);
+        //direct user to profile page
+        this.props.history.replace("/profile");
+      })
+      .catch(error => {
+        console.log("ERROR:", error);
+        this.setState({ errorMessage: error.response.data });
+      });
   };
-
   handleChange = e => {
     if (e.target.name === "userEmail") {
       this.setState({ userEmail: e.target.value });

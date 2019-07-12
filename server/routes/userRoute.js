@@ -1,8 +1,10 @@
 const express = require("express");
 const router = express.Router();
 const addUser = require("../db");
-const validate = require("../validate");
+const validate = require("../validate/validateNew");
 const Users = require("../models/userModel");
+const hash = require("../hash");
+const authorize = require("../authorize");
 
 router.post("/", async (req, res, next) => {
 
@@ -21,24 +23,70 @@ router.post("/", async (req, res, next) => {
   //save user into database
   try {
 
-    const { name, email, password } = req.body;
-    const userSaved = await addUser(name, email, password);
+    //hash password
+    const { name, email } = req.body;
+    const password = await hash(req.body.password);
+
+    //create new user object
+    user = new Users({
+      name,
+      email,
+      password
+    })
+
+    //save user into database
+    const userSaved = await addUser(user);
 
     if (typeof (userSaved.email) !== "undefined") {
       let response = {
         name: req.body.name,
         email: req.body.email
       }
-      res.status(200).send(response);
+      const token = user.generateToken();
+      res.header('x-auth-token', token).status(200).send(response);
       console.log('User registered successfully', userSaved);
     }
-
     else {
       res.status(500).send('Unable to register user')
     }
   }
   catch (e) {
     console.log(e)
+  }
+});
+
+router.get("/:id", async (req, res, next) => {
+  try {
+    console.log('this is the req id', req.params.id);
+    const user = await Users.findById(req.params.id);
+    if (!user) return res.status(404).send('User not found');
+    res.status(200).send(user);
+  }
+  catch (e) {
+    res.status(500).send('Unable to retrieve user.Try again later')
+    console.log('unable to retrieve user');
+  }
+});
+
+router.put("/:id", authorize, async (req, res, next) => {
+  try {
+    //Fetch user with the given id 
+    const user = await Users.findById(req.params.id);
+    if (req.body.hasOwnProperty("location")) {
+      user.location = req.body.location;
+    }
+
+    else if (req.body.hasOwnProperty("description")) {
+      user.description = req.body.description;
+    }
+
+    user.save();
+    console.log('updated user', user);
+    res.status(200).send(user);
+  }
+  catch (e) {
+    res.status(500).send('Unable to update user.Try again later');
+
   }
 });
 

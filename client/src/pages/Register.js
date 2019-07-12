@@ -1,6 +1,5 @@
 import React, { Component } from "react";
 import { withStyles } from "@material-ui/core/styles";
-//import { Router } from "react-router-dom";
 import NavBar from "../components/NavBar";
 import TextField from "@material-ui/core/TextField";
 import Button from "@material-ui/core/Button";
@@ -9,9 +8,6 @@ import Grid from "@material-ui/core/Grid";
 import axios from "axios";
 
 const registerPageStyle = theme => ({
-  landingContainer: {
-    //margin: theme.spacing.unit * 2
-  },
   container: {
     display: "flex",
     flexWrap: "wrap"
@@ -49,21 +45,11 @@ class Register extends Component {
       confirmPassword: this.state.confirmPassword
     };
     //make http post request to send name,email and password to server
-    // const { data } = await axios.post("/api/users", userData)
-    // console.log("new user info:", data);
 
     await axios
       .post("/api/users", userData)
       .then(response => {
-        console.log("success! Data receieved = ", response.data);
-        //clear input fields
-        this.setState({
-          userName: "",
-          userEmail: "",
-          userPassword: "",
-          confirmPassword: ""
-        });
-
+        console.log("success! Data received = ", response.data);
         //direct user to profile page
         this.props.history.replace("/profile");
       })

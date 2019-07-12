@@ -50,6 +50,7 @@ function NavBar(props) {
     //if on register page, add link to login and vice versa
     const oppositeLink = pathname === "/" ? "/login" : "/";
 
+
     const buttonText = pathname === "/" ? "Log in" : "Sign up";
     const noticeText =
       pathname === "/" ? "Already a member?" : "Don't have an account?";
@@ -126,8 +127,9 @@ function NavBar(props) {
       <AppBar color="primary" position="static" className={classes.appbar}>
         <Toolbar variant="regular" className={classes.toolbar}>
           <div style={{ flex: "1" }}>
-            <img src={logo} className={classes.logo} />
+            <img src={logo} className={classes.logo} alt="logo" />
           </div>
+
           <span>{generateNavBarLinks()}</span>
         </Toolbar>
       </AppBar>
