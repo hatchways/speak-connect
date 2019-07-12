@@ -1,8 +1,9 @@
 const express = require("express");
 const router = express.Router();
 const addUser = require("../db");
-const validate = require("../validate");
+const validate = require("../validate/validateNew");
 const Users = require("../models/userModel");
+const hash = require("../hash");
 
 router.post("/", async (req, res, next) => {
 
@@ -21,15 +22,28 @@ router.post("/", async (req, res, next) => {
   //save user into database
   try {
 
-    const { name, email, password } = req.body;
-    const userSaved = await addUser(name, email, password);
+    //hash password
+    const { name, email } = req.body;
+    const password = await hash(req.body.password);
+
+    //create new user object
+    user = new Users({
+      name,
+      email,
+      password
+    })
+
+    //save user into database
+    const userSaved = await addUser(user);
 
     if (typeof (userSaved.email) !== "undefined") {
       let response = {
         name: req.body.name,
         email: req.body.email
       }
-      res.status(200).send(response);
+
+      const token = user.generateToken();
+      res.header('x-auth-token', token).status(200).send(response);
       console.log('User registered successfully', userSaved);
     }
 

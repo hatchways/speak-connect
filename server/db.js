@@ -5,11 +5,11 @@ mongoose.connect('mongodb://localhost/profiledb', { useNewUrlParser: true })
     .then(() => console.log('Connected to MongoDb...'))
     .catch(err => console.error('Could not connect to MongoDB', err))
 
-const addUser = async (name, email, password) => {
+const addUser = async (_user) => {
     const user = new Users({
-        name,
-        email,
-        password
+        name: _user.name,
+        email: _user.email,
+        password: _user.password
     });
 
     try {

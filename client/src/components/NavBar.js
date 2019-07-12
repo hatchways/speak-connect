@@ -3,9 +3,6 @@ import { makeStyles } from "@material-ui/core/styles";
 import AppBar from "@material-ui/core/AppBar";
 import Toolbar from "@material-ui/core/Toolbar";
 import Button from "@material-ui/core/Button";
-import Typography from "@material-ui/core/Typography";
-import IconButton from "@material-ui/core/IconButton";
-import MenuIcon from "@material-ui/icons/Menu";
 
 import { Link } from "react-router-dom";
 import logo from "../assets/logo.png";
@@ -26,7 +23,6 @@ function NavBar(props) {
 
   function generateNavBarLinks() {
     const { pathname } = props.location;
-    console.log("pathname =", pathname);
 
     // single link for register and login page
     if (pathname === "/" || pathname === "/login") {
@@ -53,7 +49,7 @@ function NavBar(props) {
     <div className={classes.root}>
       <AppBar color="primary" position="static">
         <Toolbar variant="regular">
-          <img src={logo} className={classes.logo} />
+          <img src={logo} className={classes.logo} alt="logo" />
           <span>{generateNavBarLinks()}</span>
         </Toolbar>
       </AppBar>

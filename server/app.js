@@ -1,12 +1,20 @@
-var createError = require("http-errors");
-var express = require("express");
-var path = require("path");
-var cookieParser = require("cookie-parser");
-var logger = require("morgan");
+const createError = require("http-errors");
+const express = require("express");
+const path = require("path");
+const cookieParser = require("cookie-parser");
+const logger = require("morgan");
+const config = require("config");
 
-var registerRouter = require("./routes/userRoute");
+const registerRouter = require("./routes/registerRoute");
+const authRouter = require("./routes/authRoute");
 
-var app = express();
+
+if (!config.get("jwtKey")) {
+  console.error('FATAL ERROR:PRIVATE KEY NOT SET!')
+  process.exit(1)
+}
+
+const app = express();
 
 app.use(logger("dev"));
 app.use(express.json());
@@ -15,6 +23,7 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, "public")));
 
 app.use("/api/users", registerRouter);
+app.use("/api/auth", authRouter);
 
 // catch 404 and forward to error handler
 app.use((req, res, next) => {
