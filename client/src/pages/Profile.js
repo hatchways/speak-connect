@@ -1,9 +1,9 @@
-import React, { Component } from 'react';
-
+import React, { Component } from "react";
+import NavBar from "../components/NavBar";
 class Profile extends Component {
-    render() {
-        return (<h1>Profile page</h1>);
-    }
+  render() {
+    return <NavBar location={this.props.location} />;
+  }
 }
 
 export default Profile;
