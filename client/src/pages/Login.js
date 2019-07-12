@@ -47,13 +47,13 @@ class Login extends Component {
       .then(response => {
         console.log("Success!!!", response.data);
 
-        // the response is a jwt token
+        // the response is a jwt token (FOR NOW)
         const token = response.data;
 
         // add token to local storage
         window.localStorage.setItem("token", token);
 
-        // test if token is is stored
+        // test if token is stored
         const localStorageToken = window.localStorage.getItem("token");
         const decoded = jwt_decode(token);
 

@@ -57,6 +57,15 @@ class Register extends Component {
         //   confirmPassword: ""
         // });
 
+        // the jwt token is in the response header
+        const token = response.headers["x-auth-token"];
+        const decoded = jwt_decode(token);
+        console.log("token = ", token);
+        console.log("decoded token = ", decoded);
+
+        // add token to local storage
+        window.localStorage.setItem("token", token);
+
         //direct user to profile page
         this.props.history.replace("/profile");
       })
