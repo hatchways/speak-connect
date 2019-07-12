@@ -8,7 +8,7 @@ module.exports = (req, res, next) => {
 
     try {
         const user = jwt.verify(token, config.get("jwtKey"));
-        req.user = user;
+        req.verified_user = user;
         next();
     }
     catch (ex) {

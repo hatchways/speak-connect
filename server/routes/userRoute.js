@@ -70,14 +70,23 @@ router.get("/:id", async (req, res, next) => {
 
 router.put("/:id", authorize, async (req, res, next) => {
   try {
-    console.log('this is the req user', req.user);
+    //Fetch user with the given id 
     const user = await Users.findById(req.params.id);
-    if (!user) return res.status(404).send('User not found');
+    if (req.body.hasOwnProperty("location")) {
+      user.location = req.body.location;
+    }
+
+    else if (req.body.hasOwnProperty("description")) {
+      user.description = req.body.description;
+    }
+
+    user.save();
+    console.log('updated user', user);
     res.status(200).send(user);
   }
   catch (e) {
-    res.status(500).send('Unable to retrieve user.Try again later');
-    console.log('unable to retrieve user');
+    res.status(500).send('Unable to update user.Try again later');
+
   }
 });
 
