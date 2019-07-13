@@ -50,6 +50,17 @@ class Register extends Component {
       .post("/api/users", userData)
       .then(response => {
         console.log("success! Data received = ", response.data);
+
+        // get jwt token from header
+        const token = response.headers["x-auth-token"];
+
+        // add token to local storage
+        window.localStorage.setItem("token", token);
+
+        // test if token is stored
+        const localStorageToken = window.localStorage.getItem("token");
+        console.log("token from local storage = ", localStorageToken);
+
         //direct user to profile page
         this.props.history.replace("/profile");
       })
