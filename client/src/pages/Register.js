@@ -19,7 +19,8 @@ const registerPageStyle = theme => ({
   button: {
     color: "white",
     marginTop: theme.spacing(2),
-    marginBottom: theme.spacing(1)
+    marginBottom: theme.spacing(1),
+    textTransform: "none"
   },
   error: {
     color: "red"
@@ -170,7 +171,7 @@ class Register extends Component {
                 type="submit"
                 value="Sign up"
               >
-                Sign Up
+                Sign up
               </Button>
             </Grid>
             <Grid item className={classes.error}>
