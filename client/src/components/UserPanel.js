@@ -9,7 +9,7 @@ const useStyles = makeStyles(theme => ({
   root: {
     width: "325px",
     height: "500px",
-    boxShadow: "0px 0px 30px 10px #f0f0f0",
+    boxShadow: "0px 0px 30px 5px #f0f0f0",
     borderRadius: "5px",
     borderColor: theme.palette.secondary.main,
     borderTop: "6px solid",
