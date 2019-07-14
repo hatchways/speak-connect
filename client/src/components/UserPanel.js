@@ -54,7 +54,7 @@ function UserPanel(props) {
         <img
           src={defaultprofilePicture}
           className={classes.profilePicture}
-          alt="Profile Picture"
+          alt="Profile pic"
         />
       </Grid>
       <Grid item id="name" className={classes.item}>
@@ -70,7 +70,7 @@ function UserPanel(props) {
         <Button
           variant="contained"
           color="secondary"
-          style={{ textTransform: "none" }}
+          style={{ textTransform: "none", margin: "3px" }}
         >
           Edit
         </Button>
