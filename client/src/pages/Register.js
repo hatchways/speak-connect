@@ -28,13 +28,18 @@ const registerPageStyle = theme => ({
 });
 
 class Register extends Component {
-  state = {
-    userName: "",
-    userEmail: "",
-    userPassword: "",
-    confirmPassword: "",
-    errorMessage: ""
-  };
+
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      userName: "",
+      userEmail: "",
+      userPassword: "",
+      confirmPassword: "",
+      errorMessage: ""
+    };
+  }
 
   handleSubmit = async e => {
     e.preventDefault();
@@ -50,6 +55,11 @@ class Register extends Component {
       .post("/api/users", userData)
       .then(response => {
         console.log("success! Data received = ", response.data);
+
+        //send user ID to parent component
+
+        this.props.getId(response.data._id);
+
 
         // get jwt token from header
         const token = response.headers["x-auth-token"];

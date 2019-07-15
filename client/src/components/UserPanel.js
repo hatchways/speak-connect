@@ -5,6 +5,9 @@ import { Typography } from "@material-ui/core";
 import { Button } from "@material-ui/core";
 import defaultprofilePicture from "../assets/default-profile-pic.png";
 
+import axios from "axios";
+
+
 const useStyles = makeStyles(theme => ({
   root: {
     width: "325px",
@@ -41,6 +44,7 @@ const useStyles = makeStyles(theme => ({
 }));
 
 function UserPanel(props) {
+
   const classes = useStyles();
 
   return (
@@ -58,12 +62,12 @@ function UserPanel(props) {
         />
       </Grid>
       <Grid item id="name" className={classes.item}>
-        <Typography className={classes.primaryText}>John Doe</Typography>
-        <Typography className={classes.secondaryText}>@johndoe</Typography>
+        <Typography className={classes.primaryText}>{props.name}</Typography>
+        <Typography className={classes.secondaryText}>@{props.name}</Typography>
       </Grid>
       <Grid item id="location" className={classes.item}>
         <Typography style={{ fontWeight: "bold" }}>
-          Toronto, Ontario, Canada
+          {props.location}
         </Typography>
       </Grid>
       <Grid item id="edit" className={classes.item}>
@@ -77,8 +81,7 @@ function UserPanel(props) {
       </Grid>
       <Grid item id="description" className={classes.item}>
         <Typography className={classes.secondaryText}>
-          Architectural photographer and photo columnist. I am interested in
-          social life, ecology and politcs.
+          {props.description}
         </Typography>
       </Grid>
     </Grid>

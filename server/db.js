@@ -9,7 +9,9 @@ const addUser = async (_user) => {
     const user = new Users({
         name: _user.name,
         email: _user.email,
-        password: _user.password
+        password: _user.password,
+        location: "Add your location",
+        description: "Add your description"
     });
 
     try {
