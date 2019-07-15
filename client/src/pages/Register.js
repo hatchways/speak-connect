@@ -65,8 +65,9 @@ class Register extends Component {
         this.props.history.replace("/profile");
       })
       .catch(error => {
-        console.log("ERROR = ", error.response.data);
-        this.setState({ errorMessage: error.response.data });
+        // console.log("ERROR = ", error.response.data);
+        // this.setState({ errorMessage: error.response.data });
+        console.log(error);
       });
   };
 

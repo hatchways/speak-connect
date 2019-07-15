@@ -1,4 +1,4 @@
-import React from "react";
+import React, { Component } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import { withStyles } from "@material-ui/core/styles";
 
@@ -8,59 +8,70 @@ import Dialog from "@material-ui/core/Dialog";
 import DialogActions from "@material-ui/core/DialogActions";
 import DialogContent from "@material-ui/core/DialogContent";
 import DialogTitle from "@material-ui/core/DialogTitle";
+import { FormControl } from "@material-ui/core";
 
 const useStyles = makeStyles(theme => ({}));
-function UserEditDialog() {
-  const [open, setOpen] = React.useState(false);
-  const classes = useStyles();
 
-  function handleClickOpen() {
-    setOpen(true);
+class UserEditDialog extends Component {
+
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      open: false
+    }
+  }
+  // const[open, setOpen] = React.useState(false);
+
+  handleClickOpen = () => {
+    this.setState({
+      open: true
+    })
   }
 
-  function handleClose() {
-    setOpen(false);
+  handleClose = () => {
+    this.setState({
+      open: false
+    })
   }
 
-  function handleUpdate() {
-    // TODO: HTTP puts to update info
+  render() {
 
-    handleClose();
-  }
-
-  return (
-    <div>
-      <Button
-        variant="contained"
-        color="secondary"
-        onClick={handleClickOpen}
-        style={{ textTransform: "none", margin: "3px" }}
-      >
-        Edit
+    return (
+      <div>
+        <Button
+          variant="contained"
+          color="secondary"
+          onClick={this.handleClickOpen}
+          style={{ textTransform: "none", margin: "3px" }}
+        >
+          Edit
       </Button>
-      <Dialog open={open} onClose={handleClose} maxWidth="md">
-        <DialogTitle id="editDialog">Edit Your Information</DialogTitle>
-        <DialogContent>
-          <TextField margin="dense" id="location" label="Location" fullWidth />
-          <TextField
-            margin="dense"
-            id="description"
-            label="Description"
-            fullWidth
-            multiline={true}
-          />
-        </DialogContent>
-        <DialogActions>
-          <Button onClick={handleClose} color="secondary">
-            Cancel
-          </Button>
-          <Button onClick={handleUpdate} color="secondary">
-            Update
-          </Button>
-        </DialogActions>
-      </Dialog>
-    </div>
-  );
+        <Dialog open={this.state.open} onClose={this.handleClose} maxWidth="md">
+          <DialogTitle id="editDialog">Edit Your Information</DialogTitle>
+          <DialogContent>
+            <TextField margin="dense" id="location" label="Location" fullWidth />
+            <TextField
+              margin="dense"
+              id="description"
+              label="Description"
+              fullWidth
+              multiline={true}
+            />
+          </DialogContent>
+          <DialogActions>
+            <Button onClick={this.handleClose} color="secondary">
+              Cancel
+      </Button>
+            <Button color="secondary">
+              Update
+      </Button>
+          </DialogActions>
+        </Dialog>
+      </div >
+    )
+  }
+
 }
 
 export default withStyles(useStyles)(UserEditDialog);
