@@ -5,6 +5,7 @@ const validate = require("../validate/validateNew");
 const Users = require("../models/userModel");
 const hash = require("../hash");
 const authorize = require("../authorize");
+const _ = require("lodash");
 
 router.post("/", async (req, res, next) => {
 
@@ -38,16 +39,13 @@ router.post("/", async (req, res, next) => {
     const userSaved = await addUser(user);
 
     if (typeof (userSaved.email) !== "undefined") {
-      let response = {
-        name: req.body.name,
-        email: req.body.email
-      }
+      const response = _.pick(userSaved, ['_id', 'name', 'email']);
       const token = user.generateToken();
       res.header('x-auth-token', token).status(200).send(response);
       console.log('User registered successfully', userSaved);
     }
     else {
-      res.status(500).send('Unable to register user')
+      res.status(500).send('Unable to register user');
     }
   }
   catch (e) {
