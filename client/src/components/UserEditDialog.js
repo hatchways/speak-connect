@@ -9,7 +9,13 @@ import DialogActions from "@material-ui/core/DialogActions";
 import DialogContent from "@material-ui/core/DialogContent";
 import DialogTitle from "@material-ui/core/DialogTitle";
 
-const useStyles = makeStyles(theme => ({}));
+const useStyles = makeStyles(theme => ({
+  root: {
+    background: "rgb(57, 86, 225, 0.9)" // blue
+    // background: "rgb(240, 240, 240, 0.9)" // grey
+  }
+}));
+
 function UserEditDialog() {
   const [open, setOpen] = React.useState(false);
   const classes = useStyles();
@@ -38,7 +44,16 @@ function UserEditDialog() {
       >
         Edit
       </Button>
-      <Dialog open={open} onClose={handleClose} maxWidth="md">
+      <Dialog
+        open={open}
+        onClose={handleClose}
+        maxWidth="md"
+        BackdropProps={{
+          classes: {
+            root: classes.root
+          }
+        }}
+      >
         <DialogTitle id="editDialog">Edit Your Information</DialogTitle>
         <DialogContent>
           <TextField margin="dense" id="location" label="Location" fullWidth />
