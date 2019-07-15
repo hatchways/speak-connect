@@ -16,8 +16,8 @@ const useStyles = makeStyles(theme => ({
     background: "rgb(57, 86, 225, 0.9)" // blue
     // background: "rgb(240, 240, 240, 0.9)" // grey
   },
-  picture: {
-    marginTop: theme.spacing(3)
+  item: {
+    marginTop: theme.spacing(2)
   }
 }));
 
@@ -85,6 +85,7 @@ function UserEditDialog(props) {
           <TextField
             id="location"
             label="Location"
+            className={classes.item}
             fullWidth
             value={location}
             onChange={e => setLocation(e.target.value)}
@@ -92,13 +93,16 @@ function UserEditDialog(props) {
           <TextField
             id="description"
             label="Description"
+            className={classes.item}
             fullWidth
             multiline={true}
             value={description}
             onChange={e => setDescription(e.target.value)}
           />
-          <div className={classes.picture}>
-            <DialogContentText>Profile Picture</DialogContentText>
+          <div className={classes.item}>
+            <DialogContentText component="span">
+              Profile Picture
+            </DialogContentText>
             <input
               accept="image/*"
               style={{ display: "none" }}
@@ -111,6 +115,9 @@ function UserEditDialog(props) {
                 <PhotoCamera />
               </IconButton>
             </label>
+            <DialogContentText component="span">
+              {picture ? picture.name : ""}
+            </DialogContentText>
           </div>
         </DialogContent>
 
