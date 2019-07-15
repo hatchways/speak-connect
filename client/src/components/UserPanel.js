@@ -42,6 +42,7 @@ const useStyles = makeStyles(theme => ({
 
 function UserPanel(props) {
   const classes = useStyles();
+  const { name, location, description } = props;
 
   return (
     <Grid
@@ -58,12 +59,12 @@ function UserPanel(props) {
         />
       </Grid>
       <Grid item id="name" className={classes.item}>
-        <Typography className={classes.primaryText}>John Doe</Typography>
-        <Typography className={classes.secondaryText}>@johndoe</Typography>
+        <Typography className={classes.primaryText}>{name}</Typography>
+        <Typography className={classes.secondaryText}>@{name}</Typography>
       </Grid>
       <Grid item id="location" className={classes.item}>
         <Typography style={{ fontWeight: "bold" }}>
-          Toronto, Ontario, Canada
+          {location}
         </Typography>
       </Grid>
       <Grid item id="edit" className={classes.item}>
@@ -77,8 +78,7 @@ function UserPanel(props) {
       </Grid>
       <Grid item id="description" className={classes.item}>
         <Typography className={classes.secondaryText}>
-          Architectural photographer and photo columnist. I am interested in
-          social life, ecology and politcs.
+          {description}
         </Typography>
       </Grid>
     </Grid>

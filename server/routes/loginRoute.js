@@ -3,7 +3,7 @@ const router = express.Router();
 const validate = require("../validate/validateExisting");
 const Users = require("../models/userModel");
 const bcrypt = require("bcrypt");
-
+const _ = require("lodash");
 
 router.post("/", async (req, res, next) => {
 
@@ -16,15 +16,16 @@ router.post("/", async (req, res, next) => {
         return;
     }
 
-    let user = await Users.findOne({ email: req.body.email });
+    const user = await Users.findOne({ email: req.body.email });
     if (!user) return res.status(400).send('Incorrect Email or Password ');
 
     const validPassword = await bcrypt.compare(req.body.password, user.password);
     if (!validPassword) return res.status(400).send('Incorrect Email or Password');
 
     const token = user.generateToken();
+    const response = _.pick(user, ['_id', 'name', 'email']);
 
-    res.header('x-auth-token', token).send("User authenticated!");
+    res.header('x-auth-token', token).send(response);
 });
 
 module.exports = router;
