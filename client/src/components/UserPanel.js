@@ -4,6 +4,7 @@ import { Grid } from "@material-ui/core";
 import { Typography } from "@material-ui/core";
 import { Button } from "@material-ui/core";
 import defaultprofilePicture from "../assets/default-profile-pic.png";
+import UserEditDialog from "./UserEditDialog";
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -67,13 +68,7 @@ function UserPanel(props) {
         </Typography>
       </Grid>
       <Grid item id="edit" className={classes.item}>
-        <Button
-          variant="contained"
-          color="secondary"
-          style={{ textTransform: "none", margin: "3px" }}
-        >
-          Edit
-        </Button>
+        <UserEditDialog />
       </Grid>
       <Grid item id="description" className={classes.item}>
         <Typography className={classes.secondaryText}>
