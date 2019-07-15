@@ -5,6 +5,9 @@ import NavBar from "../components/NavBar";
 import UserPanel from "../components/UserPanel";
 import UserPost from "../components/UserPost";
 
+import axios from "axios";
+
+
 const profilePageStyle = theme => ({
   content: {
     width: "100%"
@@ -30,15 +33,47 @@ const profilePageStyle = theme => ({
 });
 
 class Profile extends Component {
+
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      name: "",
+      location: "",
+      description: ""
+    }
+  }
+
+  async componentDidMount() {
+
+    await axios
+      .get(`/api/users/${this.props.userId}`)
+      .then(response => {
+        console.log("Data received:", response.data);
+
+        this.setState({
+          name: response.data.name,
+          location: response.data.location,
+          description: response.data.description
+        })
+
+      })
+      .catch(error => {
+        console.log(error);
+      });
+
+  }
+
   render() {
     const { classes } = this.props;
+    const { name, location, description } = this.state;
 
     return (
       <div>
         <NavBar location={this.props.location} />
         <Container className={classes.content} maxWidth="lg">
           <div className={classes.userpanel}>
-            <UserPanel />
+            <UserPanel name={name} location={location} description={description} />
           </div>
           <Grid container className={classes.grid}>
             <Grid item className={classes.item}>

@@ -51,6 +51,9 @@ class Register extends Component {
       .then(response => {
         console.log("success! Data received = ", response.data);
 
+        //send user id to parent component
+        this.props.getId(response.data._id);
+
         // get jwt token from header
         const token = response.headers["x-auth-token"];
 

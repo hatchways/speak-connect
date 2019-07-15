@@ -34,14 +34,21 @@ class Login extends Component {
   handleSubmit = async e => {
     e.preventDefault();
     //make http request to login
-    let credentials = {
+    const credentials = {
       email: this.state.userEmail,
       password: this.state.userPassword
     };
+
     await axios
       .post("/api/auth", credentials)
       .then(response => {
-        console.log("Success!!!", response.data);
+
+        console.log(response.data);
+
+        //direct user to profile page
+        this.props.history.replace("/profile");
+
+
 
         // get jwt token from header
         const token = response.headers["x-auth-token"];
@@ -53,12 +60,12 @@ class Login extends Component {
         const localStorageToken = window.localStorage.getItem("token");
         console.log("token from local storage = ", localStorageToken);
 
-        //direct user to profile page
-        this.props.history.replace("/profile");
+        this.props.getId(response.data._id);
+
+
       })
       .catch(error => {
         console.log("ERROR:", error);
-        this.setState({ errorMessage: error.response.data });
       });
   };
   handleChange = e => {
