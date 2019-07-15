@@ -1,6 +1,5 @@
-import React from "react";
+import React, { useState } from "react";
 import { makeStyles } from "@material-ui/core/styles";
-import { withStyles } from "@material-ui/core/styles";
 
 import Button from "@material-ui/core/Button";
 import TextField from "@material-ui/core/TextField";
@@ -8,19 +7,33 @@ import Dialog from "@material-ui/core/Dialog";
 import DialogActions from "@material-ui/core/DialogActions";
 import DialogContent from "@material-ui/core/DialogContent";
 import DialogTitle from "@material-ui/core/DialogTitle";
+import DialogContentText from "@material-ui/core/DialogContentText";
+import IconButton from "@material-ui/core/IconButton";
+import PhotoCamera from "@material-ui/icons/PhotoCamera";
 
 const useStyles = makeStyles(theme => ({
   root: {
     background: "rgb(57, 86, 225, 0.9)" // blue
     // background: "rgb(240, 240, 240, 0.9)" // grey
+  },
+  picture: {
+    marginTop: theme.spacing(3)
   }
 }));
 
-function UserEditDialog() {
-  const [open, setOpen] = React.useState(false);
+function UserEditDialog(props) {
   const classes = useStyles();
+  const [open, setOpen] = useState(false);
+
+  const [location, setLocation] = useState("");
+  const [description, setDescription] = useState("");
+  const [picture, setPicture] = useState(null);
 
   function handleClickOpen() {
+    setLocation(props.location);
+    setDescription(props.description);
+    setPicture(null);
+
     setOpen(true);
   }
 
@@ -29,7 +42,19 @@ function UserEditDialog() {
   }
 
   function handleUpdate() {
-    // TODO: HTTP puts to update info
+    // TODO: HTTP put to update info
+    if (location !== props.location) {
+      // update location
+      console.log("updated location = ", location);
+    }
+    if (description !== props.description) {
+      // update description
+      console.log("updated location = ", description);
+    }
+    if (picture !== null) {
+      // update profiel pic
+      console.log("updated location = ", picture);
+    }
 
     handleClose();
   }
@@ -44,6 +69,7 @@ function UserEditDialog() {
       >
         Edit
       </Button>
+
       <Dialog
         open={open}
         onClose={handleClose}
@@ -56,15 +82,38 @@ function UserEditDialog() {
       >
         <DialogTitle id="editDialog">Edit Your Information</DialogTitle>
         <DialogContent>
-          <TextField margin="dense" id="location" label="Location" fullWidth />
           <TextField
-            margin="dense"
+            id="location"
+            label="Location"
+            fullWidth
+            value={location}
+            onChange={e => setLocation(e.target.value)}
+          />
+          <TextField
             id="description"
             label="Description"
             fullWidth
             multiline={true}
+            value={description}
+            onChange={e => setDescription(e.target.value)}
           />
+          <div className={classes.picture}>
+            <DialogContentText>Profile Picture</DialogContentText>
+            <input
+              accept="image/*"
+              style={{ display: "none" }}
+              id="picture-upload"
+              type="file"
+              onChange={e => setPicture(e.target.files[0])}
+            />
+            <label htmlFor="picture-upload">
+              <IconButton color="secondary" component="span">
+                <PhotoCamera />
+              </IconButton>
+            </label>
+          </div>
         </DialogContent>
+
         <DialogActions>
           <Button onClick={handleClose} color="secondary">
             Cancel
@@ -78,4 +127,4 @@ function UserEditDialog() {
   );
 }
 
-export default withStyles(useStyles)(UserEditDialog);
+export default UserEditDialog;

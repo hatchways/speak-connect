@@ -67,7 +67,7 @@ function UserPanel(props) {
         <Typography style={{ fontWeight: "bold" }}>{location}</Typography>
       </Grid>
       <Grid item id="edit" className={classes.item}>
-        <UserEditDialog />
+        <UserEditDialog location={location} description={description} />
       </Grid>
       <Grid item id="description" className={classes.item}>
         <Typography className={classes.secondaryText}>{description}</Typography>
