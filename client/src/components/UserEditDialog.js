@@ -21,7 +21,6 @@ class UserEditDialog extends Component {
       open: false
     }
   }
-  // const[open, setOpen] = React.useState(false);
 
   handleClickOpen = () => {
     this.setState({
