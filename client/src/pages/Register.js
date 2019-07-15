@@ -44,15 +44,15 @@ class Register extends Component {
       password: this.state.userPassword,
       confirmPassword: this.state.confirmPassword
     };
-    //make http post request to send name,email and password to server
 
+    //make http post request to send name,email and password to server
     await axios
       .post("/api/users", userData)
       .then(response => {
         console.log("success! Data received = ", response.data);
 
         //send user id to parent component
-        this.props.getId(response.data._id);
+        // this.props.getId(response.data._id);
 
         // get jwt token from header
         const token = response.headers["x-auth-token"];
@@ -65,7 +65,9 @@ class Register extends Component {
         console.log("token from local storage = ", localStorageToken);
 
         //direct user to profile page
-        this.props.history.replace("/profile");
+        this.props.history.push('/profile', { id: response.data._id });
+
+
       })
       .catch(error => {
         // console.log("ERROR = ", error.response.data);

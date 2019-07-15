@@ -45,11 +45,6 @@ class Login extends Component {
 
         console.log(response.data);
 
-        //direct user to profile page
-        this.props.history.replace("/profile");
-
-
-
         // get jwt token from header
         const token = response.headers["x-auth-token"];
 
@@ -60,8 +55,8 @@ class Login extends Component {
         const localStorageToken = window.localStorage.getItem("token");
         console.log("token from local storage = ", localStorageToken);
 
-        this.props.getId(response.data._id);
-
+        //direct user to profile page
+        this.props.history.push('/profile', { id: response.data._id });
 
       })
       .catch(error => {
@@ -131,7 +126,7 @@ class Login extends Component {
                 value="Sign up"
               >
                 Log in
-              </Button>
+                </Button>
             </Grid>
             <Grid item className={classes.error}>
               {errorMessage}

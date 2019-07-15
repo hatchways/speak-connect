@@ -36,7 +36,6 @@ class Profile extends Component {
 
   constructor(props) {
     super(props);
-
     this.state = {
       name: "",
       location: "",
@@ -46,11 +45,12 @@ class Profile extends Component {
 
   async componentDidMount() {
 
+    console.log('data from history', this.props.location.state.id)
+
     await axios
-      .get(`/api/users/${this.props.userId}`)
+      .get(`/api/users/${this.props.location.state.id}`)
       .then(response => {
         console.log("Data received:", response.data);
-
         this.setState({
           name: response.data.name,
           location: response.data.location,
