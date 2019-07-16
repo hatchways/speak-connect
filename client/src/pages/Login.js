@@ -22,21 +22,25 @@ const loginPageStyle = theme => ({
     marginTop: theme.spacing(3),
     marginBottom: theme.spacing(1),
     textTransform: "none"
+  },
+  error: {
+    color: "red"
+
   }
 });
 
 class Login extends Component {
   state = {
-    userEmail: "",
-    userPassword: "",
+    username: "",
+    password: "",
     errorMessage: ""
   };
   handleSubmit = async e => {
     e.preventDefault();
     //make http request to login
     const credentials = {
-      email: this.state.userEmail,
-      password: this.state.userPassword
+      username: this.state.username,
+      password: this.state.password
     };
 
     await axios
@@ -61,20 +65,21 @@ class Login extends Component {
       })
       .catch(error => {
         console.log("ERROR:", error);
+        this.setState({ errorMessage: "Incorrect Username or Password" });
       });
   };
   handleChange = e => {
-    if (e.target.name === "userEmail") {
-      this.setState({ userEmail: e.target.value });
+    if (e.target.name === "username") {
+      this.setState({ username: e.target.value });
     } else {
-      // userPassword
-      this.setState({ userPassword: e.target.value });
+      // password
+      this.setState({ password: e.target.value });
     }
   };
 
   render() {
     const { classes } = this.props;
-    const { userEmail, userPassword, errorMessage } = this.state;
+    const { username, password, errorMessage } = this.state;
     return (
       <div>
         <NavBar location={this.props.location} />
@@ -87,14 +92,12 @@ class Login extends Component {
             <Grid item>
               <TextField
                 required
-                id="email"
-                name="userEmail"
-                label="Email"
+                id="username"
+                name="username"
+                label="Username"
                 className={classes.textField}
-                type="email"
-                value={userEmail}
+                value={username}
                 onChange={this.handleChange}
-                autoComplete="email"
                 margin="normal"
                 variant="outlined"
               />
@@ -104,10 +107,10 @@ class Login extends Component {
               <TextField
                 required
                 id="password"
-                name="userPassword"
+                name="password"
                 label="Password"
                 className={classes.textField}
-                value={userPassword}
+                value={password}
                 onChange={this.handleChange}
                 type="password"
                 autoComplete="current-password"

@@ -18,19 +18,24 @@ router.post("/", async (req, res, next) => {
     return;
   }
 
-  let user = await Users.findOne({ email: req.body.email });
-  if (user) return res.status(400).send('User is already registered')
+  let user = await Users.findOne({ username: req.body.username });
+  if (user) return res.status(400).send('Username already exists')
+
+  const _user = await Users.findOne({ email: req.body.email });
+  if (_user) return res.status(400).send('Email already registered');
 
   //save user into database
   try {
 
+    const { name, email, username } = req.body;
+
     //hash password
-    const { name, email } = req.body;
     const password = await hash(req.body.password);
 
     //create new user object
     user = new Users({
       name,
+      username,
       email,
       password
     })
@@ -39,7 +44,7 @@ router.post("/", async (req, res, next) => {
     const userSaved = await addUser(user);
 
     if (typeof (userSaved.email) !== "undefined") {
-      const response = _.pick(userSaved, ['_id', 'name', 'email']);
+      const response = _.pick(userSaved, ['_id', 'username', 'name', 'email']);
       const token = user.generateToken();
       res.header('x-auth-token', token).status(200).send(response);
       console.log('User registered successfully', userSaved);
@@ -62,19 +67,20 @@ router.get("/:id", async (req, res, next) => {
   }
   catch (e) {
     res.status(500).send('Unable to retrieve user.Try again later')
-    console.log('unable to retrieve user');
+    console.log('Unable to retrieve user');
   }
 });
 
 router.put("/:id", authorize, async (req, res, next) => {
   try {
+
     //Fetch user with the given id 
     const user = await Users.findById(req.params.id);
-    if (req.body.hasOwnProperty("location")) {
+    if (req.body.location.length !== 0) {
       user.location = req.body.location;
     }
 
-    else if (req.body.hasOwnProperty("description")) {
+    if (req.body.description.length !== 0) {
       user.description = req.body.description;
     }
 
