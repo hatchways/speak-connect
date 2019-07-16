@@ -8,6 +8,7 @@ mongoose.connect('mongodb://localhost/profiledb', { useNewUrlParser: true })
 const addUser = async (_user) => {
     const user = new Users({
         name: _user.name,
+        username: _user.username,
         email: _user.email,
         password: _user.password,
         location: "add location",

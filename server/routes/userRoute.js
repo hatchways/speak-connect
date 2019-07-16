@@ -18,19 +18,24 @@ router.post("/", async (req, res, next) => {
     return;
   }
 
-  let user = await Users.findOne({ email: req.body.email });
+  let user = await Users.findOne({ username: req.body.username });
   if (user) return res.status(400).send('User is already registered')
+
+  user = await Users.findOne({ email: req.body.email });
+  if (user) return res.status(400).send('User is already registered')
+
 
   //save user into database
   try {
 
     //hash password
-    const { name, email } = req.body;
+    const { name, username, email } = req.body;
     const password = await hash(req.body.password);
 
     //create new user object
     user = new Users({
       name,
+      username,
       email,
       password
     })
@@ -38,7 +43,7 @@ router.post("/", async (req, res, next) => {
     //save user into database
     const userSaved = await addUser(user);
 
-    if (typeof (userSaved.email) !== "undefined") {
+    if (typeof (userSaved.username) !== "undefined") {
       const response = _.pick(userSaved, ['_id', 'name', 'email']);
       const token = user.generateToken();
       res.header('x-auth-token', token).status(200).send(response);
