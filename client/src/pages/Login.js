@@ -22,6 +22,10 @@ const loginPageStyle = theme => ({
     marginTop: theme.spacing(3),
     marginBottom: theme.spacing(1),
     textTransform: "none"
+  },
+  error: {
+    color: "red"
+
   }
 });
 
@@ -61,6 +65,7 @@ class Login extends Component {
       })
       .catch(error => {
         console.log("ERROR:", error);
+        this.setState({ errorMessage: "Incorrect Email or Password" });
       });
   };
   handleChange = e => {
