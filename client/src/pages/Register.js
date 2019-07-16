@@ -51,10 +51,7 @@ class Register extends Component {
     await axios
       .post("/api/users", userData)
       .then(response => {
-        console.log("success! Data received = ", response.data);
-
-        //send user id to parent component
-        // this.props.getId(response.data._id);
+        console.log("Data received: ", response.data);
 
         // get jwt token from header
         const token = response.headers["x-auth-token"];
@@ -72,10 +69,8 @@ class Register extends Component {
 
       })
       .catch(error => {
-        // console.log("ERROR = ", error.response.data);
         this.setState({ errorMessage: error.response.data });
         console.log(error);
-        //this.setState({ errorMessage: "Unable to Sign Up" });
 
       });
   };
