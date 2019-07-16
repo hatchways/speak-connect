@@ -29,9 +29,10 @@ const registerPageStyle = theme => ({
 
 class Register extends Component {
   state = {
-    userName: "",
-    userEmail: "",
-    userPassword: "",
+    name: "",
+    username: "",
+    email: "",
+    password: "",
     confirmPassword: "",
     errorMessage: ""
   };
@@ -39,13 +40,14 @@ class Register extends Component {
   handleSubmit = async e => {
     e.preventDefault();
     const userData = {
-      name: this.state.userName,
-      email: this.state.userEmail,
-      password: this.state.userPassword,
+      name: this.state.name,
+      username: this.state.username,
+      email: this.state.email,
+      password: this.state.password,
       confirmPassword: this.state.confirmPassword
     };
 
-    //make http post request to send name,email and password to server
+    //make http post request to send name, username, email and password to server
     await axios
       .post("/api/users", userData)
       .then(response => {
@@ -71,18 +73,22 @@ class Register extends Component {
       })
       .catch(error => {
         // console.log("ERROR = ", error.response.data);
-        // this.setState({ errorMessage: error.response.data });
+        this.setState({ errorMessage: error.response.data });
         console.log(error);
+        //this.setState({ errorMessage: "Unable to Sign Up" });
+
       });
   };
 
   handleChange = e => {
-    if (e.target.name === "userName") {
-      this.setState({ userName: e.target.value });
-    } else if (e.target.name === "userEmail") {
-      this.setState({ userEmail: e.target.value });
-    } else if (e.target.name === "userPassword") {
-      this.setState({ userPassword: e.target.value });
+    if (e.target.name === "name") {
+      this.setState({ name: e.target.value });
+    } else if (e.target.name === "username") {
+      this.setState({ username: e.target.value });
+    } else if (e.target.name === "email") {
+      this.setState({ email: e.target.value });
+    } else if (e.target.name === "password") {
+      this.setState({ password: e.target.value });
     } else {
       this.setState({ confirmPassword: e.target.value });
     }
@@ -91,9 +97,10 @@ class Register extends Component {
   render() {
     const { classes } = this.props;
     const {
-      userName,
-      userEmail,
-      userPassword,
+      name,
+      username,
+      email,
+      password,
       confirmPassword,
       errorMessage
     } = this.state;
@@ -111,11 +118,25 @@ class Register extends Component {
               <TextField
                 required
                 id="name"
-                name="userName"
+                name="name"
                 label="Name"
                 placeholder="Full Name"
                 className={classes.textField}
-                value={userName}
+                value={name}
+                onChange={this.handleChange}
+                margin="normal"
+                variant="outlined"
+              />
+            </Grid>
+
+            <Grid item>
+              <TextField
+                required
+                id="username"
+                name="username"
+                label="Username"
+                className={classes.textField}
+                value={username}
                 onChange={this.handleChange}
                 margin="normal"
                 variant="outlined"
@@ -126,11 +147,11 @@ class Register extends Component {
               <TextField
                 required
                 id="email"
-                name="userEmail"
+                name="email"
                 label="Email"
                 className={classes.textField}
                 type="email"
-                value={userEmail}
+                value={email}
                 onChange={this.handleChange}
                 autoComplete="email"
                 margin="normal"
@@ -142,13 +163,12 @@ class Register extends Component {
               <TextField
                 required
                 id="password"
-                name="userPassword"
+                name="password"
                 label="Password"
                 className={classes.textField}
-                value={userPassword}
+                value={password}
                 onChange={this.handleChange}
                 type="password"
-                autoComplete="current-password"
                 margin="normal"
                 variant="outlined"
               />
