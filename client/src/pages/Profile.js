@@ -73,7 +73,8 @@ class Profile extends Component {
         <NavBar location={this.props.location} />
         <Container className={classes.content} maxWidth="lg">
           <div className={classes.userpanel}>
-            <UserPanel name={name} location={location} description={description} />
+            <UserPanel id={this.props.location.state.id}
+              name={name} location={location} description={description} />
           </div>
           <Grid container className={classes.grid}>
             <Grid item className={classes.item}>
