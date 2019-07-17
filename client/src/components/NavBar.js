@@ -72,8 +72,7 @@ function NavBar(props) {
 
   // navbar for when logged in
   function loggedInNavLinks() {
-
-    const { username } = props
+    const { username } = props;
     return (
       <div>
         <Link
@@ -132,7 +131,7 @@ function NavBar(props) {
           className={classes.link}
         >
           <Button color="secondary" className={classes.button}>
-            {username}
+            {"username"}
           </Button>
         </Link>
       </div>
