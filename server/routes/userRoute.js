@@ -77,12 +77,11 @@ router.put("/:id", authorize, async (req, res, next) => {
   try {
     // Fetch user with the given id
     const user = await Users.findById(req.params.id);
-    if (req.body.location.length !== 0) {
+    if (req.body.hasOwnProperty("location")) {
       user.location = req.body.location;
-      console.log('testing error')
     }
 
-    if (req.body.description.length !== 0) {
+    if (req.body.hasOwnProperty("description")) {
       user.description = req.body.description;
     }
 
