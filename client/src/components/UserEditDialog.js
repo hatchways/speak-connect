@@ -11,6 +11,9 @@ import DialogContentText from "@material-ui/core/DialogContentText";
 import IconButton from "@material-ui/core/IconButton";
 import PhotoCamera from "@material-ui/icons/PhotoCamera";
 
+import axios from "axios";
+
+
 const useStyles = makeStyles(theme => ({
   root: {
     background: "rgb(57, 86, 225, 0.9)" // blue
@@ -41,22 +44,30 @@ function UserEditDialog(props) {
     setOpen(false);
   }
 
-  function handleUpdate() {
-    // TODO: HTTP put to update info
-    if (location !== props.location) {
-      // update location
-      console.log("updated location = ", location);
-    }
-    if (description !== props.description) {
-      // update description
-      console.log("updated location = ", description);
-    }
-    if (picture !== null) {
-      // update profiel pic
-      console.log("updated location = ", picture);
+  async function handleUpdate() {
+
+    const jwt = window.localStorage.getItem("token");
+
+    axios.defaults.headers = {
+      'Content-Type': 'application/json',
+      'x-auth-token': jwt
     }
 
-    handleClose();
+    const updates = {
+      "location": location,
+      "description": description
+    }
+
+    await axios
+      .put(`/api/users/${props.id}`, updates)
+      .then(response => {
+        console.log("Updated data ", response.data);
+      })
+      .catch(error => {
+        console.log(error);
+      });
+
+    window.location.reload();
   }
 
   return (

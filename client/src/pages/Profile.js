@@ -36,6 +36,7 @@ class Profile extends Component {
     super(props);
     this.state = {
       name: "",
+      username: "",
       location: "",
       description: ""
     };
@@ -50,6 +51,7 @@ class Profile extends Component {
         console.log("Data received:", response.data);
         this.setState({
           name: response.data.name,
+          username: response.data.username,
           location: response.data.location,
           description: response.data.description
         });
@@ -61,14 +63,15 @@ class Profile extends Component {
 
   render() {
     const { classes } = this.props;
-    const { name, location, description } = this.state;
+    const { name, username, location, description } = this.state;
 
     return (
       <div>
-        <NavBar location={this.props.location} />
+        <NavBar location={this.props.location} username={username} />
         <Container className={classes.content} maxWidth="lg">
           <div className={classes.userpanel}>
             <UserPanel
+              id={this.props.location.state.id}
               name={name}
               location={location}
               description={description}
