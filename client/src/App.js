@@ -6,6 +6,7 @@ import { theme } from "./themes/theme";
 import Register from "./pages/Register";
 import Login from "./pages/Login";
 import Profile from "./pages/Profile";
+import CreateConversation from "./pages/CreateConversation";
 
 import "./App.css";
 
@@ -16,6 +17,7 @@ function App() {
         <Route path="/" exact component={Register} />
         <Route path="/login" component={Login} />
         <Route path="/profile" component={Profile} />
+        <Route path="/create-conversation" component={CreateConversation} />
       </BrowserRouter>
     </MuiThemeProvider>
   );
