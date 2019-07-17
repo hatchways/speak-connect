@@ -4,9 +4,9 @@ const multerS3 = require('multer-s3');
 
 aws.config.update({
 
-    secretAccessKey: " UTl2VDCIZLV6wQYlPSL6eZ10DTYHg1zph/N5IpoB ",
-    accessKeyId: "AKIA6H2ODDFGI4QIYI46",
-    region: "us-east-2 "
+    secretAccessKey: "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",
+    accessKeyId: "AKIA6H2ODDFGEKLUAGOA",
+    region: "us-east-2"
 })
 
 const s3 = new aws.S3()
@@ -19,7 +19,7 @@ const upload = multer({
             cb(null, { fieldName: "testing metadata" });
         },
         key: function (req, file, cb) {
-            console.log(file);
+            console.log('this is the file', file);
             cb(null, Date.now().toString())
         }
     })
