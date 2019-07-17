@@ -5,6 +5,8 @@ const validate = require("../validate/validateNew");
 const Users = require("../models/userModel");
 const hash = require("../hash");
 const authorize = require("../authorize");
+const upload = require("../services/fileUpload");
+
 const _ = require("lodash");
 
 router.post("/", async (req, res, next) => {
@@ -73,11 +75,11 @@ router.get("/:id", async (req, res, next) => {
 
 router.put("/:id", authorize, async (req, res, next) => {
   try {
-
-    //Fetch user with the given id 
+    // Fetch user with the given id
     const user = await Users.findById(req.params.id);
     if (req.body.location.length !== 0) {
       user.location = req.body.location;
+      console.log('testing error')
     }
 
     if (req.body.description.length !== 0) {
@@ -90,8 +92,18 @@ router.put("/:id", authorize, async (req, res, next) => {
   }
   catch (e) {
     res.status(500).send('Unable to update user.Try again later');
-
+    console.log(e);
   }
-});
+})
+
+router.put("/:id/picUpload", authorize, async (req, res, next) => {
+  const image_upload = upload.single('image');
+
+  image_upload(req, res, error => {
+    res.json({ 'image-url': 'alain' })
+  })
+})
+
+  ;
 
 module.exports = router;
