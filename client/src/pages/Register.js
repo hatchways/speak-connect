@@ -2,9 +2,9 @@ import React, { Component } from "react";
 import { withStyles } from "@material-ui/core/styles";
 import NavBar from "../components/NavBar";
 import TextField from "@material-ui/core/TextField";
-import Button from "@material-ui/core/Button";
 import Grid from "@material-ui/core/Grid";
 import { Typography } from "@material-ui/core";
+import { StyledButton } from "../themes/theme";
 
 import axios from "axios";
 
@@ -24,10 +24,8 @@ const registerPageStyle = theme => ({
     marginRight: theme.spacing(1)
   },
   button: {
-    color: "white",
     marginTop: theme.spacing(5),
-    marginBottom: theme.spacing(1),
-    textTransform: "none"
+    marginBottom: theme.spacing(1)
   },
   error: {
     color: "red"
@@ -188,7 +186,7 @@ class Register extends Component {
             </Grid>
 
             <Grid item>
-              <Button
+              <StyledButton
                 variant="contained"
                 label="Submit"
                 color="secondary"
@@ -197,7 +195,7 @@ class Register extends Component {
                 value="Sign up"
               >
                 Sign up
-              </Button>
+              </StyledButton>
             </Grid>
             <Grid item className={classes.error}>
               {errorMessage}

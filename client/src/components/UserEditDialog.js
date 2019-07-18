@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { makeStyles } from "@material-ui/core/styles";
+import { StyledButton } from "../themes/theme";
 
 import Button from "@material-ui/core/Button";
 import TextField from "@material-ui/core/TextField";
@@ -13,14 +14,18 @@ import PhotoCamera from "@material-ui/icons/PhotoCamera";
 
 import axios from "axios";
 
-
 const useStyles = makeStyles(theme => ({
   root: {
     background: "rgb(57, 86, 225, 0.9)" // blue
     // background: "rgb(240, 240, 240, 0.9)" // grey
   },
   item: {
-    marginTop: theme.spacing(2)
+    marginBottom: theme.spacing(2)
+  },
+  button: {
+    textTransform: "none",
+    fontWeight: "bold",
+    fontSize: "14px"
   }
 }));
 
@@ -45,18 +50,17 @@ function UserEditDialog(props) {
   }
 
   async function handleUpdate() {
-
     const jwt = window.localStorage.getItem("token");
 
     axios.defaults.headers = {
-      'Content-Type': 'application/json',
-      'x-auth-token': jwt
-    }
+      "Content-Type": "application/json",
+      "x-auth-token": jwt
+    };
 
     const updates = {
-      "location": location,
-      "description": description
-    }
+      location: location,
+      description: description
+    };
 
     await axios
       .put(`/api/users/${props.id}`, updates)
@@ -72,14 +76,14 @@ function UserEditDialog(props) {
 
   return (
     <div>
-      <Button
+      <StyledButton
         variant="contained"
         color="secondary"
         onClick={handleClickOpen}
         style={{ textTransform: "none", margin: "3px" }}
       >
         Edit
-      </Button>
+      </StyledButton>
 
       <Dialog
         open={open}
@@ -133,10 +137,18 @@ function UserEditDialog(props) {
         </DialogContent>
 
         <DialogActions>
-          <Button onClick={handleClose} color="secondary">
+          <Button
+            className={classes.button}
+            onClick={handleClose}
+            color="secondary"
+          >
             Cancel
           </Button>
-          <Button onClick={handleUpdate} color="secondary">
+          <Button
+            className={classes.button}
+            onClick={handleUpdate}
+            color="secondary"
+          >
             Update
           </Button>
         </DialogActions>

@@ -1,4 +1,6 @@
 import { createMuiTheme } from "@material-ui/core";
+import { withStyles } from "@material-ui/core/styles";
+import Button from "@material-ui/core/Button";
 
 export const theme = createMuiTheme({
   typography: {
@@ -22,3 +24,16 @@ export const theme = createMuiTheme({
     }
   }
 });
+
+export const StyledButton = withStyles({
+  root: {
+    color: "white",
+    textTransform: "none",
+    fontSize: "15px",
+    paddingLeft: theme.spacing(5),
+    paddingRight: theme.spacing(5),
+    paddingTop: theme.spacing(1.2),
+    paddingBottom: theme.spacing(1.2)
+  },
+  label: {}
+})(Button);
