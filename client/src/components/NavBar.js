@@ -79,7 +79,8 @@ function NavBar(props) {
 
   // navbar for when logged in
   function loggedInNavLinks() {
-    const { username } = props;
+    // get username from local storage
+    const username = window.localStorage.getItem("username"); 
     return (
       <div>
         <Link
@@ -122,7 +123,7 @@ function NavBar(props) {
           }}
           className={classes.link}
         >
-        <StyledButton
+          <StyledButton
             className={classes.styledbutton}
             variant="contained"
             color="secondary"
@@ -138,7 +139,7 @@ function NavBar(props) {
           className={classes.link}
         >
           <Button color="secondary" className={classes.button}>
-            {"username"}
+            {username}
           </Button>
         </Link>
       </div>

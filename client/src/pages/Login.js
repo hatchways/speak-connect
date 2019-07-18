@@ -54,8 +54,9 @@ class Login extends Component {
         // get jwt token from header
         const token = response.headers["x-auth-token"];
 
-        // add token to local storage
+        // add token, username to local storage
         window.localStorage.setItem("token", token);
+        window.localStorage.setItem("username", response.data.username);
 
         // test if token is stored
         const localStorageToken = window.localStorage.getItem("token");
