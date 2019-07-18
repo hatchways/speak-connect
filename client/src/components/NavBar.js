@@ -50,7 +50,6 @@ function NavBar(props) {
     //if on register page, add link to login and vice versa
     const oppositeLink = pathname === "/" ? "/login" : "/";
 
-
     const buttonText = pathname === "/" ? "Log in" : "Sign up";
     const noticeText =
       pathname === "/" ? "Already a member?" : "Don't have an account?";
@@ -73,26 +72,49 @@ function NavBar(props) {
 
   // navbar for when logged in
   function loggedInNavLinks() {
-
-    const { username } = props
+    const { username } = props;
     return (
       <div>
-        <Link to={"/Profile"} className={classes.link}>
+        <Link
+          to={{
+            pathname: "/profile",
+            state: { id: props.location.state.id }
+          }}
+          className={classes.link}
+        >
           <Button color="secondary" className={classes.button}>
             Explore
           </Button>
         </Link>
-        <Link to={"/Profile"} className={classes.link}>
+        <Link
+          to={{
+            pathname: "/profile",
+            state: { id: props.location.state.id }
+          }}
+          className={classes.link}
+        >
           <Button color="secondary" className={classes.button}>
             Messages
           </Button>
         </Link>
-        <Link to={"/Profile"} className={classes.link}>
+        <Link
+          to={{
+            pathname: "/profile",
+            state: { id: props.location.state.id }
+          }}
+          className={classes.link}
+        >
           <Button color="secondary" className={classes.button}>
             Notifications
           </Button>
         </Link>
-        <Link to={"/Profile"} className={classes.link}>
+        <Link
+          to={{
+            pathname: "/create-conversation",
+            state: { id: props.location.state.id }
+          }}
+          className={classes.link}
+        >
           <Button
             variant="contained"
             className={classes.button}
@@ -101,9 +123,15 @@ function NavBar(props) {
             Create Conversation
           </Button>
         </Link>
-        <Link to={"/Profile"} className={classes.link}>
+        <Link
+          to={{
+            pathname: "/profile",
+            state: { id: props.location.state.id }
+          }}
+          className={classes.link}
+        >
           <Button color="secondary" className={classes.button}>
-            {username}
+            {"username"}
           </Button>
         </Link>
       </div>

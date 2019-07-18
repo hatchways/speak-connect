@@ -7,7 +7,6 @@ import UserPost from "../components/UserPost";
 
 import axios from "axios";
 
-
 const profilePageStyle = theme => ({
   content: {
     width: "100%"
@@ -33,7 +32,6 @@ const profilePageStyle = theme => ({
 });
 
 class Profile extends Component {
-
   constructor(props) {
     super(props);
     this.state = {
@@ -41,12 +39,11 @@ class Profile extends Component {
       username: "",
       location: "",
       description: ""
-    }
+    };
   }
 
   async componentDidMount() {
-
-    console.log('data from history', this.props.location.state.id)
+    console.log("data from history", this.props.location.state.id);
 
     await axios
       .get(`/api/users/${this.props.location.state.id}`)
@@ -57,13 +54,11 @@ class Profile extends Component {
           username: response.data.username,
           location: response.data.location,
           description: response.data.description
-        })
-
+        });
       })
       .catch(error => {
         console.log(error);
       });
-
   }
 
   render() {
@@ -75,8 +70,12 @@ class Profile extends Component {
         <NavBar location={this.props.location} username={username} />
         <Container className={classes.content} maxWidth="lg">
           <div className={classes.userpanel}>
-            <UserPanel id={this.props.location.state.id}
-              name={name} location={location} description={description} />
+            <UserPanel
+              id={this.props.location.state.id}
+              name={name}
+              location={location}
+              description={description}
+            />
           </div>
           <Grid container className={classes.grid}>
             <Grid item className={classes.item}>
