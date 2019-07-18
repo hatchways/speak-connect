@@ -79,27 +79,50 @@ function NavBar(props) {
 
   // navbar for when logged in
   function loggedInNavLinks() {
-
-    const { username } = props
+    const { username } = props;
     return (
       <div>
-        <Link to={"/Profile"} className={classes.link}>
+        <Link
+          to={{
+            pathname: "/profile",
+            state: { id: props.location.state.id }
+          }}
+          className={classes.link}
+        >
           <Button color="secondary" className={classes.button}>
             Explore
           </Button>
         </Link>
-        <Link to={"/Profile"} className={classes.link}>
+        <Link
+          to={{
+            pathname: "/profile",
+            state: { id: props.location.state.id }
+          }}
+          className={classes.link}
+        >
           <Button color="secondary" className={classes.button}>
             Messages
           </Button>
         </Link>
-        <Link to={"/Profile"} className={classes.link}>
+        <Link
+          to={{
+            pathname: "/profile",
+            state: { id: props.location.state.id }
+          }}
+          className={classes.link}
+        >
           <Button color="secondary" className={classes.button}>
             Notifications
           </Button>
         </Link>
-        <Link to={"/Profile"} className={classes.link}>
-          <StyledButton
+        <Link
+          to={{
+            pathname: "/create-conversation",
+            state: { id: props.location.state.id }
+          }}
+          className={classes.link}
+        >
+        <StyledButton
             className={classes.styledbutton}
             variant="contained"
             color="secondary"
@@ -107,9 +130,15 @@ function NavBar(props) {
             Create Conversation
           </StyledButton>
         </Link>
-        <Link to={"/Profile"} className={classes.link}>
+        <Link
+          to={{
+            pathname: "/profile",
+            state: { id: props.location.state.id }
+          }}
+          className={classes.link}
+        >
           <Button color="secondary" className={classes.button}>
-            {username}
+            {"username"}
           </Button>
         </Link>
       </div>
