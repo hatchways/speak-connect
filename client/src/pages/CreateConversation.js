@@ -9,6 +9,8 @@ import { Button } from "@material-ui/core";
 import NavBar from "../components/NavBar";
 import AudioRecord from "../components/AudioRecord";
 
+import axios from "axios";
+
 const conversationStyle = theme => ({
   root: {
     marginTop: theme.spacing(5)
@@ -55,11 +57,9 @@ class CreateConversation extends Component {
       blobObject: recordedBlob
     });
 
-    // TODO
-    // Save audio to user and amazon S3
   };
 
-  submitConversation = () => {
+  submitConversation = async e => {
     const { title, blobObject } = this.state;
     // make sure title and audio has been set
     if (title === "") {
@@ -73,9 +73,25 @@ class CreateConversation extends Component {
     } else {
       // success!
       console.log("Conversation created! (umm soon)");
+      e.preventDefault();
+
+      const conversation = {
+        title: this.state.title,
+        blobObject: this.state.blobObject
+      };
+
+      await axios
+        .post("api/users/conversations", conversation)
+        .then(response => {
+          console.log(response.data);
+        })
+        .catch(error => {
+          console.log("ERROR:", error);
+        });
 
       // TODO
       // Save audio to user and amazon S3
+
     }
   };
 
@@ -134,8 +150,8 @@ class CreateConversation extends Component {
               {errorMessage ? (
                 <div className={classes.error}>{errorMessage}</div>
               ) : (
-                ""
-              )}
+                  ""
+                )}
             </Grid>
           </Grid>
         </Grid>
