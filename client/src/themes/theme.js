@@ -33,7 +33,8 @@ export const StyledButton = withStyles({
     paddingLeft: theme.spacing(5),
     paddingRight: theme.spacing(5),
     paddingTop: theme.spacing(1.2),
-    paddingBottom: theme.spacing(1.2)
+    paddingBottom: theme.spacing(1.2),
+    boxShadow: "none"
   },
   label: {}
 })(Button);
