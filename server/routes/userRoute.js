@@ -95,16 +95,17 @@ router.put("/:id", authorize, async (req, res, next) => {
   }
 })
 
-router.put("/:id/picUpload", authorize, async (req, res, next) => {
-  const image_upload = upload.single('image');
+const image_upload = upload.single('image');
 
-  image_upload(req, res, error => {
-    console.log('error', error);
-    return res.json({ 'imgUrl': req.file.location });
+router.put("/picUpload/:id",
+  (req, res, next) => {
+    image_upload(req, res, error => {
 
-  })
-})
-
-  ;
+      if (error) {
+        res.status(422).json({ "Error": error.message })
+      }
+      return res.json({ 'imgUrl': req.file.location });
+    })
+  });
 
 module.exports = router;
