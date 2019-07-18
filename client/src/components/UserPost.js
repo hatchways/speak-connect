@@ -17,10 +17,11 @@ const useStyles = makeStyles(theme => ({
     height: "100%"
   },
   timeText: {
-    fontSize: "15px",
+    fontSize: "12px",
+    fontWeight: "bold",
     color: "#adadad", // grey
     marginLeft: theme.spacing(1),
-    marginTop: theme.spacing(0.5)
+    marginTop: theme.spacing(0.8)
   },
   subjectText: {
     fontSize: "20px",
@@ -32,7 +33,8 @@ const useStyles = makeStyles(theme => ({
     marginTop: "auto" // pushes it down
   },
   commentText: {
-    fontSize: "15px",
+    fontSize: "12px",
+    fontWeight: "bold",
     marginLeft: theme.spacing(1),
     marginBottom: theme.spacing(0.5)
   }

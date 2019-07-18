@@ -7,11 +7,18 @@ import Button from "@material-ui/core/Button";
 import Grid from "@material-ui/core/Grid";
 
 import axios from "axios";
+import { Typography } from "@material-ui/core";
 
 const loginPageStyle = theme => ({
   container: {
     display: "flex",
     flexWrap: "wrap"
+  },
+  title: {
+    fontWeight: "bold",
+    fontSize: "30px",
+    marginTop: theme.spacing(5),
+    marginBottom: theme.spacing(5)
   },
   textField: {
     marginLeft: theme.spacing(1),
@@ -19,13 +26,12 @@ const loginPageStyle = theme => ({
   },
   button: {
     color: "white",
-    marginTop: theme.spacing(3),
+    marginTop: theme.spacing(5),
     marginBottom: theme.spacing(1),
     textTransform: "none"
   },
   error: {
     color: "red"
-
   }
 });
 
@@ -46,7 +52,6 @@ class Login extends Component {
     await axios
       .post("/api/auth", credentials)
       .then(response => {
-
         console.log(response.data);
 
         // get jwt token from header
@@ -60,8 +65,7 @@ class Login extends Component {
         console.log("token from local storage = ", localStorageToken);
 
         //direct user to profile page
-        this.props.history.push('/profile', { id: response.data._id });
-
+        this.props.history.push("/profile", { id: response.data._id });
       })
       .catch(error => {
         console.log("ERROR:", error);
@@ -86,7 +90,7 @@ class Login extends Component {
         <form onSubmit={this.handleSubmit}>
           <Grid container direction="column" alignItems="center">
             <Grid item>
-              <h1>Login</h1>
+              <Typography className={classes.title}>Login</Typography>
             </Grid>
 
             <Grid item>
@@ -129,7 +133,7 @@ class Login extends Component {
                 value="Sign up"
               >
                 Log in
-                </Button>
+              </Button>
             </Grid>
             <Grid item className={classes.error}>
               {errorMessage}

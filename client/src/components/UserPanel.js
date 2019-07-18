@@ -32,7 +32,7 @@ const useStyles = makeStyles(theme => ({
     borderRadius: "50%"
   },
   primaryText: {
-    fontSize: "20px",
+    fontSize: "24px",
     fontWeight: "bold"
   },
   secondaryText: {

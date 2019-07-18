@@ -2,7 +2,8 @@ import { createMuiTheme } from "@material-ui/core";
 
 export const theme = createMuiTheme({
   typography: {
-    fontFamily: '"Roboto"'
+    fontFamily: '"Gilroy-Medium"',
+    fontSize: 13.5
   },
   error: "#d8000c",
   bgcolor: "#f6f6f6",

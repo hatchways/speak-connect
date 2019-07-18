@@ -4,6 +4,7 @@ import NavBar from "../components/NavBar";
 import TextField from "@material-ui/core/TextField";
 import Button from "@material-ui/core/Button";
 import Grid from "@material-ui/core/Grid";
+import { Typography } from "@material-ui/core";
 
 import axios from "axios";
 
@@ -12,13 +13,19 @@ const registerPageStyle = theme => ({
     display: "flex",
     flexWrap: "wrap"
   },
+  title: {
+    fontWeight: "bold",
+    fontSize: "30px",
+    marginTop: theme.spacing(5),
+    marginBottom: theme.spacing(5)
+  },
   textField: {
     marginLeft: theme.spacing(1),
     marginRight: theme.spacing(1)
   },
   button: {
     color: "white",
-    marginTop: theme.spacing(2),
+    marginTop: theme.spacing(5),
     marginBottom: theme.spacing(1),
     textTransform: "none"
   },
@@ -64,14 +71,11 @@ class Register extends Component {
         console.log("token from local storage = ", localStorageToken);
 
         //direct user to profile page
-        this.props.history.push('/profile', { id: response.data._id });
-
-
+        this.props.history.push("/profile", { id: response.data._id });
       })
       .catch(error => {
         this.setState({ errorMessage: error.response.data });
         console.log(error);
-
       });
   };
 
@@ -106,7 +110,7 @@ class Register extends Component {
         <form onSubmit={this.handleSubmit}>
           <Grid container direction="column" alignItems="center">
             <Grid item>
-              <h1>Sign Up</h1>
+              <Typography className={classes.title}>Sign Up</Typography>
             </Grid>
 
             <Grid item>

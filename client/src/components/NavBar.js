@@ -16,7 +16,8 @@ const useStyles = makeStyles(theme => ({
   },
   button: {
     margin: theme.spacing(1),
-    textTransform: "none"
+    textTransform: "none",
+    fontWeight: "bold"
   },
   link: {
     textDecoration: "none"
@@ -49,7 +50,6 @@ function NavBar(props) {
     // generate link for the opposite page
     //if on register page, add link to login and vice versa
     const oppositeLink = pathname === "/" ? "/login" : "/";
-
 
     const buttonText = pathname === "/" ? "Log in" : "Sign up";
     const noticeText =
