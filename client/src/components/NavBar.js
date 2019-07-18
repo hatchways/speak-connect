@@ -21,7 +21,9 @@ const useStyles = makeStyles(theme => ({
     textTransform: "none"
   },
   styledbutton: {
-    margin: theme.spacing(1)
+    margin: theme.spacing(1),
+    paddingLeft: theme.spacing(3),
+    paddingRight: theme.spacing(3)
   },
   link: {
     textDecoration: "none"
