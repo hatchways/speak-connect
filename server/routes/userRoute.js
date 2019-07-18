@@ -1,8 +1,9 @@
 const express = require("express");
 const router = express.Router();
-const addUser = require("../db");
+const { addUser, addConversation } = require("../db");
 const validate = require("../validate/validateNew");
 const Users = require("../models/userModel");
+const Conversation = require("../models/conversationModel");
 const hash = require("../hash");
 const authorize = require("../authorize");
 const upload = require("../services/fileUpload");
@@ -101,8 +102,45 @@ router.put("/:id/picUpload", authorize, async (req, res, next) => {
   image_upload(req, res, error => {
     res.json({ 'image-url': 'alain' })
   })
-})
+});
 
-  ;
+// upload a new Conversation to db
+router.post("/conversations", async (req, res, next) => {
+
+  // TODO validate input 
+  const error = null; // validate(req.body);
+
+  if (error) {
+    console.log(error.details[0].message)
+    res.status(400).send(error.details[0].message);
+    return;
+  }
+
+  //save conversation into database
+  try {
+
+    const { title, audio } = req.body;
+    //create new user object
+    conversation = new Conversation({
+      title,
+      audio,
+    });
+
+    //save user into database
+    const conversationSaved = await addConversation(conversation);
+
+    if (typeof (conversationSaved.title) !== "undefined") {
+      const response = "conversation saved!";
+      res.status(200).send(response);
+      console.log("conversation saved!", conversationSaved);
+    }
+    else {
+      res.status(500).send('Unable to save conversation');
+    }
+  }
+  catch (e) {
+    console.log(e)
+  }
+});
 
 module.exports = router;
