@@ -4,6 +4,7 @@ import AppBar from "@material-ui/core/AppBar";
 import Toolbar from "@material-ui/core/Toolbar";
 import Button from "@material-ui/core/Button";
 import Typography from "@material-ui/core/Typography";
+import { StyledButton } from "../themes/theme";
 
 import { Link } from "react-router-dom";
 import logo from "../assets/logo.png";
@@ -16,7 +17,13 @@ const useStyles = makeStyles(theme => ({
   },
   button: {
     margin: theme.spacing(1),
+    fontWeight: "bold",
     textTransform: "none"
+  },
+  styledbutton: {
+    margin: theme.spacing(1),
+    paddingLeft: theme.spacing(3),
+    paddingRight: theme.spacing(3)
   },
   link: {
     textDecoration: "none"
@@ -58,13 +65,13 @@ function NavBar(props) {
       <div>
         <Typography className={classes.notice}>{noticeText}</Typography>
         <Link to={oppositeLink} className={classes.link}>
-          <Button
+          <StyledButton
+            className={classes.styledbutton}
             variant="contained"
             color="secondary"
-            className={classes.button}
           >
             {buttonText}
-          </Button>
+          </StyledButton>
         </Link>
       </div>
     );
@@ -115,13 +122,13 @@ function NavBar(props) {
           }}
           className={classes.link}
         >
-          <Button
+        <StyledButton
+            className={classes.styledbutton}
             variant="contained"
-            className={classes.button}
             color="secondary"
           >
             Create Conversation
-          </Button>
+          </StyledButton>
         </Link>
         <Link
           to={{

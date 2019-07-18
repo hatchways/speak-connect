@@ -1,8 +1,11 @@
 import { createMuiTheme } from "@material-ui/core";
+import { withStyles } from "@material-ui/core/styles";
+import Button from "@material-ui/core/Button";
 
 export const theme = createMuiTheme({
   typography: {
-    fontFamily: '"Roboto"'
+    fontFamily: '"Gilroy-Medium"',
+    fontSize: 13.5
   },
   error: "#d8000c",
   bgcolor: "#f6f6f6",
@@ -21,3 +24,17 @@ export const theme = createMuiTheme({
     }
   }
 });
+
+export const StyledButton = withStyles({
+  root: {
+    color: "white",
+    textTransform: "none",
+    fontSize: "15px",
+    paddingLeft: theme.spacing(5),
+    paddingRight: theme.spacing(5),
+    paddingTop: theme.spacing(1.2),
+    paddingBottom: theme.spacing(1.2),
+    boxShadow: "none"
+  },
+  label: {}
+})(Button);
