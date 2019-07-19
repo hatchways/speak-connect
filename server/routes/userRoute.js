@@ -105,7 +105,7 @@ router.put("/:id/picUpload", authorize, async (req, res, next) => {
 });
 
 // upload a new Conversation to db
-router.post("/conversations", async (req, res, next) => {
+router.post(":id/conversations", async (req, res, next) => {
 
   // TODO validate input 
   const error = null; // validate(req.body);
