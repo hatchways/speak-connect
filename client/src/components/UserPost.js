@@ -1,8 +1,9 @@
-import React from "react";
+import React, { useState } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import { Box, Grid, Typography } from "@material-ui/core";
 import playButton from "../assets/play-button.png";
 import commentImg from "../assets/comment.png";
+import ConversationDialog from "./ConversationDialog";
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -44,31 +45,45 @@ function UserPost(props) {
   const classes = useStyles();
   const { time, title, commentCount } = props;
 
+  const [openDialog, setOpenDialog] = useState(false);
+
+  const handleDialogClose = () => {
+    setOpenDialog(false);
+  };
+
   return (
-    <Box className={classes.root} style={{}}>
-      <Grid
-        container
-        direction="column"
-        alignItems="flex-start"
-        className={classes.grid}
-      >
-        <Grid item id="play" style={{ display: "flex" }}>
-          <img src={playButton} alt="Play Button" />
-          <Typography className={classes.timeText}>{time}</Typography>
-        </Grid>
+    <div>
+      <Box className={classes.root} onClick={() => setOpenDialog(true)}>
+        <Grid
+          container
+          direction="column"
+          alignItems="flex-start"
+          className={classes.grid}
+        >
+          <Grid item id="play" style={{ display: "flex" }}>
+            <img src={playButton} alt="Play Button" />
 
-        <Grid item id="subject">
-          <Typography className={classes.subjectText}>{title}</Typography>
-        </Grid>
+            <Typography className={classes.timeText}>{time}</Typography>
+          </Grid>
 
-        <Grid item id="comments" className={classes.comments}>
-          <img src={commentImg} style={{ height: "20px" }} alt="comment" />
-          <Typography className={classes.commentText}>
-            {commentCount}
-          </Typography>
+          <Grid item id="subject">
+            <Typography className={classes.subjectText}>{title}</Typography>
+          </Grid>
+
+          <Grid item id="comments" className={classes.comments}>
+            <img src={commentImg} style={{ height: "20px" }} alt="comment" />
+            <Typography className={classes.commentText}>
+              {commentCount}
+            </Typography>
+          </Grid>
         </Grid>
-      </Grid>
-    </Box>
+      </Box>
+      <ConversationDialog
+        title={title}
+        open={openDialog}
+        handleClose={handleDialogClose}
+      />
+    </div>
   );
 }
 
