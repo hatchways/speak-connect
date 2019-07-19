@@ -42,7 +42,7 @@ const useStyles = makeStyles(theme => ({
 
 function UserPanel(props) {
   const classes = useStyles();
-  const { name, location, description } = props;
+  const { name, username, location, description } = props;
 
   return (
     <Grid
@@ -60,7 +60,7 @@ function UserPanel(props) {
       </Grid>
       <Grid item id="name" className={classes.item}>
         <Typography className={classes.primaryText}>{name}</Typography>
-        <Typography className={classes.secondaryText}>@{name}</Typography>
+        <Typography className={classes.secondaryText}>@{username}</Typography>
       </Grid>
       <Grid item id="location" className={classes.item}>
         <Typography style={{ fontWeight: "bold" }}>{location}</Typography>
