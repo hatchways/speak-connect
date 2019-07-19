@@ -9,8 +9,8 @@ const config = require("config");
 const userRouter = require("./routes/userRoute");
 const loginRouter = require("./routes/loginRoute");
 
-if (!config.get("jwtKey")) {
-  console.error('FATAL ERROR:PRIVATE KEY NOT SET!')
+if (!config.get("jwtKey") || !config.get("secretAccessKey") || !config.get("accessKeyId")) {
+  console.error('FATAL ERROR:ENV VARIABLES NOT SET!')
   process.exit(1)
 }
 

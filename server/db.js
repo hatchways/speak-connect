@@ -30,16 +30,13 @@ const addPic = async (url, id) => {
     try {
         // Fetch user with the given id
         const user = await Users.findById(id);
-
         //add url to user document
         user.imageUrl = url
         user.save();
         console.log('updated user', user);
-        res.status(200).send(user);
     }
     catch (e) {
-        console.log('unable to add image');
-        return e.message
+        console.log('Unable to add image.Error message:', e.message);
     }
 }
 module.exports = {

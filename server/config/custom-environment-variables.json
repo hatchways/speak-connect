@@ -1,3 +1,5 @@
 {
-    "jwtKey": "jwtKey"
+    "jwtKey": "jwtKey",
+    "secretAccessKey": "secretAccessKey",
+    "accessKeyId": "accessKeyId"
 }

@@ -1,9 +1,13 @@
-import React from "react";
+import React, { useState } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import { Grid } from "@material-ui/core";
 import { Typography } from "@material-ui/core";
-import defaultprofilePicture from "../assets/default-profile-pic.png";
 import UserEditDialog from "./UserEditDialog";
+
+import IconButton from "@material-ui/core/IconButton";
+import PhotoCamera from "@material-ui/icons/PhotoCamera";
+
+import axios from "axios";
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -42,8 +46,27 @@ const useStyles = makeStyles(theme => ({
 
 function UserPanel(props) {
   const classes = useStyles();
-  const { name, username, location, description } = props;
+  const { id, name, username, location, description, imageUrl } = props;
+  const [picture, setPicture] = useState(null);
 
+  const fileHandler = (e) => {
+    setPicture(e.target.files[0])
+  }
+
+  const uploadHandler = async () => {
+    console.log(picture);
+    const data = new FormData();
+    data.append('image', picture, picture.name);
+    await axios
+      .put(`/api/users/picUpload/${id}`, data)
+      .then(response => {
+        console.log("Uploaded picture ", response.data);
+        window.location.reload();
+      })
+      .catch(error => {
+        console.log(error);
+      });
+  }
   return (
     <Grid
       container
@@ -53,10 +76,26 @@ function UserPanel(props) {
     >
       <Grid item id="profilePicture" className={classes.item}>
         <img
-          src={defaultprofilePicture}
+          src={imageUrl}
           className={classes.profilePicture}
           alt="Profile pic"
         />
+        <div className={classes.item}>
+
+          <input
+            accept="image/*"
+            style={{ display: "none" }}
+            id="picture-upload"
+            type="file"
+            onChange={fileHandler}
+          />
+          <label htmlFor="picture-upload">
+            <IconButton color="secondary" component="span">
+              <PhotoCamera />
+            </IconButton>
+            <button onClick={uploadHandler}>submit</button>
+          </label>
+        </div>
       </Grid>
       <Grid item id="name" className={classes.item}>
         <Typography className={classes.primaryText}>{name}</Typography>
