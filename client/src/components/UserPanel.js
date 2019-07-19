@@ -47,16 +47,10 @@ const useStyles = makeStyles(theme => ({
 function UserPanel(props) {
   const classes = useStyles();
   const { id, name, username, location, description, imageUrl } = props;
-  const [picture, setPicture] = useState(null);
 
-  const fileHandler = (e) => {
-    setPicture(e.target.files[0])
-  }
-
-  const uploadHandler = async () => {
-    console.log(picture);
+  const uploadHandler = async (e) => {
     const data = new FormData();
-    data.append('image', picture, picture.name);
+    data.append('image', e.target.files[0], e.target.files[0].name);
     await axios
       .put(`/api/users/picUpload/${id}`, data)
       .then(response => {
@@ -87,13 +81,12 @@ function UserPanel(props) {
             style={{ display: "none" }}
             id="picture-upload"
             type="file"
-            onChange={fileHandler}
+            onChange={uploadHandler}
           />
           <label htmlFor="picture-upload">
             <IconButton color="secondary" component="span">
               <PhotoCamera />
             </IconButton>
-            <button onClick={uploadHandler}>submit</button>
           </label>
         </div>
       </Grid>
