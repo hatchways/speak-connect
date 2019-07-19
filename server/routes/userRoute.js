@@ -1,6 +1,6 @@
 const express = require("express");
 const router = express.Router();
-const addUser = require("../db");
+const { addUser, addPic } = require("../db");
 const validate = require("../validate/validateNew");
 const Users = require("../models/userModel");
 const hash = require("../hash");
@@ -104,6 +104,9 @@ router.put("/picUpload/:id",
       if (error) {
         res.status(422).json({ "Error": error.message })
       }
+
+      const picAdded = addPic(req.file.location, req.params.id);
+      console.log('image added', picAdded)
       return res.json({ 'imgUrl': req.file.location });
     })
   });
