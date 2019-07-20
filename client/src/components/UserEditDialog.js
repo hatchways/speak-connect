@@ -8,9 +8,6 @@ import Dialog from "@material-ui/core/Dialog";
 import DialogActions from "@material-ui/core/DialogActions";
 import DialogContent from "@material-ui/core/DialogContent";
 import DialogTitle from "@material-ui/core/DialogTitle";
-import DialogContentText from "@material-ui/core/DialogContentText";
-import IconButton from "@material-ui/core/IconButton";
-import PhotoCamera from "@material-ui/icons/PhotoCamera";
 
 import axios from "axios";
 
@@ -35,13 +32,11 @@ function UserEditDialog(props) {
 
   const [location, setLocation] = useState("");
   const [description, setDescription] = useState("");
-  const [picture, setPicture] = useState(null);
+
 
   function handleClickOpen() {
     setLocation(props.location);
     setDescription(props.description);
-    setPicture(null);
-
     setOpen(true);
   }
 
@@ -50,18 +45,18 @@ function UserEditDialog(props) {
   }
 
   async function handleUpdate() {
+    // console.log('picture url', picture);
     const jwt = window.localStorage.getItem("token");
-
     axios.defaults.headers = {
       "Content-Type": "application/json",
       "x-auth-token": jwt
     };
 
     const updates = {
-      location: location,
-      description: description
-    };
+      location,
+      description
 
+    };
     await axios
       .put(`/api/users/${props.id}`, updates)
       .then(response => {
@@ -70,7 +65,6 @@ function UserEditDialog(props) {
       .catch(error => {
         console.log(error);
       });
-
     window.location.reload();
   }
 
@@ -114,26 +108,7 @@ function UserEditDialog(props) {
             value={description}
             onChange={e => setDescription(e.target.value)}
           />
-          <div className={classes.item}>
-            <DialogContentText component="span">
-              Profile Picture
-            </DialogContentText>
-            <input
-              accept="image/*"
-              style={{ display: "none" }}
-              id="picture-upload"
-              type="file"
-              onChange={e => setPicture(e.target.files[0])}
-            />
-            <label htmlFor="picture-upload">
-              <IconButton color="secondary" component="span">
-                <PhotoCamera />
-              </IconButton>
-            </label>
-            <DialogContentText component="span">
-              {picture ? picture.name : ""}
-            </DialogContentText>
-          </div>
+
         </DialogContent>
 
         <DialogActions>

@@ -1,6 +1,6 @@
 const express = require("express");
 const router = express.Router();
-const addUser = require("../db");
+const { addUser, addPic } = require("../db");
 const validate = require("../validate/validateNew");
 const Users = require("../models/userModel");
 const hash = require("../hash");
@@ -80,31 +80,29 @@ router.put("/:id", authorize, async (req, res, next) => {
     if (req.body.hasOwnProperty("location")) {
       user.location = req.body.location;
     }
-
     if (req.body.hasOwnProperty("description")) {
       user.description = req.body.description;
     }
-
     user.save();
     console.log('updated user', user);
     res.status(200).send(user);
   }
   catch (e) {
-    res.status(500).send('Unable to update user.Try again later');
     console.log(e);
+    res.status(500).send('Unable to update user.Try again later');
   }
 })
 
-const image_upload = upload.single('image');
-
 router.put("/picUpload/:id",
   (req, res, next) => {
+    const image_upload = upload.single('image');
     image_upload(req, res, error => {
-
       if (error) {
         res.status(422).json({ "Error": error.message })
       }
-      return res.json({ 'imgUrl': req.file.location });
+      // Save new url 
+      addPic(req.file.location, req.params.id);
+      res.status(200).send('Picture updated!');
     })
   });
 
