@@ -80,6 +80,8 @@ class CreateConversation extends Component {
 
       // TODO
       // Save audio to user and amazon S3
+      //direct user to profile page
+      this.props.history.push("/profile", { id: this.props.location.state.id });
     }
   };
 
