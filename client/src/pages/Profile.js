@@ -39,7 +39,7 @@ class Profile extends Component {
       username: "",
       location: "",
       description: "",
-      imageUrl: ""
+      imageUrl: null
     };
   }
 
