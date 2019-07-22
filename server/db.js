@@ -26,6 +26,20 @@ const addUser = async (_user) => {
     }
 }
 
+const addPic = async (url, id) => {
+    try {
+        // Fetch user with the given id
+        const user = await Users.findById(id);
+        //add url to user document
+        user.imageUrl = url
+        user.save();
+        console.log('updated user', user);
+    }
+    catch (e) {
+        console.log('Unable to add image.Error message:', e.message);
+    }
+}
+
 const addConversation = async (_conversation) => {
     const conversation = new Conversation({
         title: _conversation.title,
@@ -44,6 +58,7 @@ const addConversation = async (_conversation) => {
 }
 
 module.exports = {
-    addUser: addUser,
+    addUser,
+    addPic,
     addConversation: addConversation
 }

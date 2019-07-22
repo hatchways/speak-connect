@@ -38,7 +38,8 @@ class Profile extends Component {
       name: "",
       username: "",
       location: "",
-      description: ""
+      description: "",
+      imageUrl: ""
     };
   }
 
@@ -53,7 +54,8 @@ class Profile extends Component {
           name: response.data.name,
           username: response.data.username,
           location: response.data.location,
-          description: response.data.description
+          description: response.data.description,
+          imageUrl: response.data.imageUrl
         });
       })
       .catch(error => {
@@ -63,18 +65,20 @@ class Profile extends Component {
 
   render() {
     const { classes } = this.props;
-    const { name, username, location, description } = this.state;
+    const { name, username, location, description, imageUrl } = this.state;
 
     return (
       <div>
-        <NavBar location={this.props.location} username={username} />
+        <NavBar location={this.props.location} />
         <Container className={classes.content} maxWidth="lg">
           <div className={classes.userpanel}>
             <UserPanel
               id={this.props.location.state.id}
               name={name}
+              username={username}
               location={location}
               description={description}
+              imageUrl={imageUrl}
             />
           </div>
           <Grid container className={classes.grid}>

@@ -8,6 +8,7 @@ import { Button } from "@material-ui/core";
 
 import NavBar from "../components/NavBar";
 import AudioRecord from "../components/AudioRecord";
+import { StyledButton } from "../themes/theme";
 
 import axios from "axios";
 
@@ -15,13 +16,16 @@ const conversationStyle = theme => ({
   root: {
     marginTop: theme.spacing(5)
   },
+  title: {
+    fontWeight: "bold",
+    fontSize: "28px"
+  },
   item: {
     marginTop: theme.spacing(2),
     marginBottom: theme.spacing(2)
   },
   button: {
-    marginTop: theme.spacing(5),
-    textTransform: "none"
+    marginTop: theme.spacing(5)
   },
   error: {
     color: "red",
@@ -56,7 +60,6 @@ class CreateConversation extends Component {
     this.setState({
       blobObject: recordedBlob
     });
-
   };
 
   submitConversation = async e => {
@@ -80,6 +83,9 @@ class CreateConversation extends Component {
         blobObject: this.state.blobObject
       };
 
+      // TODO
+      // Save audio to user and amazon S3
+
       await axios
         .post("api/users/conversations", conversation)
         .then(response => {
@@ -89,9 +95,8 @@ class CreateConversation extends Component {
           console.log("ERROR:", error);
         });
 
-      // TODO
-      // Save audio to user and amazon S3
-
+      //direct user to profile page
+      this.props.history.push("/profile", { id: this.props.location.state.id });
     }
   };
 
@@ -109,7 +114,9 @@ class CreateConversation extends Component {
           alignItems="center"
         >
           <Grid item className={classes.item}>
-            <Typography variant="h5">Create a new conversation</Typography>
+            <Typography className={classes.title}>
+              Create a new conversation
+            </Typography>
           </Grid>
 
           <Grid item className={classes.item}>
@@ -137,7 +144,7 @@ class CreateConversation extends Component {
             <Typography>0:00</Typography>
           </Grid> */}
           <Grid item>
-            <Button
+            <StyledButton
               variant="contained"
               color="secondary"
               className={classes.button}
@@ -145,13 +152,13 @@ class CreateConversation extends Component {
               onClick={this.submitConversation}
             >
               Create Conversation
-            </Button>
+            </StyledButton>
             <Grid item className={classes.item}>
               {errorMessage ? (
                 <div className={classes.error}>{errorMessage}</div>
               ) : (
-                  ""
-                )}
+                ""
+              )}
             </Grid>
           </Grid>
         </Grid>

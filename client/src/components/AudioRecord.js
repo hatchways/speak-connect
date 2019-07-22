@@ -13,15 +13,15 @@ const useStyles = makeStyles(theme => ({
     margin: "0px"
   },
   button: {
-    padding: theme.spacing(3),
+    padding: theme.spacing(3.5),
     backgroundColor: theme.palette.secondary.main,
     "&:hover": {
       backgroundColor: theme.palette.secondary.dark
     },
     // position button overtop sineWave
     position: "absolute",
-    marginLeft: "-192px",
-    marginTop: "58px",
+    marginLeft: "-195px",
+    marginTop: "55px",
     zIndex: "2"
   },
   soundWave: {

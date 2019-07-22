@@ -4,26 +4,23 @@ const path = require("path");
 const cookieParser = require("cookie-parser");
 const logger = require("morgan");
 const config = require("config");
-// const bodyParser = require("body-parser");
+
 
 const userRouter = require("./routes/userRoute");
 const loginRouter = require("./routes/loginRoute");
 
-
-
-if (!config.get("jwtKey")) {
-  console.error('FATAL ERROR:PRIVATE KEY NOT SET!')
+if (!config.get("jwtKey") || !config.get("secretAccessKey") || !config.get("accessKeyId")) {
+  console.error('FATAL ERROR:ENV VARIABLES NOT SET!')
   process.exit(1)
 }
 
 const app = express();
 
-// app.use(bodyParser.json({ extended: true }));
-// app.use(bodyParser.urlencoded({ extended: true }));
 app.use(logger("dev"));
-app.use(express.json({ limit: '50mb' }));
-app.use(express.urlencoded({ limit: '50mb', extended: true, parameterLimit: 50000 }));
+app.use(express.json({ extended: true, limit: '50mb' }));
+app.use(express.urlencoded({ extended: true, limit: '50mb', parameterLimit: 50000 }));
 app.use(cookieParser());
+
 app.use(express.static(path.join(__dirname, "public")));
 
 app.use("/api/users", userRouter);
@@ -43,6 +40,7 @@ app.use((err, req, res, next) => {
   // render the error page
   res.status(err.status || 500);
   res.json({ error: err });
+  console.log(err);
 });
 
 module.exports = app;
