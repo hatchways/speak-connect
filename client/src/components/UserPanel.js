@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import { Grid } from "@material-ui/core";
 import { Typography } from "@material-ui/core";
@@ -48,9 +48,9 @@ function UserPanel(props) {
   const classes = useStyles();
   const { id, name, username, location, description, imageUrl } = props;
 
-  const uploadHandler = async (e) => {
+  const uploadHandler = async e => {
     const data = new FormData();
-    data.append('image', e.target.files[0], e.target.files[0].name);
+    data.append("image", e.target.files[0], e.target.files[0].name);
     await axios
       .put(`/api/users/picUpload/${id}`, data)
       .then(response => {
@@ -60,7 +60,7 @@ function UserPanel(props) {
       .catch(error => {
         console.log(error);
       });
-  }
+  };
   return (
     <Grid
       container
@@ -75,7 +75,6 @@ function UserPanel(props) {
           alt="Profile pic"
         />
         <div className={classes.item}>
-
           <input
             accept="image/*"
             style={{ display: "none" }}
