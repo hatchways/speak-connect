@@ -10,6 +10,9 @@ import NavBar from "../components/NavBar";
 import AudioRecord from "../components/AudioRecord";
 import { StyledButton } from "../themes/theme";
 
+import axios from "axios";
+
+
 const conversationStyle = theme => ({
   root: {
     marginTop: theme.spacing(5)
@@ -29,13 +32,7 @@ const conversationStyle = theme => ({
     color: "red",
     fontWeight: "bold",
     textAlign: "center"
-    // backgroundColor: amber[700],
-    // border: "5px solid",
-    // borderColor: amber[700],
-    // borderRadius: "5px",
-    // marginTop: theme.spacing(2),
-    // paddingLeft: theme.spacing(2),
-    // paddingRight: theme.spacing(2)
+
   }
 });
 
@@ -52,37 +49,27 @@ class CreateConversation extends Component {
     });
   };
 
-  // recieved from AudioRecord component once user has recorded audio
+  // received from AudioRecord component once user has recorded audio
   handleRecordedAudio = recordedBlob => {
     console.log("recieved recorded blob =", recordedBlob);
     this.setState({
       blobObject: recordedBlob
     });
 
-    // TODO
-    // Save audio to user and amazon S3
   };
 
-  submitConversation = () => {
-    const { title, blobObject } = this.state;
-    // make sure title and audio has been set
-    if (title === "") {
-      this.setState({
-        errorMessage: "Please enter a title"
+  submitConversation = async () => {
+    const id = window.localStorage.getItem("id");
+    await axios
+      .put(`/api/users/saveConvo/${id}`, { title: this.state.title })
+      .then(response => {
+        console.log("saved conversation ", response.data);
+        window.location.reload();
+      })
+      .catch(error => {
+        console.log(error);
       });
-    } else if (blobObject === null) {
-      this.setState({
-        errorMessage: "Please record audio"
-      });
-    } else {
-      // success!
-      console.log("Conversation created! (umm soon)");
 
-      // TODO
-      // Save audio to user and amazon S3
-      //direct user to profile page
-      this.props.history.push("/profile", { id: this.props.location.state.id });
-    }
   };
 
   render() {
@@ -122,12 +109,7 @@ class CreateConversation extends Component {
           <Grid item>
             <AudioRecord onRecordAudio={this.handleRecordedAudio} />
           </Grid>
-          {/* <Grid item className={classes.item}>
-            <Typography>press to start recording</Typography>
-          </Grid>
-          <Grid item>
-            <Typography>0:00</Typography>
-          </Grid> */}
+
           <Grid item>
             <StyledButton
               variant="contained"
@@ -142,8 +124,8 @@ class CreateConversation extends Component {
               {errorMessage ? (
                 <div className={classes.error}>{errorMessage}</div>
               ) : (
-                ""
-              )}
+                  ""
+                )}
             </Grid>
           </Grid>
         </Grid>

@@ -2,7 +2,6 @@ const mongoose = require("mongoose");
 const jwt = require("jsonwebtoken");
 const config = require("config");
 
-
 const userSchema = new mongoose.Schema({
   name: { type: String, required: true },
   username: { type: String, required: true, unique: true },
@@ -10,8 +9,11 @@ const userSchema = new mongoose.Schema({
   password: { type: String, required: true },
   location: { type: String },
   description: { type: String },
-  imageUrl: { type: String }
-
+  imageUrl: { type: String },
+  conversation: [{
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'Convo'
+  }]
 })
 
 userSchema.methods.generateToken = function () {

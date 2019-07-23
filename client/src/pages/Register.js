@@ -61,10 +61,10 @@ class Register extends Component {
         // get jwt token from header
         const token = response.headers["x-auth-token"];
 
-        // add token, username to local storage
+        // add token, username and id to local storage
         window.localStorage.setItem("token", token);
         window.localStorage.setItem("username", response.data.username);
-
+        window.localStorage.setItem("id", response.data._id);
 
         // test if token is stored
         const localStorageToken = window.localStorage.getItem("token");

@@ -1,6 +1,6 @@
 const express = require("express");
 const router = express.Router();
-const { addUser, addPic } = require("../db");
+const { addUser, addPic, saveConvo, addConvo } = require("../db");
 const validate = require("../validate/validateNew");
 const Users = require("../models/userModel");
 const hash = require("../hash");
@@ -62,8 +62,7 @@ router.post("/", async (req, res, next) => {
 
 router.get("/:id", async (req, res, next) => {
   try {
-    console.log('this is the req id', req.params.id);
-    const user = await Users.findById(req.params.id);
+    const user = await Users.findById(req.params.id).populate('conversation');
     if (!user) return res.status(404).send('User not found');
     res.status(200).send(user);
   }
@@ -105,5 +104,24 @@ router.put("/picUpload/:id",
       res.status(200).send('Picture updated!');
     })
   });
+
+
+router.put("/saveConvo/:id", async (req, res, next) => {
+
+  try {
+    const convo = await saveConvo(req.body);
+    console.log('convo saved', convo);
+    //save convo reference in user document
+    const add_convo = await addConvo(req.params.id, convo._id);
+    console.log('convo added?', add_convo);
+    res.status(200).send({ 'New conversation saved': convo })
+  }
+
+  catch (e) {
+    console.log('Error saving convo:', e);
+    res.status(500).send('Error!');
+  }
+});
+
 
 module.exports = router;
