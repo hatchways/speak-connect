@@ -41,16 +41,17 @@ const addPic = async (url, id) => {
     }
 }
 
-const saveConvo = async (_convo) => {
+const saveConvo = async (title, audio) => {
     const convo = new Conversation({
-        title: _convo.title
+        title,
+        audio
     });
     try {
         const result = await convo.save();
         return result;
     }
     catch (e) {
-        console.log('Unable to save convo.Error:', e);
+        console.log('Unable to save convo.', e);
     }
 }
 

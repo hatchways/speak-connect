@@ -92,36 +92,29 @@ router.put("/:id", authorize, async (req, res, next) => {
   }
 })
 
-router.put("/picUpload/:id",
-  (req, res, next) => {
-    const image_upload = upload.single('image');
-    image_upload(req, res, error => {
-      if (error) {
-        res.status(422).json({ "Error": error.message })
-      }
-      // Save new url 
-      addPic(req.file.location, req.params.id);
-      res.status(200).send('Picture updated!');
-    })
-  });
-
-
-router.put("/saveConvo/:id", async (req, res, next) => {
-
-  try {
-    const convo = await saveConvo(req.body);
-    console.log('convo saved', convo);
-    //save convo reference in user document
-    const add_convo = await addConvo(req.params.id, convo._id);
-    console.log('convo added?', add_convo);
-    res.status(200).send({ 'New conversation saved': convo })
-  }
-
-  catch (e) {
-    console.log('Error saving convo:', e);
-    res.status(500).send('Error!');
-  }
+router.put("/pictures/:id", (req, res, next) => {
+  const image_upload = upload.single('image');
+  image_upload(req, res, error => {
+    if (error) {
+      res.status(422).json({ "Error": error.message })
+    }
+    // Save new url 
+    console.log('saved image blob', req.file)
+    addPic(req.file.location, req.params.id);
+    res.status(200).send('Picture updated!');
+  })
 });
 
-
+router.put("/conversations/:id", (req, res, next) => {
+  const audio_upload = upload.single('audio');
+  audio_upload(req, res, error => {
+    if (error) {
+      res.status(422).json({ "Error": error.message })
+    }
+    // Save new audio in conversation collection
+    saveConvo(req.body.title, req.file.location).
+      then(result => addConvo(req.params.id, result._id))
+    res.status(200).send('Audio clip added!')
+  })
+});
 module.exports = router;

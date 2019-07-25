@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import { Grid } from "@material-ui/core";
 import { Typography } from "@material-ui/core";
@@ -52,9 +52,9 @@ function UserPanel(props) {
     const data = new FormData();
     data.append('image', e.target.files[0], e.target.files[0].name);
     await axios
-      .put(`/api/users/picUpload/${id}`, data)
+      .put(`/api/users/pictures/${id}`, data)
       .then(response => {
-        console.log("Uploaded picture ", response.data);
+        console.log("Uploaded picture", response.data);
         window.location.reload();
       })
       .catch(error => {

@@ -4,7 +4,6 @@ import { withStyles } from "@material-ui/core/styles";
 import TextField from "@material-ui/core/TextField";
 import Grid from "@material-ui/core/Grid";
 import { Typography } from "@material-ui/core";
-import { Button } from "@material-ui/core";
 
 import NavBar from "../components/NavBar";
 import AudioRecord from "../components/AudioRecord";
@@ -32,7 +31,6 @@ const conversationStyle = theme => ({
     color: "red",
     fontWeight: "bold",
     textAlign: "center"
-
   }
 });
 
@@ -49,28 +47,42 @@ class CreateConversation extends Component {
     });
   };
 
-  // received from AudioRecord component once user has recorded audio
+  // receive from AudioRecord component once user has recorded audio
   handleRecordedAudio = recordedBlob => {
-    console.log("recieved recorded blob =", recordedBlob);
+    console.log("receive recorded blob =", recordedBlob);
     this.setState({
       blobObject: recordedBlob
     });
-
   };
 
   submitConversation = async () => {
-    const id = window.localStorage.getItem("id");
-    await axios
-      .put(`/api/users/saveConvo/${id}`, { title: this.state.title })
-      .then(response => {
-        console.log("saved conversation ", response.data);
-        window.location.reload();
-      })
-      .catch(error => {
-        console.log(error);
+    const { title, blobObject } = this.state;
+    // make sure title and audio has been set
+    if (title === "") {
+      this.setState({
+        errorMessage: "Please enter a title"
       });
+    } else if (blobObject === null) {
+      this.setState({
+        errorMessage: "Please record audio"
+      });
+    } else {
+      const userId = window.localStorage.getItem("id");
+      const data = new FormData();
+      data.append('audio', this.state.blobObject.blob);
+      data.set('title', this.state.title);
 
-  };
+      await axios
+        .put(`/api/users/conversations/${userId}`, data)
+        .then(response => {
+          console.log(response.data);
+          this.props.history.push("/profile", { id: userId });
+        })
+        .catch(error => {
+          console.log(error);
+        });
+    }
+  }
 
   render() {
     const { classes } = this.props;
