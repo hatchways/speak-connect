@@ -40,7 +40,8 @@ class Profile extends Component {
       username: "",
       location: "",
       description: "",
-      imageUrl: ""
+      imageUrl: "",
+      conversations: []
     };
   }
 
@@ -57,7 +58,7 @@ class Profile extends Component {
           location: response.data.location,
           description: response.data.description,
           imageUrl: response.data.imageUrl,
-          conversations: response.data.conversation
+          conversations: response.data.conversations
         });
       })
       .catch(error => {
