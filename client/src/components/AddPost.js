@@ -1,9 +1,6 @@
 import React from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import { Box, Grid, Typography } from "@material-ui/core";
-import playButton from "../assets/play-button.png";
-import commentImg from "../assets/comment.png";
-import ConversationDialog from "./ConversationDialog";
 import { Link } from "react-router-dom";
 
 import IconButton from "@material-ui/core/IconButton";
