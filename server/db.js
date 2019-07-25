@@ -12,8 +12,9 @@ const addUser = async (_user) => {
         username: _user.username,
         email: _user.email,
         password: _user.password,
-        location: "add location",
-        description: "add description"
+        location: "",
+        description: "",
+        imageUrl: ""
     });
 
     try {
@@ -41,16 +42,17 @@ const addPic = async (url, id) => {
     }
 }
 
-const saveConvo = async (_convo) => {
+const saveConvo = async (title, audio) => {
     const convo = new Conversation({
-        title: _convo.title
+        title,
+        audio
     });
     try {
         const result = await convo.save();
         return result;
     }
     catch (e) {
-        console.log('Unable to save convo.Error:', e);
+        console.log('Unable to save convo.', e);
     }
 }
 
@@ -59,7 +61,7 @@ const addConvo = async (user_id, convo_id) => {
     try {
         // Fetch user with the given id
         const user = await Users.findById(user_id);
-        user.conversation.push(convo_id);
+        user.conversations.push(convo_id);
         const result = await user.save();
         return result;
     }

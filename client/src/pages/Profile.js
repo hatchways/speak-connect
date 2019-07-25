@@ -40,8 +40,7 @@ class Profile extends Component {
       username: "",
       location: "",
       description: "",
-      imageUrl: "",
-      conversations: []
+      imageUrl: ""
     };
   }
 
