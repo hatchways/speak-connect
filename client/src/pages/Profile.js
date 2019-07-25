@@ -4,6 +4,7 @@ import { Grid, Container } from "@material-ui/core";
 import NavBar from "../components/NavBar";
 import UserPanel from "../components/UserPanel";
 import UserPost from "../components/UserPost";
+import AddPost from "../components/AddPost";
 
 import axios from "axios";
 
@@ -39,7 +40,8 @@ class Profile extends Component {
       username: "",
       location: "",
       description: "",
-      imageUrl: null
+      imageUrl: "",
+      conversations: []
     };
   }
 
@@ -55,13 +57,36 @@ class Profile extends Component {
           username: response.data.username,
           location: response.data.location,
           description: response.data.description,
-          imageUrl: response.data.imageUrl
+          imageUrl: response.data.imageUrl,
+          conversations: response.data.conversations
         });
       })
       .catch(error => {
         console.log(error);
       });
   }
+
+  generateUserPosts = () => {
+    const { classes } = this.props;
+    const { conversations } = this.state;
+
+    // if user has not created a conversation display an "add post" component
+    if (conversations.length === 0) {
+      return (
+        <Grid item className={classes.item}>
+          <AddPost id={this.props.location.state.id} />
+        </Grid>
+      );
+    }
+
+    // else generate the created conversations
+    const posts = conversations.map(conversation => (
+      <Grid item key={conversation._id} className={classes.item}>
+        <UserPost time="00:00" title={conversation.title} commentCount="0" />
+      </Grid>
+    ));
+    return posts;
+  };
 
   render() {
     const { classes } = this.props;
@@ -82,34 +107,7 @@ class Profile extends Component {
             />
           </div>
           <Grid container className={classes.grid}>
-            <Grid item className={classes.item}>
-              <UserPost
-                time="5:04"
-                title="Is social media making us more narcissistic?"
-                commentCount="18"
-              />
-            </Grid>
-            <Grid item className={classes.item}>
-              <UserPost
-                time="3:15"
-                title="What was your biggest experience of 'cultural shock' in another country?"
-                commentCount="23"
-              />
-            </Grid>
-            <Grid item className={classes.item}>
-              <UserPost
-                time="1:30"
-                title="Should schools cancel summer vaction?"
-                commentCount="9"
-              />
-            </Grid>
-            <Grid item className={classes.item}>
-              <UserPost
-                time="4:10"
-                title="How important is to be attractive in society?"
-                commentCount="14"
-              />
-            </Grid>
+            {this.generateUserPosts()}
           </Grid>
         </Container>
       </div>
