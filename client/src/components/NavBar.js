@@ -80,7 +80,7 @@ function NavBar(props) {
   // navbar for when logged in
   function loggedInNavLinks() {
     // get username from local storage
-    const username = window.localStorage.getItem("username"); 
+    const username = window.localStorage.getItem("username");
     return (
       <div>
         <Link

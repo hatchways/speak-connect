@@ -25,7 +25,6 @@ const useStyles = makeStyles(theme => ({
     zIndex: "2"
   },
   soundWave: {
-    // border: "1px solid red",
     padding: "0px",
     margin: "0px"
   }
@@ -50,7 +49,6 @@ function AudioRecord(props) {
   };
 
   const onStop = recordedBlob => {
-    //console.log("recordedBlob is: ", recordedBlob);
     setBlobURL(recordedBlob.blobURL);
     props.onRecordAudio(recordedBlob);
   };

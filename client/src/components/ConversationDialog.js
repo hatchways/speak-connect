@@ -8,8 +8,7 @@ import DialogTitle from "@material-ui/core/DialogTitle";
 
 const useStyles = makeStyles(theme => ({
   root: {
-    background: "rgb(57, 86, 225, 0.9)" // blue
-    // background: "rgb(240, 240, 240, 0.9)" // grey
+    background: "rgb(57, 86, 225, 0.9)"
   },
   item: {
     marginBottom: theme.spacing(2)

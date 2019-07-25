@@ -5,7 +5,6 @@ const cookieParser = require("cookie-parser");
 const logger = require("morgan");
 const config = require("config");
 
-
 const userRouter = require("./routes/userRoute");
 const loginRouter = require("./routes/loginRoute");
 
@@ -17,8 +16,8 @@ if (!config.get("jwtKey") || !config.get("secretAccessKey") || !config.get("acce
 const app = express();
 
 app.use(logger("dev"));
-app.use(express.json({ extended: true, limit: '50mb' }));
-app.use(express.urlencoded({ extended: true, limit: '50mb', parameterLimit: 50000 }));
+app.use(express.json());
+app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 
 app.use(express.static(path.join(__dirname, "public")));
