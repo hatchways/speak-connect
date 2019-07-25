@@ -11,8 +11,9 @@ const addUser = async (_user) => {
         username: _user.username,
         email: _user.email,
         password: _user.password,
-        location: "add location",
-        description: "add description"
+        location: "",
+        description: "",
+        imageUrl: ""
     });
 
     try {

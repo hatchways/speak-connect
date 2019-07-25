@@ -6,6 +6,9 @@ import UserEditDialog from "./UserEditDialog";
 
 import IconButton from "@material-ui/core/IconButton";
 import PhotoCamera from "@material-ui/icons/PhotoCamera";
+import LocationOn from "@material-ui/icons/LocationOn";
+
+import defaultProfilePic from "../assets/default-profile-pic.png";
 
 import axios from "axios";
 
@@ -41,6 +44,10 @@ const useStyles = makeStyles(theme => ({
   },
   secondaryText: {
     color: "#adadad" // grey
+  },
+  unsetFieldText: {
+    color: "#dbdbdb", // grey
+    fontStyle: "italic"
   }
 }));
 
@@ -48,9 +55,9 @@ function UserPanel(props) {
   const classes = useStyles();
   const { id, name, username, location, description, imageUrl } = props;
 
-  const uploadHandler = async (e) => {
+  const uploadHandler = async e => {
     const data = new FormData();
-    data.append('image', e.target.files[0], e.target.files[0].name);
+    data.append("image", e.target.files[0], e.target.files[0].name);
     await axios
       .put(`/api/users/picUpload/${id}`, data)
       .then(response => {
@@ -60,7 +67,36 @@ function UserPanel(props) {
       .catch(error => {
         console.log(error);
       });
-  }
+  };
+
+  // if location is set display it otherwise display placeholder
+  const generateLocation = () => {
+    if (location) {
+      return (
+        <Typography style={{ fontWeight: "bold", float: "left" }}>
+          {location}
+        </Typography>
+      );
+    }
+    return (
+      <Typography className={classes.unsetFieldText} style={{ float: "left" }}>
+        location
+      </Typography>
+    );
+  };
+
+  // if description is set display it otherwise display placeholder
+  const generateDescription = () => {
+    if (description) {
+      return (
+        <Typography className={classes.secondaryText}>{description}</Typography>
+      );
+    }
+    return (
+      <Typography className={classes.unsetFieldText}>description</Typography>
+    );
+  };
+
   return (
     <Grid
       container
@@ -68,14 +104,13 @@ function UserPanel(props) {
       className={classes.root}
       alignItems="center"
     >
-      <Grid item id="profilePicture" className={classes.item}>
+      <Grid item id="profilePicture">
         <img
-          src={imageUrl}
+          src={imageUrl ? imageUrl : defaultProfilePic}
           className={classes.profilePicture}
           alt="Profile pic"
         />
-        <div className={classes.item}>
-
+        <div style={{ textAlign: "center" }}>
           <input
             accept="image/*"
             style={{ display: "none" }}
@@ -90,18 +125,29 @@ function UserPanel(props) {
           </label>
         </div>
       </Grid>
-      <Grid item id="name" className={classes.item}>
+      <Grid
+        item
+        id="name"
+        className={classes.item}
+        style={{ marginTop: "0px" }}
+      >
         <Typography className={classes.primaryText}>{name}</Typography>
         <Typography className={classes.secondaryText}>@{username}</Typography>
       </Grid>
       <Grid item id="location" className={classes.item}>
-        <Typography style={{ fontWeight: "bold" }}>{location}</Typography>
+        <LocationOn color="secondary" style={{ float: "left" }} />
+        {generateLocation()}
       </Grid>
       <Grid item id="edit" className={classes.item}>
         <UserEditDialog id={props.id} />
       </Grid>
-      <Grid item id="description" className={classes.item}>
-        <Typography className={classes.secondaryText}>{description}</Typography>
+      <Grid
+        item
+        id="description"
+        className={classes.item}
+        style={{ width: "85%" }}
+      >
+        {generateDescription()}
       </Grid>
     </Grid>
   );
