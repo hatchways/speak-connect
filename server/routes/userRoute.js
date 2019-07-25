@@ -62,7 +62,7 @@ router.post("/", async (req, res, next) => {
 
 router.get("/:id", async (req, res, next) => {
   try {
-    const user = await Users.findById(req.params.id).populate('conversation');
+    const user = await Users.findById(req.params.id).populate('conversations');
     if (!user) return res.status(404).send('User not found');
     res.status(200).send(user);
   }
@@ -92,7 +92,7 @@ router.put("/:id", authorize, async (req, res, next) => {
   }
 })
 
-router.put("/pictures/:id", (req, res, next) => {
+router.put("/:id/avatar", (req, res, next) => {
   const image_upload = upload.single('image');
   image_upload(req, res, error => {
     if (error) {
@@ -105,7 +105,7 @@ router.put("/pictures/:id", (req, res, next) => {
   })
 });
 
-router.put("/conversations/:id", (req, res, next) => {
+router.put("/:id/conversations", (req, res, next) => {
   const audio_upload = upload.single('audio');
   audio_upload(req, res, error => {
     if (error) {

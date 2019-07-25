@@ -10,7 +10,7 @@ const userSchema = new mongoose.Schema({
   location: { type: String },
   description: { type: String },
   imageUrl: { type: String },
-  conversation: [{
+  conversations: [{
     type: mongoose.Schema.Types.ObjectId,
     ref: 'Convo'
   }]

@@ -73,7 +73,7 @@ class CreateConversation extends Component {
       data.set('title', this.state.title);
 
       await axios
-        .put(`/api/users/conversations/${userId}`, data)
+        .put(`/api/users/${userId}/conversations`, data)
         .then(response => {
           console.log(response.data);
           this.props.history.push("/profile", { id: userId });

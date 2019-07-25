@@ -52,7 +52,7 @@ function UserPanel(props) {
     const data = new FormData();
     data.append('image', e.target.files[0], e.target.files[0].name);
     await axios
-      .put(`/api/users/pictures/${id}`, data)
+      .put(`/api/users/${id}/avatar`, data)
       .then(response => {
         console.log("Uploaded picture", response.data);
         window.location.reload();

@@ -60,7 +60,7 @@ const addConvo = async (user_id, convo_id) => {
     try {
         // Fetch user with the given id
         const user = await Users.findById(user_id);
-        user.conversation.push(convo_id);
+        user.conversations.push(convo_id);
         const result = await user.save();
         return result;
     }
