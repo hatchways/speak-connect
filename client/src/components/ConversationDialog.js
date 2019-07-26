@@ -35,8 +35,8 @@ const useStyles = makeStyles(theme => ({
     boxShadow: "0px 0px 15px 5px #f0f0f0"
   },
   container: {
-    marginTop: theme.spacing(5),
-    marginBottom: theme.spacing(5),
+    marginTop: theme.spacing(4),
+    marginBottom: theme.spacing(4),
     width: "90%"
   },
   item: {
@@ -91,7 +91,6 @@ function ConversationDialog(props) {
           <Container className={classes.root}>
             <Typography className={classes.title}>{title}</Typography>
             <AudioPlayer audioURL={audioURL} />
-            <audio controls src={audioURL} />
             <Grid container alignItems="center" className={classes.container}>
               <Grid item>
                 <ThumbUp className={classes.icon} />
