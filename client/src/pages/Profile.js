@@ -82,7 +82,12 @@ class Profile extends Component {
     // else generate the created conversations
     const posts = conversations.map(conversation => (
       <Grid item key={conversation._id} className={classes.item}>
-        <UserPost time="00:00" title={conversation.title} commentCount="0" />
+        <UserPost
+          time="00:00"
+          title={conversation.title}
+          commentCount="0"
+          audioURL={conversation.audio} // s3 audio link
+        />
       </Grid>
     ));
     return posts;
