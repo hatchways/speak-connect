@@ -31,9 +31,19 @@ const addUser = async (_user) => {
 const addPic = async (url, id) => {
     try {
         // Fetch user with the given id
-        const user = await Users.findById(id);
+        const user = await Users.findById(id).populate("conversations");
+
         //add url to user document
-        user.imageUrl = url
+        user.imageUrl = url;
+
+        //add url to conversation documents
+        const conversations = user.conversations;
+        conversations.forEach(function (conversation) {
+            conversation.imageUrl = url;
+            conversation.save();
+        });
+        // will need to do it for replies as well
+
         user.save();
         console.log('updated user', user);
     }
@@ -46,12 +56,16 @@ const saveConvo = async (title, audio, userId) => {
 
     // Fetch user with the given id
     const user = await Users.findById(userId);
-    const userName = user.name;
+    const name = user.name;
+    const username = user.username;
+    const imageUrl = user.imageUrl;
 
     const convo = new Conversation({
         title,
         audio,
-        userName
+        name,
+        username,
+        imageUrl
     });
     try {
         const result = await convo.save();
