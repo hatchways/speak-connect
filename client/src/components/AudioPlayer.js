@@ -5,7 +5,7 @@ import ClippPlayer from "clipp-player";
 
 const useStyles = makeStyles(theme => ({
   player: {
-    boxShadow: "0px 0px 30px 5px #f0f0f0",
+    boxShadow: "0px 0px 10px 2px #f0f0f0",
     width: "400px",
     height: "80px",
     borderRadius: "5px",

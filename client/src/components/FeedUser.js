@@ -14,7 +14,7 @@ import AudioPlayer from "./AudioPlayer";
 
 const useStyles = makeStyles(theme => ({
   root: {
-    width: "800px",
+    width: "750px",
     height: "500px",
     boxShadow: "0px 0px 30px 5px #f0f0f0",
     borderRadius: "5px",
@@ -41,9 +41,6 @@ const useStyles = makeStyles(theme => ({
   icon: {
     color: "#dfe3f0", // blue grey
     marginRight: theme.spacing(1)
-    // position: "relative",
-    // top: "5px",
-    // paddingRight: theme.spacing(1)
   },
   text: {
     fontWeight: "bold"
@@ -55,7 +52,7 @@ const useStyles = makeStyles(theme => ({
     // make divider same size as panel
     position: "relative",
     left: "-40px",
-    width: "840px"
+    width: "790px"
   }
 }));
 

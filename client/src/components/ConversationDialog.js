@@ -28,12 +28,6 @@ const useStyles = makeStyles(theme => ({
     marginBottom: theme.spacing(1),
     marginTop: theme.spacing(3)
   },
-  audio: {
-    paddingTop: theme.spacing(5),
-    paddingBottom: theme.spacing(5),
-    width: "70%",
-    boxShadow: "0px 0px 15px 5px #f0f0f0"
-  },
   container: {
     marginTop: theme.spacing(4),
     marginBottom: theme.spacing(4),
