@@ -8,6 +8,7 @@ import ThumbUp from "@material-ui/icons/ThumbUp";
 import ChatBubble from "@material-ui/icons/ChatBubble";
 import Reply from "@material-ui/icons/Reply";
 import Star from "@material-ui/icons/Star";
+import defaultProfilePic from "../assets/default-profile-pic.png";
 
 import { StyledButton } from "../themes/theme";
 import AudioPlayer from "./AudioPlayer";
@@ -21,17 +22,22 @@ const useStyles = makeStyles(theme => ({
     paddingTop: theme.spacing(3),
     paddingLeft: theme.spacing(5)
   },
-  nameText: {
-    fontWeight: "bold"
-  },
   title: {
     fontSize: "28px",
     fontWeight: "bold",
     marginBottom: theme.spacing(1),
-    marginTop: theme.spacing(3)
+    marginTop: theme.spacing(2)
+  },
+  primaryText: {
+    fontWeight: "bold"
+  },
+  secondaryText: {
+    fontSize: "14px",
+    fontWeight: "bold",
+    color: "#adadad" // grey
   },
   container: {
-    marginTop: theme.spacing(4),
+    marginTop: theme.spacing(3),
     marginBottom: theme.spacing(4),
     width: "90%"
   },
@@ -53,19 +59,49 @@ const useStyles = makeStyles(theme => ({
     position: "relative",
     left: "-40px",
     width: "790px"
+  },
+  profilePicture: {
+    width: "100%",
+    height: "100%",
+    maxWidth: "50px",
+    maxHeight: "50px",
+    minWidth: "50px",
+    minHeight: "50px",
+
+    objectFit: "cover",
+    borderRadius: "50%",
+    marginRight: theme.spacing(2)
   }
 }));
 
 function FeedUser(props) {
   const classes = useStyles();
-  const { name, title, audioURL } = props;
+  const { name, username, imageUrl, title, audioURL } = props;
 
   const generateHeader = () => {
     return (
       <div>
-        <Typography className={classes.nameText}>{name}</Typography>
+        <Grid container alignItems="center" style={{ marginTop: "20px" }}>
+          <Grid item id="profilePicture">
+            <img
+              src={imageUrl ? imageUrl : defaultProfilePic}
+              className={classes.profilePicture}
+              alt="Profile pic"
+            />
+          </Grid>
+          <Grid item id="name" style={{ marginRight: "8px" }}>
+            <Typography className={classes.primaryText}>{name}</Typography>
+          </Grid>
+          <Grid item id="username">
+            <Typography className={classes.secondaryText}>
+              @{username}
+            </Typography>
+          </Grid>
+        </Grid>
+
         <Typography className={classes.title}>{title}</Typography>
         <AudioPlayer audioURL={audioURL} />
+
         <Grid container alignItems="center" className={classes.container}>
           <Grid item>
             <ThumbUp className={classes.icon} />
