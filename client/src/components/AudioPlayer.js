@@ -6,11 +6,17 @@ import ClippPlayer from "clipp-player";
 const useStyles = makeStyles(theme => ({
   player: {
     boxShadow: "0px 0px 30px 5px #f0f0f0",
-    width: "470px",
+    width: "400px",
     height: "80px",
     borderRadius: "5px",
-    ".wave": {
-      background: "red"
+    paddingRight: "80px",
+    "& counter": {
+      width: "50%",
+      border: "1px solid red"
+    },
+    "& wave": {
+      width: "100%",
+      top: "-5px"
     }
   }
 }));
@@ -28,19 +34,22 @@ function AudioPlayer(props) {
         btnStyle={{
           float: "none",
           color: "#FFF",
+          fontSize: "12px",
           background: "#3956E1",
           borderRadius: "15px",
-          padding: "12px 15px",
+          padding: "13px 16px 13px 15px",
           position: "relative",
-          top: "-36px"
+          top: "-35px"
         }}
         counterStyle={{
           width: "3%",
           fontFamily: "gilroy-medium",
           fontSize: "15px",
           fontWeight: "bold",
-          marginTop: "15px",
-          color: "#adadad" // grey
+          color: "#adadad", // grey
+          position: "relative",
+          top: "-13px",
+          right: "-5px"
         }}
         volume={1}
         zoom={1}
@@ -53,7 +62,7 @@ function AudioPlayer(props) {
           cursorColor: "#FFF",
           cursorWidth: 1,
           fillParent: true,
-          height: 75,
+          height: 70,
           hideScrollbar: false,
           normalize: true,
           partialRender: true,
