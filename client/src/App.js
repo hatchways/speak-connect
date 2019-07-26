@@ -7,6 +7,8 @@ import Register from "./pages/Register";
 import Login from "./pages/Login";
 import Profile from "./pages/Profile";
 import CreateConversation from "./pages/CreateConversation";
+import Feed from "./pages/Feed";
+
 
 import "./App.css";
 
@@ -18,6 +20,7 @@ function App() {
         <Route path="/login" component={Login} />
         <Route path="/profile" component={Profile} />
         <Route path="/create-conversation" component={CreateConversation} />
+        <Route path="/feed" component={Feed} />
       </BrowserRouter>
     </MuiThemeProvider>
   );

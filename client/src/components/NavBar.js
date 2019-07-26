@@ -85,7 +85,7 @@ function NavBar(props) {
       <div>
         <Link
           to={{
-            pathname: "/profile",
+            pathname: "/feed",
             state: { id: props.location.state.id }
           }}
           className={classes.link}
