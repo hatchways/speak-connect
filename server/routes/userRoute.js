@@ -1,6 +1,6 @@
 const express = require("express");
 const router = express.Router();
-const { addUser, addPic } = require("../db");
+const { addUser, addPic, saveConvo, addConvo } = require("../db");
 const validate = require("../validate/validateNew");
 const Users = require("../models/userModel");
 const hash = require("../hash");
@@ -62,8 +62,7 @@ router.post("/", async (req, res, next) => {
 
 router.get("/:id", async (req, res, next) => {
   try {
-    console.log('this is the req id', req.params.id);
-    const user = await Users.findById(req.params.id);
+    const user = await Users.findById(req.params.id).populate('conversations');
     if (!user) return res.status(404).send('User not found');
     res.status(200).send(user);
   }
@@ -93,17 +92,29 @@ router.put("/:id", authorize, async (req, res, next) => {
   }
 })
 
-router.put("/picUpload/:id",
-  (req, res, next) => {
-    const image_upload = upload.single('image');
-    image_upload(req, res, error => {
-      if (error) {
-        res.status(422).json({ "Error": error.message })
-      }
-      // Save new url 
-      addPic(req.file.location, req.params.id);
-      res.status(200).send('Picture updated!');
-    })
-  });
+router.put("/:id/avatar", (req, res, next) => {
+  const image_upload = upload.single('image');
+  image_upload(req, res, error => {
+    if (error) {
+      res.status(422).json({ "Error": error.message })
+    }
+    // Save new url 
+    console.log('saved image blob', req.file)
+    addPic(req.file.location, req.params.id);
+    res.status(200).send('Picture updated!');
+  })
+});
 
+router.put("/:id/conversations", (req, res, next) => {
+  const audio_upload = upload.single('audio');
+  audio_upload(req, res, error => {
+    if (error) {
+      res.status(422).json({ "Error": error.message })
+    }
+    // Save new audio in conversation collection
+    saveConvo(req.body.title, req.file.location).
+      then(result => addConvo(req.params.id, result._id))
+    res.status(200).send('Audio clip added!')
+  })
+});
 module.exports = router;

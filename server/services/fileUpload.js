@@ -3,7 +3,6 @@ const multer = require('multer');
 const multerS3 = require('multer-s3');
 const config = require("config");
 
-
 aws.config.update({
     secretAccessKey: config.get("secretAccessKey"),
     accessKeyId: config.get("accessKeyId"),
@@ -13,11 +12,11 @@ aws.config.update({
 const s3 = new aws.S3()
 
 const fileFilter = (req, file, cb) => {
-    if (file.mimetype === 'image/png' || file.mimetype === 'image/jpeg') {
+    if (file.mimetype === 'image/png' || file.mimetype === 'image/jpeg' || file.mimetype === 'audio/webm') {
         cb(null, true);
     }
     else {
-        cb(new Error('Invalid type. jpeg or png files only!'), false);
+        cb(new Error('Invalid type. jpeg, png or audio files only!'), false);
     }
 }
 
@@ -36,5 +35,4 @@ const upload = multer({
         }
     })
 })
-
 module.exports = upload;

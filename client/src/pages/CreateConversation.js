@@ -4,11 +4,13 @@ import { withStyles } from "@material-ui/core/styles";
 import TextField from "@material-ui/core/TextField";
 import Grid from "@material-ui/core/Grid";
 import { Typography } from "@material-ui/core";
-import { Button } from "@material-ui/core";
 
 import NavBar from "../components/NavBar";
 import AudioRecord from "../components/AudioRecord";
 import { StyledButton } from "../themes/theme";
+
+import axios from "axios";
+
 
 const conversationStyle = theme => ({
   root: {
@@ -29,13 +31,6 @@ const conversationStyle = theme => ({
     color: "red",
     fontWeight: "bold",
     textAlign: "center"
-    // backgroundColor: amber[700],
-    // border: "5px solid",
-    // borderColor: amber[700],
-    // borderRadius: "5px",
-    // marginTop: theme.spacing(2),
-    // paddingLeft: theme.spacing(2),
-    // paddingRight: theme.spacing(2)
   }
 });
 
@@ -52,18 +47,15 @@ class CreateConversation extends Component {
     });
   };
 
-  // recieved from AudioRecord component once user has recorded audio
+  // receive from AudioRecord component once user has recorded audio
   handleRecordedAudio = recordedBlob => {
-    console.log("recieved recorded blob =", recordedBlob);
+    console.log("receive recorded blob =", recordedBlob);
     this.setState({
       blobObject: recordedBlob
     });
-
-    // TODO
-    // Save audio to user and amazon S3
   };
 
-  submitConversation = () => {
+  submitConversation = async () => {
     const { title, blobObject } = this.state;
     // make sure title and audio has been set
     if (title === "") {
@@ -75,15 +67,22 @@ class CreateConversation extends Component {
         errorMessage: "Please record audio"
       });
     } else {
-      // success!
-      console.log("Conversation created! (umm soon)");
+      const userId = window.localStorage.getItem("id");
+      const data = new FormData();
+      data.append('audio', this.state.blobObject.blob);
+      data.set('title', this.state.title);
 
-      // TODO
-      // Save audio to user and amazon S3
-      //direct user to profile page
-      this.props.history.push("/profile", { id: this.props.location.state.id });
+      await axios
+        .put(`/api/users/${userId}/conversations`, data)
+        .then(response => {
+          console.log(response.data);
+          this.props.history.push("/profile", { id: userId });
+        })
+        .catch(error => {
+          console.log(error);
+        });
     }
-  };
+  }
 
   render() {
     const { classes } = this.props;
@@ -122,12 +121,7 @@ class CreateConversation extends Component {
           <Grid item>
             <AudioRecord onRecordAudio={this.handleRecordedAudio} />
           </Grid>
-          {/* <Grid item className={classes.item}>
-            <Typography>press to start recording</Typography>
-          </Grid>
-          <Grid item>
-            <Typography>0:00</Typography>
-          </Grid> */}
+
           <Grid item>
             <StyledButton
               variant="contained"
@@ -142,8 +136,8 @@ class CreateConversation extends Component {
               {errorMessage ? (
                 <div className={classes.error}>{errorMessage}</div>
               ) : (
-                ""
-              )}
+                  ""
+                )}
             </Grid>
           </Grid>
         </Grid>
