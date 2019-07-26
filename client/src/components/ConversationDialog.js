@@ -12,6 +12,7 @@ import Reply from "@material-ui/icons/Reply";
 import Star from "@material-ui/icons/Star";
 
 import { StyledButton } from "../themes/theme";
+import AudioPlayer from "./AudioPlayer";
 
 const useStyles = makeStyles(theme => ({
   dialog: {
@@ -64,7 +65,7 @@ const useStyles = makeStyles(theme => ({
 
 function ConversationDialog(props) {
   const classes = useStyles();
-  const { title, open } = props;
+  const { title, audioURL, open } = props;
 
   return (
     <div>
@@ -89,7 +90,8 @@ function ConversationDialog(props) {
         <DialogContent>
           <Container className={classes.root}>
             <Typography className={classes.title}>{title}</Typography>
-            <Paper className={classes.audio} />
+            <AudioPlayer audioURL={audioURL} />
+            <audio controls src={audioURL} />
             <Grid container alignItems="center" className={classes.container}>
               <Grid item>
                 <ThumbUp className={classes.icon} />
