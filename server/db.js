@@ -42,10 +42,16 @@ const addPic = async (url, id) => {
     }
 }
 
-const saveConvo = async (title, audio) => {
+const saveConvo = async (title, audio, userId) => {
+
+    // Fetch user with the given id
+    const user = await Users.findById(userId);
+    const userName = user.name;
+
     const convo = new Conversation({
         title,
-        audio
+        audio,
+        userName
     });
     try {
         const result = await convo.save();
@@ -56,12 +62,12 @@ const saveConvo = async (title, audio) => {
     }
 }
 
-const addConvo = async (user_id, convo_id) => {
+const addConvo = async (userId, convoId) => {
 
     try {
         // Fetch user with the given id
-        const user = await Users.findById(user_id);
-        user.conversations.push(convo_id);
+        const user = await Users.findById(userId);
+        user.conversations.push(convoId);
         const result = await user.save();
         return result;
     }
@@ -69,9 +75,22 @@ const addConvo = async (user_id, convo_id) => {
         console.log('Unable to add convo to user document.Error message:', e);
     }
 }
+
+const getConversations = async () => {
+    try {
+        const conversations = await Conversation.find();
+        return conversations;
+    }
+    catch (e) {
+        console.log('unable to fetch conversations');
+        return e.message;
+    }
+}
+
 module.exports = {
     addUser,
     addPic,
     saveConvo,
-    addConvo
+    addConvo,
+    getConversations
 }
