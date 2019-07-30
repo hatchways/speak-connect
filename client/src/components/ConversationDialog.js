@@ -14,71 +14,34 @@ import defaultProfilePic from "../assets/default-profile-pic.png";
 import { StyledButton } from "../themes/theme";
 import AudioPlayer from "./AudioPlayer";
 import ReplyDialog from "./ReplyDialog";
+import ConversationPost from "./ConversationPost";
 
 const useStyles = makeStyles(theme => ({
   dialog: {
     background: "rgb(57, 86, 225, 0.9)" // blue
     // background: "rgb(240, 240, 240, 0.9)" // grey
   },
-  root: {},
-  title: {
-    fontSize: "28px",
-    fontWeight: "bold",
-    marginBottom: theme.spacing(1),
-    marginTop: theme.spacing(2)
-  },
-  primaryText: {
-    fontWeight: "bold"
-  },
-  secondaryText: {
-    fontSize: "14px",
-    fontWeight: "bold",
-    color: "#adadad" // grey
+  root: {
+    paddingLeft: theme.spacing(1)
+    // overflow: "hidden"
   },
   container: {
     marginTop: theme.spacing(3),
     marginBottom: theme.spacing(4),
     width: "90%"
   },
-  item: {
-    marginRight: theme.spacing(2)
-  },
-  icon: {
-    color: "#dfe3f0", // blue grey
-    marginRight: theme.spacing(1)
-    // position: "relative",
-    // top: "5px",
-    // paddingRight: theme.spacing(1)
-  },
-  text: {
-    fontWeight: "bold"
-  },
-  button: {
-    color: "black"
-  },
+
   divider: {
     // make divider same size as dialog
     position: "relative",
     left: "-24px",
     width: "50vw"
-  },
-  profilePicture: {
-    width: "100%",
-    height: "100%",
-    maxWidth: "50px",
-    maxHeight: "50px",
-    minWidth: "50px",
-    minHeight: "50px",
-
-    objectFit: "cover",
-    borderRadius: "50%",
-    marginRight: theme.spacing(2)
   }
 }));
 
 function ConversationDialog(props) {
   const classes = useStyles();
-  const { title, audioURL, name, username, imageUrl, open } = props;
+  const { name, username, imageUrl, title, audioURL, open } = props;
 
   return (
     <div>
@@ -86,7 +49,6 @@ function ConversationDialog(props) {
         open={open}
         onClose={props.handleClose}
         fullWidth={true}
-        maxWidth={"md"}
         BackdropProps={{
           classes: {
             root: classes.dialog
@@ -95,81 +57,22 @@ function ConversationDialog(props) {
         PaperProps={{
           style: {
             minHeight: "80vh",
-            maxWidth: "50vw",
+            // needed to play nicely with the divider
+            maxWidth: "782px",
             boxShadow: "none"
           }
         }}
       >
         <DialogContent>
-          <Container className={classes.root}>
-            <Grid container alignItems="center" style={{ marginTop: "20px" }}>
-              <Grid item id="profilePicture">
-                <img
-                  src={imageUrl ? imageUrl : defaultProfilePic}
-                  className={classes.profilePicture}
-                  alt="Profile pic"
-                />
-              </Grid>
-              <Grid item id="name" style={{ marginRight: "8px" }}>
-                <Typography className={classes.primaryText}>{name}</Typography>
-              </Grid>
-              <Grid item id="username">
-                <Typography className={classes.secondaryText}>
-                  @{username}
-                </Typography>
-              </Grid>
-            </Grid>
-            <Typography className={classes.title}>{title}</Typography>
-            <AudioPlayer audioURL={audioURL} />
-
-            <Grid container alignItems="center" className={classes.container}>
-              <Grid item>
-                <ThumbUp className={classes.icon} />
-              </Grid>
-              <Grid item id="likes" className={classes.item}>
-                <Typography className={classes.text}>0</Typography>
-              </Grid>
-
-              <Grid item>
-                <ChatBubble className={classes.icon} />
-              </Grid>
-              <Grid item id="comments" className={classes.item}>
-                <Typography className={classes.text}>0</Typography>
-              </Grid>
-
-              <Grid item id="reply" className={classes.item}>
-                <ReplyDialog name={name} />
-              </Grid>
-
-              <Grid item id="follow" className={classes.item}>
-                <StyledButton className={classes.button} variant="outlined">
-                  <Star style={{ color: "#dfe3f0" }} />
-                  <Typography className={classes.text} component="span">
-                    Follow
-                  </Typography>
-                </StyledButton>
-              </Grid>
-
-              <Grid item style={{ marginRight: "10px", flex: 1 }}>
-                <Typography
-                  className={classes.text}
-                  style={{
-                    float: "right",
-                    color: "#adadad" // grey
-                  }}
-                  component="span"
-                >
-                  Listens:
-                </Typography>
-              </Grid>
-              <Grid item id="listens" className={classes.item}>
-                <Typography className={classes.text} component="span">
-                  0
-                </Typography>
-              </Grid>
-            </Grid>
-          </Container>
-          <Divider className={classes.divider} />
+          <div className={classes.root}>
+            <ConversationPost
+              name={name}
+              username={username}
+              imageUrl={imageUrl}
+              title={title}
+              audioURL={audioURL}
+            />
+          </div>
         </DialogContent>
       </Dialog>
     </div>
