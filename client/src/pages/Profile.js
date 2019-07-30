@@ -68,7 +68,7 @@ class Profile extends Component {
 
   generateUserPosts = () => {
     const { classes } = this.props;
-    const { conversations } = this.state;
+    const { conversations, name, username, imageUrl } = this.state;
 
     // if user has not created a conversation display an "add post" component
     if (conversations.length === 0) {
@@ -83,6 +83,9 @@ class Profile extends Component {
     const posts = conversations.map(conversation => (
       <Grid item key={conversation._id} className={classes.item}>
         <UserPost
+          name={name}
+          username={username}
+          imageUrl={imageUrl}
           time="00:00"
           title={conversation.title}
           commentCount="0"

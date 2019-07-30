@@ -11,7 +11,6 @@ import { StyledButton } from "../themes/theme";
 
 import axios from "axios";
 
-
 const conversationStyle = theme => ({
   root: {
     marginTop: theme.spacing(5)
@@ -69,8 +68,8 @@ class CreateConversation extends Component {
     } else {
       const userId = window.localStorage.getItem("id");
       const data = new FormData();
-      data.append('audio', this.state.blobObject.blob);
-      data.set('title', this.state.title);
+      data.append("audio", this.state.blobObject.blob);
+      data.set("title", this.state.title);
 
       await axios
         .put(`/api/users/${userId}/conversations`, data)
@@ -82,7 +81,7 @@ class CreateConversation extends Component {
           console.log(error);
         });
     }
-  }
+  };
 
   render() {
     const { classes } = this.props;
@@ -136,8 +135,8 @@ class CreateConversation extends Component {
               {errorMessage ? (
                 <div className={classes.error}>{errorMessage}</div>
               ) : (
-                  ""
-                )}
+                ""
+              )}
             </Grid>
           </Grid>
         </Grid>

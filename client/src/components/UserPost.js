@@ -44,6 +44,8 @@ const useStyles = makeStyles(theme => ({
 function UserPost(props) {
   const classes = useStyles();
   const { time, title, commentCount, audioURL } = props;
+  // information about user
+  const { name, username, imageUrl } = props;
 
   const [openDialog, setOpenDialog] = useState(false);
 
@@ -81,6 +83,9 @@ function UserPost(props) {
       <ConversationDialog
         title={title}
         audioURL={audioURL}
+        name={name}
+        username={username}
+        imageUrl={imageUrl}
         open={openDialog}
         handleClose={handleDialogClose}
       />
