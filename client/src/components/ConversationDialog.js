@@ -138,12 +138,7 @@ function ConversationDialog(props) {
               </Grid>
 
               <Grid item id="reply" className={classes.item}>
-                <StyledButton className={classes.button} variant="outlined">
-                  <Reply style={{ color: "#dfe3f0" }} />
-                  <Typography className={classes.text} component="span">
-                    Reply
-                  </Typography>
-                </StyledButton>
+                <ReplyDialog name={name} />
               </Grid>
 
               <Grid item id="follow" className={classes.item}>

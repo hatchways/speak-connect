@@ -12,6 +12,7 @@ import defaultProfilePic from "../assets/default-profile-pic.png";
 
 import { StyledButton } from "../themes/theme";
 import AudioPlayer from "./AudioPlayer";
+import ReplyDialog from "./ReplyDialog";
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -118,12 +119,7 @@ function FeedUser(props) {
           </Grid>
 
           <Grid item id="reply" className={classes.item}>
-            <StyledButton className={classes.button} variant="outlined">
-              <Reply style={{ color: "#dfe3f0" }} />
-              <Typography className={classes.text} component="span">
-                Reply
-              </Typography>
-            </StyledButton>
+            <ReplyDialog name={name} />
           </Grid>
 
           <Grid item id="follow" className={classes.item}>
