@@ -3,17 +3,7 @@ import { makeStyles } from "@material-ui/core/styles";
 
 import Dialog from "@material-ui/core/Dialog";
 import DialogContent from "@material-ui/core/DialogContent";
-import { Container, Typography, Grid } from "@material-ui/core";
-import Divider from "@material-ui/core/Divider";
 
-import ThumbUp from "@material-ui/icons/ThumbUp";
-import ChatBubble from "@material-ui/icons/ChatBubble";
-import Star from "@material-ui/icons/Star";
-import defaultProfilePic from "../assets/default-profile-pic.png";
-
-import { StyledButton } from "../themes/theme";
-import AudioPlayer from "./AudioPlayer";
-import ReplyDialog from "./ReplyDialog";
 import ConversationPost from "./ConversationPost";
 
 const useStyles = makeStyles(theme => ({

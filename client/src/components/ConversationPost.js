@@ -6,7 +6,6 @@ import Divider from "@material-ui/core/Divider";
 
 import ThumbUp from "@material-ui/icons/ThumbUp";
 import ChatBubble from "@material-ui/icons/ChatBubble";
-import Reply from "@material-ui/icons/Reply";
 import Star from "@material-ui/icons/Star";
 import defaultProfilePic from "../assets/default-profile-pic.png";
 
