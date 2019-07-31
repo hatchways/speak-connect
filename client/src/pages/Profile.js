@@ -90,6 +90,8 @@ class Profile extends Component {
           title={conversation.title}
           commentCount="0"
           audioURL={conversation.audio} // s3 audio link
+          userID={this.props.location.state.id}
+          convoID={conversation._id}
         />
       </Grid>
     ));

@@ -31,6 +31,8 @@ const useStyles = makeStyles(theme => ({
 function ConversationDialog(props) {
   const classes = useStyles();
   const { name, username, imageUrl, title, audioURL, open } = props;
+  const { userID, convoID } = props;
+
 
   return (
     <div>
@@ -60,6 +62,8 @@ function ConversationDialog(props) {
               imageUrl={imageUrl}
               title={title}
               audioURL={audioURL}
+              userID={userID}
+              convoID={convoID}
             />
           </div>
         </DialogContent>
