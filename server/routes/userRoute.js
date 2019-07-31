@@ -1,6 +1,6 @@
 const express = require("express");
 const router = express.Router();
-const { addUser, addPic, saveConvo, addConvo, getConversations, saveComment, addComment } = require("../db");
+const { addUser, addPic, saveConvo, addConvo, likeUnlikeConvo, getConversations, saveComment, addComment } = require("../db");
 const validate = require("../validate/validateNew");
 const Users = require("../models/userModel");
 const hash = require("../hash");
@@ -122,6 +122,15 @@ router.put("/:id/conversations", (req, res, next) => {
       then(convo => addConvo(req.params.id, convo._id))
     res.status(200).send('Audio clip added!')
   })
+});
+
+// route to like or unlike a conversation
+router.put("/:id/conversations/like", (req, res, next) => {
+  console.log("like request = ", req.body);
+  likeUnlikeConvo(req.body.userID, req.body.convoID)
+    .then(result => res.status(200).send("conversation successfully liked/unliked"))
+    .catch(e => res.status(500).send('Unable to like/unlike!'));
+
 });
 
 router.post("/:userID/comments/:convoID", (req, res, next) => {

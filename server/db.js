@@ -61,13 +61,15 @@ const saveConvo = async (title, audio, userId) => {
     const name = user.name;
     const username = user.username;
     const imageUrl = user.imageUrl;
+    const userLikeMap = new Map();
 
     const convo = new Conversation({
         title,
         audio,
         name,
         username,
-        imageUrl
+        imageUrl,
+        userLikeMap
     });
     try {
         const result = await convo.save();
@@ -89,6 +91,28 @@ const addConvo = async (userId, convoId) => {
     }
     catch (e) {
         console.log('Unable to add convo to user document.Error message:', e);
+    }
+}
+
+// add or remove the user from the conversation like mapping
+const likeUnlikeConvo = async (userId, convoId) => {
+    try {
+        // Fetch conversation
+        const convo = await Conversation.findById(convoId);
+
+        // if user has alredy liked convo, then unlike it
+        if (convo.userLikeMap.get(userId)) {
+            convo.userLikeMap.delete(userId);
+        }
+        // like convo
+        else {
+            convo.userLikeMap.set(userId, true);
+        }
+        const result = await convo.save();
+        return result;
+    }
+    catch (e) {
+        console.log('Unable to like/unlke the conversation.Error message:', e);
     }
 }
 
@@ -140,6 +164,7 @@ module.exports = {
     addPic,
     saveConvo,
     addConvo,
+    likeUnlikeConvo,
     getConversations,
     saveComment,
     addComment
