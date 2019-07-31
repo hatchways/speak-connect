@@ -56,6 +56,9 @@ class Feed extends Component {
           name={conversation.name}
           username={conversation.username}
           imageUrl={conversation.imageUrl}
+          numLikes={Object.keys(conversation.userLikeMap).length}
+          userID={this.props.location.state.id}
+          convoID={conversation._id}
         />
       </Grid>
     ));

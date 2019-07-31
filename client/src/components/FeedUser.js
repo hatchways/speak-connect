@@ -16,7 +16,8 @@ const useStyles = makeStyles(theme => ({
 
 function FeedUser(props) {
   const classes = useStyles();
-  const { name, username, imageUrl, title, audioURL } = props;
+  const { name, username, imageUrl, title, audioURL, numLikes } = props;
+  const { userID, convoID } = props;
 
   return (
     <div className={classes.root}>
@@ -26,6 +27,10 @@ function FeedUser(props) {
         imageUrl={imageUrl}
         title={title}
         audioURL={audioURL}
+        numLikes={numLikes}
+        userID={userID}
+        convoID={convoID}
+
       />
     </div>
   );
