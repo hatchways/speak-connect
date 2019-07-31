@@ -5,7 +5,11 @@ const convoSchema = new mongoose.Schema({
     audio: { type: String, required: true },
     name: { type: String, required: true },
     username: { type: String, required: true },
-    imageUrl: { type: String }
+    imageUrl: { type: String },
+    comments: [{
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Comments'
+    }]
 })
 
 const Conversation = mongoose.model("Convo", convoSchema);

@@ -3,7 +3,7 @@ import { makeStyles } from "@material-ui/core/styles";
 
 import Dialog from "@material-ui/core/Dialog";
 import DialogContent from "@material-ui/core/DialogContent";
-import { Container, Paper, Typography, Grid } from "@material-ui/core";
+import { Container, Typography, Grid } from "@material-ui/core";
 import Divider from "@material-ui/core/Divider";
 
 import ThumbUp from "@material-ui/icons/ThumbUp";
@@ -16,8 +16,7 @@ import AudioPlayer from "./AudioPlayer";
 
 const useStyles = makeStyles(theme => ({
   dialog: {
-    background: "rgb(57, 86, 225, 0.9)" // blue
-    // background: "rgb(240, 240, 240, 0.9)" // grey
+    background: "rgb(57, 86, 225, 0.9)" 
   },
   root: {
     marginTop: theme.spacing(5)

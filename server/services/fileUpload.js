@@ -21,7 +21,7 @@ const fileFilter = (req, file, cb) => {
 }
 
 const upload = multer({
-    fileFilter,
+    // fileFilter,
     storage: multerS3({
         s3,
         bucket: 'twitter-audio',
