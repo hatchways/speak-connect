@@ -38,7 +38,21 @@ const useStyles = makeStyles(theme => ({
   item: {
     marginRight: theme.spacing(2)
   },
-  icon: {
+  unlikedIcon: {
+    color: "#dfe3f0", // blue grey
+    marginRight: theme.spacing(1),
+    "&:hover": {
+      color: theme.palette.secondary.main
+    }
+  },
+  likedIcon: {
+    color: theme.palette.secondary.main,
+    marginRight: theme.spacing(1),
+    "&:hover": {
+      color: "#dfe3f0" // blue grey
+    }
+  },
+  commentIcon: {
     color: "#dfe3f0", // blue grey
     marginRight: theme.spacing(1)
   },
@@ -70,7 +84,15 @@ const useStyles = makeStyles(theme => ({
 
 function ConversationPost(props) {
   const classes = useStyles();
-  const { name, username, imageUrl, title, audioURL, numLikes } = props;
+  const {
+    name,
+    username,
+    imageUrl,
+    title,
+    audioURL,
+    numLikes,
+    isLiked
+  } = props;
   const { userID, convoID } = props;
 
   const handleLike = async () => {
@@ -90,8 +112,7 @@ function ConversationPost(props) {
         console.log(error);
       });
     window.location.reload();
-
-  }
+  };
 
   const generateHeader = () => {
     return (
@@ -119,25 +140,24 @@ function ConversationPost(props) {
 
         <Grid container alignItems="center" className={classes.container}>
           <Grid item>
-            <ThumbUp className={classes.icon} onClick={() => handleLike()} />
+            <ThumbUp
+              className={isLiked ? classes.likedIcon : classes.unlikedIcon}
+              onClick={() => handleLike()}
+            />
           </Grid>
           <Grid item id="likes" className={classes.item}>
             <Typography className={classes.text}>{numLikes}</Typography>
           </Grid>
 
           <Grid item>
-            <ChatBubble className={classes.icon} />
+            <ChatBubble className={classes.commentIcon} />
           </Grid>
           <Grid item id="comments" className={classes.item}>
             <Typography className={classes.text}>0</Typography>
           </Grid>
 
           <Grid item id="reply" className={classes.item}>
-            <ReplyDialog
-              name={name}
-              userID={userID}
-              convoID={convoID}
-            />
+            <ReplyDialog name={name} userID={userID} convoID={convoID} />
           </Grid>
 
           <Grid item id="follow" className={classes.item}>

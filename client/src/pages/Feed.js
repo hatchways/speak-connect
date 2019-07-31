@@ -56,6 +56,8 @@ class Feed extends Component {
   }
 
   generateConversations = classes => {
+    const userID = this.props.location.state.id;
+
     const posts = this.state.conversations.map(conversation => (
       <Grid item key={conversation._id} className={classes.item}>
         <div className={classes.post}>
@@ -66,7 +68,8 @@ class Feed extends Component {
             username={conversation.username}
             imageUrl={conversation.imageUrl}
             numLikes={Object.keys(conversation.userLikeMap).length}
-            userID={this.props.location.state.id}
+            isLiked={conversation.userLikeMap[userID]}
+            userID={userID}
             convoID={conversation._id}
           />
         </div>

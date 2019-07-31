@@ -79,6 +79,8 @@ class Profile extends Component {
       );
     }
 
+    const userID = this.props.location.state.id;
+
     // else generate the created conversations
     const posts = conversations.map(conversation => (
       <Grid item key={conversation._id} className={classes.item}>
@@ -91,7 +93,8 @@ class Profile extends Component {
           commentCount="0"
           audioURL={conversation.audio} // s3 audio link
           numLikes={Object.keys(conversation.userLikeMap).length}
-          userID={this.props.location.state.id}
+          isLiked={conversation.userLikeMap[userID]}
+          userID={userID}
           convoID={conversation._id}
         />
       </Grid>
