@@ -3,10 +3,10 @@ import { withStyles } from "@material-ui/core/styles";
 import { Grid, Container } from "@material-ui/core";
 import NavBar from "../components/NavBar";
 import UserPanel from "../components/UserPanel";
-import UserPost from "../components/UserPost";
 import AddPost from "../components/AddPost";
 
 import axios from "axios";
+import ConversationDialog from "../components/ConversationDialog";
 
 const profilePageStyle = theme => ({
   content: {
@@ -82,7 +82,7 @@ class Profile extends Component {
     // else generate the created conversations
     const posts = conversations.map(conversation => (
       <Grid item key={conversation._id} className={classes.item}>
-        <UserPost
+        <ConversationDialog
           name={name}
           username={username}
           imageUrl={imageUrl}
