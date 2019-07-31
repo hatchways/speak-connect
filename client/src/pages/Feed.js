@@ -51,12 +51,13 @@ class Feed extends Component {
     const posts = this.state.conversations.map(conversation => (
       <Grid item key={conversation._id} className={classes.item}>
         <FeedUser
-          convoID={conversation._id}
           title={conversation.title}
           audioURL={conversation.audio}
           name={conversation.name}
           username={conversation.username}
           imageUrl={conversation.imageUrl}
+          userID={this.props.location.state.id}
+          convoID={conversation._id}
         />
       </Grid>
     ));

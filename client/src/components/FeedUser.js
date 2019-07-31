@@ -16,17 +16,18 @@ const useStyles = makeStyles(theme => ({
 
 function FeedUser(props) {
   const classes = useStyles();
-  const { convoID, name, username, imageUrl, title, audioURL } = props;
-
+  const { name, username, imageUrl, title, audioURL } = props;
+  const { userID, convoID } = props;
   return (
     <div className={classes.root}>
       <ConversationPost
-        convoID={convoID}
         name={name}
         username={username}
         imageUrl={imageUrl}
         title={title}
         audioURL={audioURL}
+        userID={userID}
+        convoID={convoID}
       />
     </div>
   );
