@@ -75,7 +75,8 @@ function ConversationDialog(props) {
     commentCount,
     audioURL,
     numLikes,
-    isLiked
+    isLiked,
+    comments
   } = props;
   const { userID, convoID } = props;
 
@@ -137,6 +138,7 @@ function ConversationDialog(props) {
               audioURL={audioURL}
               numLikes={numLikes}
               isLiked={isLiked}
+              comments={comments}
               userID={userID}
               convoID={convoID}
             />
