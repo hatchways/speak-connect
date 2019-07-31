@@ -4,15 +4,11 @@ import { makeStyles } from "@material-ui/core/styles";
 import Dialog from "@material-ui/core/Dialog";
 import DialogContent from "@material-ui/core/DialogContent";
 
-import { Container, Typography, Grid } from "@material-ui/core";
-import Divider from "@material-ui/core/Divider";
-
-
 import ConversationPost from "./ConversationPost";
 
 const useStyles = makeStyles(theme => ({
   dialog: {
-    background: "rgb(57, 86, 225, 0.9)" 
+    background: "rgb(57, 86, 225, 0.9)"
   },
   root: {
     paddingLeft: theme.spacing(1)
@@ -35,6 +31,8 @@ const useStyles = makeStyles(theme => ({
 function ConversationDialog(props) {
   const classes = useStyles();
   const { name, username, imageUrl, title, audioURL, open } = props;
+  const { userID, convoID } = props;
+
 
   return (
     <div>
@@ -64,6 +62,8 @@ function ConversationDialog(props) {
               imageUrl={imageUrl}
               title={title}
               audioURL={audioURL}
+              userID={userID}
+              convoID={convoID}
             />
           </div>
         </DialogContent>

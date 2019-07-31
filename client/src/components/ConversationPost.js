@@ -69,6 +69,8 @@ const useStyles = makeStyles(theme => ({
 function ConversationPost(props) {
   const classes = useStyles();
   const { name, username, imageUrl, title, audioURL } = props;
+  const { userID, convoID } = props;
+
 
   const generateHeader = () => {
     return (
@@ -110,7 +112,11 @@ function ConversationPost(props) {
           </Grid>
 
           <Grid item id="reply" className={classes.item}>
-            <ReplyDialog name={name} />
+            <ReplyDialog
+              name={name}
+              userID={userID}
+              convoID={convoID}
+            />
           </Grid>
 
           <Grid item id="follow" className={classes.item}>

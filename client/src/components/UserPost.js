@@ -43,9 +43,9 @@ const useStyles = makeStyles(theme => ({
 
 function UserPost(props) {
   const classes = useStyles();
-  const { time, title, commentCount, audioURL } = props;
-  // information about user
-  const { name, username, imageUrl } = props;
+  const { name, username, imageUrl, time, title, commentCount, audioURL } = props;
+  const { userID, convoID } = props;
+
 
   const [openDialog, setOpenDialog] = useState(false);
 
@@ -88,6 +88,8 @@ function UserPost(props) {
         imageUrl={imageUrl}
         open={openDialog}
         handleClose={handleDialogClose}
+        userID={userID}
+        convoID={convoID}
       />
     </div>
   );

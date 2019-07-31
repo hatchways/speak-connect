@@ -56,6 +56,8 @@ class Feed extends Component {
           name={conversation.name}
           username={conversation.username}
           imageUrl={conversation.imageUrl}
+          userID={this.props.location.state.id}
+          convoID={conversation._id}
         />
       </Grid>
     ));
