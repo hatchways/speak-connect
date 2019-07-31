@@ -6,6 +6,7 @@ const convoSchema = new mongoose.Schema({
     name: { type: String, required: true },
     username: { type: String, required: true },
     imageUrl: { type: String },
+    userLikeMap: { type: Map, of: Boolean },
     comments: [{
         type: mongoose.Schema.Types.ObjectId,
         ref: 'Comments'

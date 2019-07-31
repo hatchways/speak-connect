@@ -2,10 +2,10 @@ import React, { Component } from "react";
 import { withStyles } from "@material-ui/core/styles";
 import { Grid, Container } from "@material-ui/core";
 
-import FeedUser from "../components/FeedUser";
 import NavBar from "../components/NavBar";
 
 import axios from "axios";
+import ConversationPost from "../components/ConversationPost";
 
 const useStyles = theme => ({
   container: {
@@ -17,6 +17,14 @@ const useStyles = theme => ({
   },
   item: {
     marginBottom: theme.spacing(2)
+  },
+  post: {
+    width: "750px",
+    height: "500px",
+    boxShadow: "0px 0px 30px 5px #f0f0f0",
+    borderRadius: "5px",
+    paddingTop: theme.spacing(3),
+    paddingLeft: theme.spacing(5)
   },
   button: {
     marginTop: theme.spacing(5)
@@ -48,17 +56,23 @@ class Feed extends Component {
   }
 
   generateConversations = classes => {
+    const userID = this.props.location.state.id;
+
     const posts = this.state.conversations.map(conversation => (
       <Grid item key={conversation._id} className={classes.item}>
-        <FeedUser
-          title={conversation.title}
-          audioURL={conversation.audio}
-          name={conversation.name}
-          username={conversation.username}
-          imageUrl={conversation.imageUrl}
-          userID={this.props.location.state.id}
-          convoID={conversation._id}
-        />
+        <div className={classes.post}>
+          <ConversationPost
+            title={conversation.title}
+            audioURL={conversation.audio}
+            name={conversation.name}
+            username={conversation.username}
+            imageUrl={conversation.imageUrl}
+            numLikes={Object.keys(conversation.userLikeMap).length}
+            isLiked={conversation.userLikeMap[userID]}
+            userID={userID}
+            convoID={conversation._id}
+          />
+        </div>
       </Grid>
     ));
     return posts;
