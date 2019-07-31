@@ -91,6 +91,8 @@ function UserPost(props) {
 
         open={openDialog}
         handleClose={handleDialogClose}
+        userID={userID}
+        convoID={convoID}
       />
     </div>
   );

@@ -66,7 +66,7 @@ class CreateConversation extends Component {
         errorMessage: "Please record audio"
       });
     } else {
-      const userId = window.localStorage.getItem("id");
+      const userId = window.localStorage.getItem("userID");
       const data = new FormData();
       data.append("audio", this.state.blobObject.blob);
       data.set("title", this.state.title);
@@ -135,8 +135,8 @@ class CreateConversation extends Component {
               {errorMessage ? (
                 <div className={classes.error}>{errorMessage}</div>
               ) : (
-                ""
-              )}
+                  ""
+                )}
             </Grid>
           </Grid>
         </Grid>

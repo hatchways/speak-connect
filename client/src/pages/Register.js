@@ -64,7 +64,7 @@ class Register extends Component {
         // add token, username and id to local storage
         window.localStorage.setItem("token", token);
         window.localStorage.setItem("username", response.data.username);
-        window.localStorage.setItem("id", response.data._id);
+        window.localStorage.setItem("userID", response.data._id);
 
         // test if token is stored
         const localStorageToken = window.localStorage.getItem("token");

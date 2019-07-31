@@ -133,7 +133,11 @@ function ConversationPost(props) {
           </Grid>
 
           <Grid item id="reply" className={classes.item}>
-            <ReplyDialog name={name} />
+            <ReplyDialog
+              name={name}
+              userID={userID}
+              convoID={convoID}
+            />
           </Grid>
 
           <Grid item id="follow" className={classes.item}>

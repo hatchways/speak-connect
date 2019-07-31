@@ -118,7 +118,7 @@ const likeUnlikeConvo = async (userId, convoId) => {
 
 const getConversations = async () => {
     try {
-        const conversations = await Conversation.find();
+        const conversations = await Conversation.find().populate('comments');
         return conversations;
     }
     catch (e) {

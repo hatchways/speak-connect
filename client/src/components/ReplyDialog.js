@@ -11,6 +11,8 @@ import DialogTitle from "@material-ui/core/DialogTitle";
 import Reply from "@material-ui/icons/Reply";
 import AudioRecord from "./AudioRecord";
 
+import axios from "axios";
+
 const useStyles = makeStyles(theme => ({
   root: {
     background: "rgb(57, 86, 225, 0.9)" // blue
@@ -43,7 +45,7 @@ function ReplyDialog(props) {
   const [blobObject, setBlobObject] = useState(null);
   const [errorMessage, setErrorMessage] = useState("");
 
-  const { name } = props;
+  const { name, userID, convoID } = props;
 
   function handleClickOpen() {
     setOpen(true);
@@ -59,14 +61,22 @@ function ReplyDialog(props) {
     setBlobObject(recordedBlob);
   };
 
-  function handleSubmit() {
+  async function handleSubmit() {
     console.log("blob recorded =", blobObject);
     // make sure audio is recorded
     if (blobObject === null) {
       setErrorMessage("please Record Audio");
     } else {
-      // TODO
-      // handle HTTP REQUEST
+      const data = new FormData();
+      data.append("audio", blobObject.blob);
+      await axios
+        .post(`/api/users/${userID}/comments/${convoID}`, data)
+        .then(response => {
+          console.log("Comment saved?:", response.data);
+        })
+        .catch(error => {
+          console.log(error);
+        });
       setOpen(false);
     }
   }

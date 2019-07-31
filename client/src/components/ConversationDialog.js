@@ -4,10 +4,6 @@ import { makeStyles } from "@material-ui/core/styles";
 import Dialog from "@material-ui/core/Dialog";
 import DialogContent from "@material-ui/core/DialogContent";
 
-import { Container, Typography, Grid } from "@material-ui/core";
-import Divider from "@material-ui/core/Divider";
-
-
 import ConversationPost from "./ConversationPost";
 
 const useStyles = makeStyles(theme => ({
