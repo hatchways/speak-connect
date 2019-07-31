@@ -1,6 +1,6 @@
 const express = require("express");
 const router = express.Router();
-const { addUser, addPic, saveConvo, addConvo, getConversations } = require("../db");
+const { addUser, addPic, saveConvo, addConvo, getConversations, saveComment, addComment } = require("../db");
 const validate = require("../validate/validateNew");
 const Users = require("../models/userModel");
 const hash = require("../hash");
@@ -119,8 +119,24 @@ router.put("/:id/conversations", (req, res, next) => {
     }
     // Save new audio in conversation collection
     saveConvo(req.body.title, req.file.location, req.params.id).
-      then(result => addConvo(req.params.id, result._id))
+      then(convo => addConvo(req.params.id, convo._id))
     res.status(200).send('Audio clip added!')
+  })
+});
+
+router.post("/:userID/comments/:convoID", (req, res, next) => {
+  const audio_upload = upload.single('audio');
+  audio_upload(req, res, error => {
+    if (error) {
+      res.status(422).json({ "Error": error.message })
+    }
+    // Save new audio in comment collection
+    saveComment(req.params.userID, req.file.location).
+      then(comment => {
+        console.log('saved comment', comment);
+        addComment(req.params.convoID, comment._id)
+      })
+    res.status(200).send('New comment saved!')
   })
 });
 

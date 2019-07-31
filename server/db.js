@@ -1,6 +1,8 @@
 const mongoose = require('mongoose');
 const Users = require('./models/userModel');
 const Conversation = require('./models/conversationModel');
+const Comments = require('./models/commentsModel');
+
 
 mongoose.connect('mongodb://localhost/profiledb', { useNewUrlParser: true })
     .then(() => console.log('Connected to MongoDb...'))
@@ -101,10 +103,44 @@ const getConversations = async () => {
     }
 }
 
+const saveComment = async (author, audio) => {
+
+    const date = new Date();
+    const comment = new Comments({
+        author,
+        audio,
+        date
+    });
+    try {
+        const result = await comment.save();
+        return result;
+    }
+    catch (e) {
+        console.log('Unable to save comment.', e);
+    }
+}
+
+const addComment = async (convoId, commentID) => {
+
+    try {
+        // Fetch conversation with the given id
+        const conversation = await Conversation.findById(convoId);
+        conversation.comments.push(commentID);
+        const updated = await conversation.save();
+        console.log('Updated conversation', updated)
+        return updated;
+    }
+    catch (e) {
+        console.log('Unable to add new comment to conversation document', e);
+    }
+}
+
 module.exports = {
     addUser,
     addPic,
     saveConvo,
     addConvo,
-    getConversations
+    getConversations,
+    saveComment,
+    addComment
 }
