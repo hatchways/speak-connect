@@ -110,7 +110,7 @@ function ConversationPost(props) {
           </Grid>
 
           <Grid item id="reply" className={classes.item}>
-            <ReplyDialog name={name} />
+            <ReplyDialog name={name} convoID={props.convoID} />
           </Grid>
 
           <Grid item id="follow" className={classes.item}>
