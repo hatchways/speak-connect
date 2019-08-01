@@ -68,7 +68,20 @@ router.get("/conversations", async (req, res, next) => {
 
 router.get("/:id", async (req, res, next) => {
   try {
-    const user = await Users.findById(req.params.id).populate('conversations');
+    const user = await Users.findById(req.params.id).
+      populate({
+        // populate conversations and their comments
+        path: 'conversations',
+        populate: {
+          path: 'comments',
+          populate: {
+            path: 'author',
+            // only fetch fields we need 
+            select: { name: '1', username: '1', imageUrl: '1' }
+          }
+        }
+      });
+
     if (!user) return res.status(404).send('User not found');
     res.status(200).send(user);
   }
