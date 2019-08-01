@@ -78,6 +78,7 @@ function ReplyDialog(props) {
           console.log(error);
         });
       setOpen(false);
+      props.handleNewComment();
     }
   }
 

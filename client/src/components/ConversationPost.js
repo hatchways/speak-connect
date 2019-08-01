@@ -96,16 +96,15 @@ function ConversationPost(props) {
     username,
     imageUrl,
     title,
-    audioURL,
-    numLikes,
-    isLiked,
+    audio,
     comments
-  } = props;
+  } = props.conversation;
   const { userID, convoID } = props;
 
-  const handleLike = async () => {
-    console.log("liked!");
+  const numLikes = Object.keys(props.conversation.userLikeMap).length;
+  const isLiked = props.conversation.userLikeMap[userID];
 
+  const handleLike = async () => {
     const data = {
       userID,
       convoID
@@ -114,12 +113,17 @@ function ConversationPost(props) {
     await axios
       .put(`/api/users/${props.id}/conversations/like`, data)
       .then(response => {
-        console.log("Updated data ", response.data);
+        console.log("conversation successfully liked/unliked ", response.data);
+        props.handleConvoUpdate(convoID);
       })
       .catch(error => {
         console.log(error);
       });
-    window.location.reload();
+  };
+
+  // update convo in parent
+  const handleNewComment = async () => {
+    props.handleConvoUpdate(convoID);
   };
 
   const generateUserInfo = (_name, _username, _imageUrl) => {
@@ -149,7 +153,7 @@ function ConversationPost(props) {
       <div>
         {generateUserInfo(name, username, imageUrl)}
         <Typography className={classes.title}>{title}</Typography>
-        <AudioPlayer audioURL={audioURL} />
+        <AudioPlayer audioURL={audio} />
 
         <Grid container alignItems="center" className={classes.headContainer}>
           <Grid item>
@@ -170,7 +174,7 @@ function ConversationPost(props) {
           </Grid>
 
           <Grid item id="reply" className={classes.item}>
-            <ReplyDialog name={name} userID={userID} convoID={convoID} />
+            <ReplyDialog name={name} userID={userID} convoID={convoID} handleNewComment={handleNewComment} />
           </Grid>
 
           <Grid item id="follow" className={classes.item}>
@@ -206,15 +210,19 @@ function ConversationPost(props) {
 
   const generateComments = () => {
     // loop through and create the comments
-    const commentComponents = props.comments.map(comment => (
+    const commentComponents = comments.map(comment => (
       <Grid item key={comment._id} className={classes.comment}>
-        {generateUserInfo("testname", "testusername", null)}
-        <Typography
+        {generateUserInfo(
+          comment.author.name,
+          comment.author.username,
+          comment.author.imageUrl
+        )}
+        {/* <Typography
           className={classes.secondaryText}
           style={{ marginLeft: "65px" }}
         >
-          replying to @hello
-        </Typography>
+          replying to @{parentUsername}
+        </Typography> */}
         <div style={{ marginLeft: "65px" }}>
           <AudioPlayer audioURL={comment.audio} />
         </div>

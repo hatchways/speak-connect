@@ -55,6 +55,34 @@ class Feed extends Component {
       });
   }
 
+  // called by child components when a conversation 
+  //has been updated and we need to update state
+  updateConvo = async (convoID) => {
+    console.log("update convo id = ", convoID);
+
+    // get the conversation
+    await axios
+      .get(`/api/users/conversations/${convoID}`, { convoID: convoID })
+      .then(response => {
+        console.log("recieved convo: ", response.data);
+        const updatedConvo = response.data;
+
+        let conversations = [...this.state.conversations];
+        // find index of original convo in array
+        let index = conversations.findIndex(conversation => {
+          return conversation._id === convoID;
+        });
+
+        // update convo array
+        conversations[index] = updatedConvo;
+        this.setState({ conversations });
+      })
+      .catch(error => {
+        console.log(error);
+      });
+  }
+
+
   generateConversations = classes => {
     const userID = this.props.location.state.id;
 
@@ -62,16 +90,10 @@ class Feed extends Component {
       <Grid item key={conversation._id} className={classes.item}>
         <div className={classes.post}>
           <ConversationPost
-            title={conversation.title}
-            audioURL={conversation.audio}
-            name={conversation.name}
-            username={conversation.username}
-            imageUrl={conversation.imageUrl}
-            numLikes={Object.keys(conversation.userLikeMap).length}
-            isLiked={conversation.userLikeMap[userID]}
-            comments={conversation.comments}
+            conversation={conversation}
             userID={userID}
             convoID={conversation._id}
+            handleConvoUpdate={convoID => this.updateConvo(convoID)}
           />
         </div>
       </Grid>

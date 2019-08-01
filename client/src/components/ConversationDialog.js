@@ -66,18 +66,7 @@ const useStyles = makeStyles(theme => ({
 
 function ConversationDialog(props) {
   const classes = useStyles();
-  const {
-    name,
-    username,
-    imageUrl,
-    time,
-    title,
-    commentCount,
-    audioURL,
-    numLikes,
-    isLiked,
-    comments
-  } = props;
+  const { time, title, commentCount, conversation } = props;
   const { userID, convoID } = props;
 
   const [openDialog, setOpenDialog] = useState(false);
@@ -123,7 +112,7 @@ function ConversationDialog(props) {
           style: {
             minHeight: "80vh",
             // needed to play nicely with the divider
-            maxWidth: "782px",
+            minWidth: "782px",
             boxShadow: "none"
           }
         }}
@@ -131,16 +120,10 @@ function ConversationDialog(props) {
         <DialogContent>
           <div className={classes.dialogContent}>
             <ConversationPost
-              name={name}
-              username={username}
-              imageUrl={imageUrl}
-              title={title}
-              audioURL={audioURL}
-              numLikes={numLikes}
-              isLiked={isLiked}
-              comments={comments}
+              conversation={conversation}
               userID={userID}
               convoID={convoID}
+              handleConvoUpdate={(convoID) => props.handleConvoUpdate(convoID)}
             />
           </div>
         </DialogContent>
