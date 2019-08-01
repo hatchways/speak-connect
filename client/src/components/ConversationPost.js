@@ -102,6 +102,7 @@ function ConversationPost(props) {
   const { userID, convoID } = props;
 
   const numLikes = Object.keys(props.conversation.userLikeMap).length;
+  const numComments = comments.length;
   const isLiked = props.conversation.userLikeMap[userID];
 
   const handleLike = async () => {
@@ -170,7 +171,7 @@ function ConversationPost(props) {
             <ChatBubble className={classes.commentIcon} />
           </Grid>
           <Grid item id="comments" className={classes.item}>
-            <Typography className={classes.text}>0</Typography>
+            <Typography className={classes.text}>{numComments}</Typography>
           </Grid>
 
           <Grid item id="reply" className={classes.item}>
