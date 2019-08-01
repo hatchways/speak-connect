@@ -20,7 +20,7 @@ const useStyles = theme => ({
   },
   post: {
     width: "750px",
-    height: "500px",
+    minHeight: "500px",
     boxShadow: "0px 0px 30px 5px #f0f0f0",
     borderRadius: "5px",
     paddingTop: theme.spacing(3),
@@ -69,6 +69,7 @@ class Feed extends Component {
             imageUrl={conversation.imageUrl}
             numLikes={Object.keys(conversation.userLikeMap).length}
             isLiked={conversation.userLikeMap[userID]}
+            comments={conversation.comments}
             userID={userID}
             convoID={conversation._id}
           />

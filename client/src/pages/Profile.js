@@ -94,6 +94,7 @@ class Profile extends Component {
           audioURL={conversation.audio} // s3 audio link
           numLikes={Object.keys(conversation.userLikeMap).length}
           isLiked={conversation.userLikeMap[userID]}
+          comments={conversation.comments}
           userID={userID}
           convoID={conversation._id}
         />

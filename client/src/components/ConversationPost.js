@@ -30,10 +30,17 @@ const useStyles = makeStyles(theme => ({
     fontWeight: "bold",
     color: "#adadad" // grey
   },
-  container: {
+  headContainer: {
     marginTop: theme.spacing(3),
     marginBottom: theme.spacing(4),
     width: "90%"
+  },
+  commentsContainer: {
+    marginTop: theme.spacing(3),
+    paddingBottom: theme.spacing(6)
+  },
+  comment: {
+    marginBottom: theme.spacing(4)
   },
   item: {
     marginRight: theme.spacing(2)
@@ -91,7 +98,8 @@ function ConversationPost(props) {
     title,
     audioURL,
     numLikes,
-    isLiked
+    isLiked,
+    comments
   } = props;
   const { userID, convoID } = props;
 
@@ -114,31 +122,36 @@ function ConversationPost(props) {
     window.location.reload();
   };
 
+  const generateUserInfo = (_name, _username, _imageUrl) => {
+    return (
+      <Grid container alignItems="center">
+        <Grid item id="profilePicture">
+          <img
+            src={_imageUrl ? _imageUrl : defaultProfilePic}
+            className={classes.profilePicture}
+            alt="Profile pic"
+          />
+        </Grid>
+        <Grid item id="name" style={{ marginRight: "8px" }}>
+          <Typography className={classes.primaryText}>{_name}</Typography>
+        </Grid>
+        <Grid item id="username">
+          <Typography className={classes.secondaryText}>
+            @{_username}
+          </Typography>
+        </Grid>
+      </Grid>
+    );
+  };
+
   const generateHeader = () => {
     return (
       <div>
-        <Grid container alignItems="center" style={{ marginTop: "20px" }}>
-          <Grid item id="profilePicture">
-            <img
-              src={imageUrl ? imageUrl : defaultProfilePic}
-              className={classes.profilePicture}
-              alt="Profile pic"
-            />
-          </Grid>
-          <Grid item id="name" style={{ marginRight: "8px" }}>
-            <Typography className={classes.primaryText}>{name}</Typography>
-          </Grid>
-          <Grid item id="username">
-            <Typography className={classes.secondaryText}>
-              @{username}
-            </Typography>
-          </Grid>
-        </Grid>
-
+        {generateUserInfo(name, username, imageUrl)}
         <Typography className={classes.title}>{title}</Typography>
         <AudioPlayer audioURL={audioURL} />
 
-        <Grid container alignItems="center" className={classes.container}>
+        <Grid container alignItems="center" className={classes.headContainer}>
           <Grid item>
             <ThumbUp
               className={isLiked ? classes.likedIcon : classes.unlikedIcon}
@@ -191,11 +204,36 @@ function ConversationPost(props) {
     );
   };
 
+  const generateComments = () => {
+    // loop through and create the comments
+    const commentComponents = props.comments.map(comment => (
+      <Grid item key={comment._id} className={classes.comment}>
+        {generateUserInfo("testname", "testusername", null)}
+        <Typography
+          className={classes.secondaryText}
+          style={{ marginLeft: "65px" }}
+        >
+          replying to @hello
+        </Typography>
+        <div style={{ marginLeft: "65px" }}>
+          <AudioPlayer audioURL={comment.audio} />
+        </div>
+      </Grid>
+    ));
+
+    return (
+      <Grid container alignItems="center" className={classes.commentsContainer}>
+        {commentComponents}
+      </Grid>
+    );
+  };
+
   return (
-    <React.Fragment>
+    <div style={{ marginTop: "10px" }}>
       {generateHeader()}
       <Divider className={classes.divider} />
-    </React.Fragment>
+      {generateComments()}
+    </div>
   );
 }
 
