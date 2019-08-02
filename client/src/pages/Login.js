@@ -64,7 +64,7 @@ class Login extends Component {
         console.log("token from local storage = ", localStorageToken);
 
         //direct user to profile page
-        this.props.history.push("/profile", { id: response.data._id });
+        this.props.history.push(`profile/${response.data._id}`, { id: response.data._id });
       })
       .catch(error => {
         console.log("ERROR:", error);

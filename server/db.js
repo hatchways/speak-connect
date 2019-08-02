@@ -61,6 +61,7 @@ const saveConvo = async (title, audio, userId) => {
     const name = user.name;
     const username = user.username;
     const imageUrl = user.imageUrl;
+    const userID = userId;
     const userLikeMap = new Map();
 
     const convo = new Conversation({
@@ -69,6 +70,7 @@ const saveConvo = async (title, audio, userId) => {
         name,
         username,
         imageUrl,
+        userID,
         userLikeMap
     });
     try {

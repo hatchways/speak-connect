@@ -75,7 +75,7 @@ class CreateConversation extends Component {
         .put(`/api/users/${userId}/conversations`, data)
         .then(response => {
           console.log(response.data);
-          this.props.history.push("/profile", { id: userId });
+          this.props.history.push(`profile/${userId}`, { id: userId });
         })
         .catch(error => {
           console.log(error);

@@ -96,7 +96,7 @@ function NavBar(props) {
         </Link>
         <Link
           to={{
-            pathname: "/profile",
+            pathname: `/profile/${props.location.state.id}`,
             state: { id: props.location.state.id }
           }}
           className={classes.link}
@@ -107,7 +107,7 @@ function NavBar(props) {
         </Link>
         <Link
           to={{
-            pathname: "/profile",
+            pathname: `/profile/${props.location.state.id}`,
             state: { id: props.location.state.id }
           }}
           className={classes.link}
@@ -133,7 +133,7 @@ function NavBar(props) {
         </Link>
         <Link
           to={{
-            pathname: "/profile",
+            pathname: `/profile/${props.location.state.id}`,
             state: { id: props.location.state.id }
           }}
           className={classes.link}

@@ -18,7 +18,7 @@ function App() {
       <BrowserRouter>
         <Route path="/" exact component={Register} />
         <Route path="/login" component={Login} />
-        <Route path="/profile" component={Profile} />
+        <Route path="/profile/:id" component={Profile} />
         <Route path="/create-conversation" component={CreateConversation} />
         <Route path="/feed" component={Feed} />
       </BrowserRouter>

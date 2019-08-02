@@ -41,15 +41,24 @@ class Profile extends Component {
       location: "",
       description: "",
       imageUrl: "",
-      conversations: []
+      conversations: [],
+      profileID: ""
     };
   }
 
   async componentDidMount() {
-    console.log("data from history", this.props.location.state.id);
+    console.log(
+      "id of logged in user from history:",
+      this.props.location.state.id
+    );
+
+    // path looks like '/pathname/:id' thus we grab the id
+    const profileID = this.props.location.pathname.substring(9);
+    console.log("id of user whose profile we are on:", profileID);
+    this.setState({ profileID });
 
     await axios
-      .get(`/api/users/${this.props.location.state.id}`)
+      .get(`/api/users/${profileID}`)
       .then(response => {
         console.log("Data received:", response.data);
         this.setState({
@@ -66,9 +75,9 @@ class Profile extends Component {
       });
   }
 
-  // called by child components when a conversation 
+  // called by child components when a conversation
   //has been updated and we need to update state
-  updateConvo = async (convoID) => {
+  updateConvo = async convoID => {
     console.log("update convo id = ", convoID);
 
     // get the conversation
@@ -91,11 +100,11 @@ class Profile extends Component {
       .catch(error => {
         console.log(error);
       });
-  }
+  };
 
   generateUserPosts = () => {
     const { classes } = this.props;
-    const { conversations, name, username, imageUrl } = this.state;
+    const { conversations, name, username, imageUrl, profileID } = this.state;
 
     // if user has not created a conversation display an "add post" component
     if (conversations.length === 0) {
@@ -127,7 +136,14 @@ class Profile extends Component {
 
   render() {
     const { classes } = this.props;
-    const { name, username, location, description, imageUrl } = this.state;
+    const {
+      name,
+      username,
+      location,
+      description,
+      imageUrl,
+      profileID
+    } = this.state;
 
     return (
       <div>
@@ -135,12 +151,13 @@ class Profile extends Component {
         <Container className={classes.content} maxWidth="lg">
           <div className={classes.userpanel}>
             <UserPanel
-              id={this.props.location.state.id}
+              id={profileID}
               name={name}
               username={username}
               location={location}
               description={description}
               imageUrl={imageUrl}
+              isLoggedInUser={ this.props.location.state.id === profileID }
             />
           </div>
           <Grid container className={classes.grid}>

@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 import { makeStyles } from "@material-ui/core/styles";
 import { Grid } from "@material-ui/core";
 import { Typography } from "@material-ui/core";
@@ -86,6 +87,12 @@ const useStyles = makeStyles(theme => ({
     objectFit: "cover",
     borderRadius: "50%",
     marginRight: theme.spacing(2)
+  },
+  link: {
+    textDecoration: "none",
+    "&:visted": {
+      textDecoration: "none",
+    }
   }
 }));
 
@@ -99,6 +106,8 @@ function ConversationPost(props) {
     audio,
     comments
   } = props.conversation;
+  const convoUserID = props.conversation.userID;
+
   const { userID, convoID } = props;
 
   const numLikes = Object.keys(props.conversation.userLikeMap).length;
@@ -127,8 +136,9 @@ function ConversationPost(props) {
     props.handleConvoUpdate(convoID);
   };
 
-  const generateUserInfo = (_name, _username, _imageUrl) => {
+  const generateUserInfo = (_name, _username, _imageUrl, _convoUserID) => {
     return (
+
       <Grid container alignItems="center">
         <Grid item id="profilePicture">
           <img
@@ -141,9 +151,19 @@ function ConversationPost(props) {
           <Typography className={classes.primaryText}>{_name}</Typography>
         </Grid>
         <Grid item id="username">
-          <Typography className={classes.secondaryText}>
-            @{_username}
-          </Typography>
+          {/* create a link to the conversation user's profile page */}
+          <Link
+            to={{
+              pathname: `/profile/${_convoUserID}`,
+              state: { id: userID }
+            }}
+            className={classes.link}
+          >
+            <Typography className={classes.secondaryText}>
+              @{_username}
+            </Typography>
+          </Link>
+
         </Grid>
       </Grid>
     );
@@ -152,7 +172,7 @@ function ConversationPost(props) {
   const generateHeader = () => {
     return (
       <div>
-        {generateUserInfo(name, username, imageUrl)}
+        {generateUserInfo(name, username, imageUrl, convoUserID)}
         <Typography className={classes.title}>{title}</Typography>
         <AudioPlayer audioURL={audio} />
 
@@ -175,7 +195,12 @@ function ConversationPost(props) {
           </Grid>
 
           <Grid item id="reply" className={classes.item}>
-            <ReplyDialog name={name} userID={userID} convoID={convoID} handleNewComment={handleNewComment} />
+            <ReplyDialog
+              name={name}
+              userID={userID}
+              convoID={convoID}
+              handleNewComment={handleNewComment}
+            />
           </Grid>
 
           <Grid item id="follow" className={classes.item}>
@@ -216,7 +241,8 @@ function ConversationPost(props) {
         {generateUserInfo(
           comment.author.name,
           comment.author.username,
-          comment.author.imageUrl
+          comment.author.imageUrl,
+          comment.author._id
         )}
         {/* <Typography
           className={classes.secondaryText}
