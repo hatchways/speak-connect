@@ -118,7 +118,16 @@ const likeUnlikeConvo = async (userId, convoId) => {
 
 const getConversations = async () => {
     try {
-        const conversations = await Conversation.find().populate('comments');
+        const conversations = await Conversation.find().
+            populate({
+                path: 'comments',
+                // populate author of comments
+                populate: {
+                    path: 'author',
+                    // only fetch fields we need 
+                    select: { name: '1', username: '1', imageUrl: '1' }
+                }
+            });
         return conversations;
     }
     catch (e) {

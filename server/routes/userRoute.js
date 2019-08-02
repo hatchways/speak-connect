@@ -3,6 +3,7 @@ const router = express.Router();
 const { addUser, addPic, saveConvo, addConvo, likeUnlikeConvo, getConversations, saveComment, addComment } = require("../db");
 const validate = require("../validate/validateNew");
 const Users = require("../models/userModel");
+const Conversation = require('../models/conversationModel');
 const hash = require("../hash");
 const authorize = require("../authorize");
 const upload = require("../services/fileUpload");
@@ -66,9 +67,45 @@ router.get("/conversations", async (req, res, next) => {
   res.status(200).send(conversations);
 })
 
+// get a single conversation
+router.get("/conversations/:convoID", async (req, res, next) => {
+  try {
+    const convo = await Conversation.findById(req.params.convoID).
+      populate({
+        path: 'comments',
+        // populate author of comments
+        populate: {
+          path: 'author',
+          // only fetch fields we need 
+          select: { name: '1', username: '1', imageUrl: '1' }
+        }
+      })
+
+    if (!convo) return res.status(404).send('Conversation not found');
+    res.status(200).send(convo);
+  }
+  catch (e) {
+    res.status(500).send('Unable to retrieve Conversation.Try again later')
+    console.log('Unable to retrieve conversation');
+  }
+});
+
 router.get("/:id", async (req, res, next) => {
   try {
-    const user = await Users.findById(req.params.id).populate('conversations');
+    const user = await Users.findById(req.params.id).
+      populate({
+        // populate conversations and their comments
+        path: 'conversations',
+        populate: {
+          path: 'comments',
+          populate: {
+            path: 'author',
+            // only fetch fields we need 
+            select: { name: '1', username: '1', imageUrl: '1' }
+          }
+        }
+      });
+
     if (!user) return res.status(404).send('User not found');
     res.status(200).send(user);
   }
@@ -126,9 +163,8 @@ router.put("/:id/conversations", (req, res, next) => {
 
 // route to like or unlike a conversation
 router.put("/:id/conversations/like", (req, res, next) => {
-  console.log("like request = ", req.body);
   likeUnlikeConvo(req.body.userID, req.body.convoID)
-    .then(result => res.status(200).send("conversation successfully liked/unliked"))
+    .then(result => res.status(200).send(result))
     .catch(e => res.status(500).send('Unable to like/unlike!'));
 
 });
