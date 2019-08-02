@@ -55,9 +55,9 @@ class Feed extends Component {
       });
   }
 
-  // called by child components when a conversation 
+  // called by child components when a conversation
   //has been updated and we need to update state
-  updateConvo = async (convoID) => {
+  updateConvo = async convoID => {
     console.log("update convo id = ", convoID);
 
     // get the conversation
@@ -80,8 +80,7 @@ class Feed extends Component {
       .catch(error => {
         console.log(error);
       });
-  }
-
+  };
 
   generateConversations = classes => {
     const userID = this.props.location.state.id;
