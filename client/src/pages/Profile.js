@@ -54,7 +54,7 @@ class Profile extends Component {
 
     // path looks like '/pathname/:id' thus we grab the id
     const profileID = this.props.location.pathname.substring(9);
-    console.log("id of profile user:", profileID);
+    console.log("id of user whose profile we are on:", profileID);
     this.setState({ profileID });
 
     await axios
@@ -157,6 +157,7 @@ class Profile extends Component {
               location={location}
               description={description}
               imageUrl={imageUrl}
+              isLoggedInUser={ this.props.location.state.id === profileID }
             />
           </div>
           <Grid container className={classes.grid}>

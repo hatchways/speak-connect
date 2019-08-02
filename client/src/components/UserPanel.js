@@ -11,6 +11,7 @@ import LocationOn from "@material-ui/icons/LocationOn";
 import defaultProfilePic from "../assets/default-profile-pic.png";
 
 import axios from "axios";
+import { StyledButton } from "../themes/theme";
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -53,7 +54,15 @@ const useStyles = makeStyles(theme => ({
 
 function UserPanel(props) {
   const classes = useStyles();
-  const { id, name, username, location, description, imageUrl } = props;
+  const {
+    id,
+    name,
+    username,
+    location,
+    description,
+    imageUrl,
+    isLoggedInUser
+  } = props;
 
   const uploadHandler = async e => {
     const data = new FormData();
@@ -78,11 +87,17 @@ function UserPanel(props) {
         </Typography>
       );
     }
-    return (
-      <Typography className={classes.unsetFieldText} style={{ float: "left" }}>
-        location
-      </Typography>
-    );
+    // display placeholder if on profile page of logged in user
+    else if (isLoggedInUser) {
+      return (
+        <Typography
+          className={classes.unsetFieldText}
+          style={{ float: "left" }}
+        >
+          location
+        </Typography>
+      );
+    }
   };
 
   // if description is set display it otherwise display placeholder
@@ -92,8 +107,48 @@ function UserPanel(props) {
         <Typography className={classes.secondaryText}>{description}</Typography>
       );
     }
+    // display placeholder if on profile page of logged in user
+    else if (isLoggedInUser) {
+      return (
+        <Typography className={classes.unsetFieldText}>description</Typography>
+      );
+    }
+  };
+
+  const generateEditProfilePic = () => {
+    // can edit profile pic if it is the the logged in user's page
+    if (isLoggedInUser) {
+      return (
+        <div style={{ textAlign: "center" }}>
+          <input
+            accept="image/*"
+            style={{ display: "none" }}
+            id="picture-upload"
+            type="file"
+            onChange={uploadHandler}
+          />
+          <label htmlFor="picture-upload">
+            <IconButton color="secondary" component="span">
+              <PhotoCamera />
+            </IconButton>
+          </label>
+        </div>
+      );
+    }
+  };
+
+  const generateEditOrFollowButton = () => {
+    if (isLoggedInUser) {
+      return <UserEditDialog id={props.id} />;
+    }
     return (
-      <Typography className={classes.unsetFieldText}>description</Typography>
+      <StyledButton
+        variant="contained"
+        color="secondary"
+        style={{ textTransform: "none", margin: "3px" }}
+      >
+        Follow
+      </StyledButton>
     );
   };
 
@@ -110,20 +165,7 @@ function UserPanel(props) {
           className={classes.profilePicture}
           alt="Profile pic"
         />
-        <div style={{ textAlign: "center" }}>
-          <input
-            accept="image/*"
-            style={{ display: "none" }}
-            id="picture-upload"
-            type="file"
-            onChange={uploadHandler}
-          />
-          <label htmlFor="picture-upload">
-            <IconButton color="secondary" component="span">
-              <PhotoCamera />
-            </IconButton>
-          </label>
-        </div>
+        {generateEditProfilePic()}
       </Grid>
       <Grid
         item
@@ -138,8 +180,8 @@ function UserPanel(props) {
         <LocationOn color="secondary" style={{ float: "left" }} />
         {generateLocation()}
       </Grid>
-      <Grid item id="edit" className={classes.item}>
-        <UserEditDialog id={props.id} />
+      <Grid item id="editOrFollow" className={classes.item}>
+        {generateEditOrFollowButton()}
       </Grid>
       <Grid
         item
