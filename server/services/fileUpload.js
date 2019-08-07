@@ -11,17 +11,7 @@ aws.config.update({
 
 const s3 = new aws.S3()
 
-const fileFilter = (req, file, cb) => {
-    if (file.mimetype === 'image/png' || file.mimetype === 'image/jpeg' || file.mimetype === 'audio/webm') {
-        cb(null, true);
-    }
-    else {
-        cb(new Error('Invalid type. jpeg, png or audio files only!'), false);
-    }
-}
-
 const upload = multer({
-    // fileFilter,
     storage: multerS3({
         s3,
         bucket: 'twitter-audio',
