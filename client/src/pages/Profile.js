@@ -104,7 +104,7 @@ class Profile extends Component {
 
   generateUserPosts = () => {
     const { classes } = this.props;
-    const { conversations, name, username, imageUrl, profileID } = this.state;
+    const { conversations } = this.state;
 
     // if user has not created a conversation display an "add post" component
     if (conversations.length === 0) {
@@ -157,7 +157,7 @@ class Profile extends Component {
               location={location}
               description={description}
               imageUrl={imageUrl}
-              isLoggedInUser={ this.props.location.state.id === profileID }
+              isLoggedInUser={this.props.location.state.id === profileID}
             />
           </div>
           <Grid container className={classes.grid}>
