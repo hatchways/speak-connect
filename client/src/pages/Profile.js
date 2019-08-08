@@ -121,9 +121,8 @@ class Profile extends Component {
     const posts = conversations.map(conversation => (
       <Grid item key={conversation._id} className={classes.item}>
         <ConversationDialog
-          time="00:00"
           title={conversation.title}
-          commentCount="0"
+          commentCount={conversation.comments.length}
           conversation={conversation}
           userID={userID}
           convoID={conversation._id}
