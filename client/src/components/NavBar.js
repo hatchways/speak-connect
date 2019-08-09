@@ -13,7 +13,16 @@ const useStyles = makeStyles(theme => ({
   root: {},
   logo: {
     marginTop: theme.spacing(1),
+    marginRight: theme.spacing(3),
     height: "42px"
+  },
+  logoText: {
+    color: theme.palette.secondary.main,
+    fontFamily: "Gilroy-ExtraBold",
+    fontSize: "15px",
+    // center text vertically beside logo
+    position: "relative",
+    top: "-16px"
   },
   button: {
     margin: theme.spacing(1),
@@ -166,6 +175,9 @@ function NavBar(props) {
         <Toolbar variant="regular" className={classes.toolbar}>
           <div style={{ flex: "1" }}>
             <img src={logo} className={classes.logo} alt="logo" />
+            <Typography component="span" className={classes.logoText}>
+              SPEAK CONNECT
+            </Typography>
           </div>
 
           <span>{generateNavBarLinks()}</span>
