@@ -15,18 +15,14 @@ const useStyles = makeStyles(theme => ({
     height: "225px",
     boxShadow: "0px 0px 30px 5px #f0f0f0",
     borderRadius: "5px",
+    "&:hover": {
+      background: "#edf1ff" // blue grey
+    },
     padding: theme.spacing(3)
   },
   grid: {
     width: "100%",
     height: "100%"
-  },
-  timeText: {
-    fontSize: "12px",
-    fontWeight: "bold",
-    color: "#adadad", // grey
-    marginLeft: theme.spacing(1),
-    marginTop: theme.spacing(0.8)
   },
   subjectText: {
     fontSize: "20px",
@@ -66,7 +62,7 @@ const useStyles = makeStyles(theme => ({
 
 function ConversationDialog(props) {
   const classes = useStyles();
-  const { time, title, commentCount, conversation } = props;
+  const { title, commentCount, conversation } = props;
   const { userID, convoID } = props;
 
   const [openDialog, setOpenDialog] = useState(false);
@@ -82,8 +78,6 @@ function ConversationDialog(props) {
         >
           <Grid item id="play" style={{ display: "flex" }}>
             <img src={playButton} alt="Play Button" />
-
-            <Typography className={classes.timeText}>{time}</Typography>
           </Grid>
 
           <Grid item id="subject">
@@ -123,7 +117,7 @@ function ConversationDialog(props) {
               conversation={conversation}
               userID={userID}
               convoID={convoID}
-              handleConvoUpdate={(convoID) => props.handleConvoUpdate(convoID)}
+              handleConvoUpdate={convoID => props.handleConvoUpdate(convoID)}
             />
           </div>
         </DialogContent>

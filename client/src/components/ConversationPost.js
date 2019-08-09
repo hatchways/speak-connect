@@ -91,7 +91,7 @@ const useStyles = makeStyles(theme => ({
   link: {
     textDecoration: "none",
     "&:visted": {
-      textDecoration: "none",
+      textDecoration: "none"
     }
   }
 }));
@@ -106,9 +106,9 @@ function ConversationPost(props) {
     audio,
     comments
   } = props.conversation;
-  const convoUserID = props.conversation.userID;
 
   const { userID, convoID } = props;
+  const convoUserID = props.conversation.userID;
 
   const numLikes = Object.keys(props.conversation.userLikeMap).length;
   const numComments = comments.length;
@@ -138,7 +138,6 @@ function ConversationPost(props) {
 
   const generateUserInfo = (_name, _username, _imageUrl, _convoUserID) => {
     return (
-
       <Grid container alignItems="center">
         <Grid item id="profilePicture">
           <img
@@ -163,7 +162,6 @@ function ConversationPost(props) {
               @{_username}
             </Typography>
           </Link>
-
         </Grid>
       </Grid>
     );
@@ -235,6 +233,7 @@ function ConversationPost(props) {
   };
 
   const generateComments = () => {
+    const parentUsername = username;
     // loop through and create the comments
     const commentComponents = comments.map(comment => (
       <Grid item key={comment._id} className={classes.comment}>
@@ -244,12 +243,12 @@ function ConversationPost(props) {
           comment.author.imageUrl,
           comment.author._id
         )}
-        {/* <Typography
+        <Typography
           className={classes.secondaryText}
-          style={{ marginLeft: "65px" }}
+          style={{ marginLeft: "65px", marginBottom: "5px" }}
         >
           replying to @{parentUsername}
-        </Typography> */}
+        </Typography>
         <div style={{ marginLeft: "65px" }}>
           <AudioPlayer audioURL={comment.audio} />
         </div>

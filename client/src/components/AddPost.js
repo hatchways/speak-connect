@@ -11,7 +11,6 @@ const useStyles = makeStyles(theme => ({
     width: "200px",
     height: "225px",
     backgroundColor: "#fafafa",
-    // boxShadow: "0px 0px 30px 5px #f0f0f0",
     borderRadius: "5px",
     borderStyle: "dashed",
     borderColor: "#e6e6e6", // grey
