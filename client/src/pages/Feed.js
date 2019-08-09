@@ -5,7 +5,7 @@ import { Grid, Container } from "@material-ui/core";
 import NavBar from "../components/NavBar";
 
 import axios from "axios";
-import ConversationPost from "../components/ConversationPost";
+import ConversationPost from "../components/conversation/ConversationPost";
 
 const useStyles = theme => ({
   container: {

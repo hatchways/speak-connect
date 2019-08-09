@@ -8,10 +8,10 @@ import Divider from "@material-ui/core/Divider";
 import ThumbUp from "@material-ui/icons/ThumbUp";
 import ChatBubble from "@material-ui/icons/ChatBubble";
 import Star from "@material-ui/icons/Star";
-import defaultProfilePic from "../assets/default-profile-pic.png";
+import defaultProfilePic from "../../assets/default-profile-pic.png";
 
-import { StyledButton } from "../themes/theme";
-import AudioPlayer from "./AudioPlayer";
+import { StyledButton } from "../../themes/theme";
+import AudioPlayer from "../AudioPlayer";
 import ReplyDialog from "./ReplyDialog";
 
 import axios from "axios";

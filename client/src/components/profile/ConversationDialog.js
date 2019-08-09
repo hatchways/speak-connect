@@ -7,7 +7,7 @@ import commentImg from "../../assets/comment.png";
 import Dialog from "@material-ui/core/Dialog";
 import DialogContent from "@material-ui/core/DialogContent";
 
-import ConversationPost from "../ConversationPost";
+import ConversationPost from "../conversation/ConversationPost";
 
 const useStyles = makeStyles(theme => ({
   panel: {
