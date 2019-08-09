@@ -103,28 +103,12 @@ function NavBar(props) {
             Explore
           </Button>
         </Link>
-        <Link
-          to={{
-            pathname: `/profile/${props.location.state.id}`,
-            state: { id: props.location.state.id }
-          }}
-          className={classes.link}
-        >
-          <Button color="secondary" className={classes.button}>
-            Messages
-          </Button>
-        </Link>
-        <Link
-          to={{
-            pathname: `/profile/${props.location.state.id}`,
-            state: { id: props.location.state.id }
-          }}
-          className={classes.link}
-        >
-          <Button color="secondary" className={classes.button}>
-            Notifications
-          </Button>
-        </Link>
+        <Button color="secondary" className={classes.button}>
+          Messages
+        </Button>
+        <Button color="secondary" className={classes.button}>
+          Notifications
+        </Button>
         <Link
           to={{
             pathname: "/create-conversation",
