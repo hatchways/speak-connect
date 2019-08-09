@@ -15,6 +15,8 @@ import AudioPlayer from "../AudioPlayer";
 import ReplyDialog from "./ReplyDialog";
 
 import axios from "axios";
+import UserInfoHeader from "./UserInfoHeader";
+import Comments from "./Comments";
 
 const useStyles = makeStyles(theme => ({
   title: {
@@ -23,25 +25,10 @@ const useStyles = makeStyles(theme => ({
     marginBottom: theme.spacing(1),
     marginTop: theme.spacing(2)
   },
-  primaryText: {
-    fontWeight: "bold"
-  },
-  secondaryText: {
-    fontSize: "14px",
-    fontWeight: "bold",
-    color: "#adadad" // grey
-  },
   headContainer: {
     marginTop: theme.spacing(3),
     marginBottom: theme.spacing(4),
     width: "90%"
-  },
-  commentsContainer: {
-    marginTop: theme.spacing(3),
-    paddingBottom: theme.spacing(6)
-  },
-  comment: {
-    marginBottom: theme.spacing(4)
   },
   item: {
     marginRight: theme.spacing(2)
@@ -75,24 +62,6 @@ const useStyles = makeStyles(theme => ({
     position: "relative",
     left: "-40px",
     width: "790px"
-  },
-  profilePicture: {
-    width: "100%",
-    height: "100%",
-    maxWidth: "50px",
-    maxHeight: "50px",
-    minWidth: "50px",
-    minHeight: "50px",
-
-    objectFit: "cover",
-    borderRadius: "50%",
-    marginRight: theme.spacing(2)
-  },
-  link: {
-    textDecoration: "none",
-    "&:visted": {
-      textDecoration: "none"
-    }
   }
 }));
 
@@ -136,41 +105,16 @@ function ConversationPost(props) {
     props.handleConvoUpdate(convoID);
   };
 
-  const generateUserInfo = (_name, _username, _imageUrl, _convoUserID) => {
-    return (
-      <Grid container alignItems="center">
-        <Grid item id="profilePicture">
-          <img
-            src={_imageUrl ? _imageUrl : defaultProfilePic}
-            className={classes.profilePicture}
-            alt="Profile pic"
-          />
-        </Grid>
-        <Grid item id="name" style={{ marginRight: "8px" }}>
-          <Typography className={classes.primaryText}>{_name}</Typography>
-        </Grid>
-        <Grid item id="username">
-          {/* create a link to the conversation user's profile page */}
-          <Link
-            to={{
-              pathname: `/profile/${_convoUserID}`,
-              state: { id: userID }
-            }}
-            className={classes.link}
-          >
-            <Typography className={classes.secondaryText}>
-              @{_username}
-            </Typography>
-          </Link>
-        </Grid>
-      </Grid>
-    );
-  };
-
   const generateHeader = () => {
     return (
       <div>
-        {generateUserInfo(name, username, imageUrl, convoUserID)}
+        <UserInfoHeader
+          name={name}
+          username={username}
+          imageUrl={imageUrl}
+          userID={convoUserID}
+          loggedInUserID={userID}
+        />
         <Typography className={classes.title}>{title}</Typography>
         <AudioPlayer audioURL={audio} />
 
@@ -232,41 +176,15 @@ function ConversationPost(props) {
     );
   };
 
-  const generateComments = () => {
-    const parentUsername = username;
-    // loop through and create the comments
-    const commentComponents = comments.map(comment => (
-      <Grid item key={comment._id} className={classes.comment}>
-        {generateUserInfo(
-          comment.author.name,
-          comment.author.username,
-          comment.author.imageUrl,
-          comment.author._id
-        )}
-        <Typography
-          className={classes.secondaryText}
-          style={{ marginLeft: "65px", marginBottom: "5px" }}
-        >
-          replying to @{parentUsername}
-        </Typography>
-        <div style={{ marginLeft: "65px" }}>
-          <AudioPlayer audioURL={comment.audio} />
-        </div>
-      </Grid>
-    ));
-
-    return (
-      <Grid container alignItems="center" className={classes.commentsContainer}>
-        {commentComponents}
-      </Grid>
-    );
-  };
-
   return (
     <div style={{ marginTop: "10px" }}>
       {generateHeader()}
       <Divider className={classes.divider} />
-      {generateComments()}
+      <Comments
+        parentUsername={username}
+        comments={comments}
+        loggedInUserID={userID}
+      />
     </div>
   );
 }
