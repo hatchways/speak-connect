@@ -24,13 +24,6 @@ const useStyles = makeStyles(theme => ({
     width: "100%",
     height: "100%"
   },
-  timeText: {
-    fontSize: "12px",
-    fontWeight: "bold",
-    color: "#adadad", // grey
-    marginLeft: theme.spacing(1),
-    marginTop: theme.spacing(0.8)
-  },
   subjectText: {
     fontSize: "20px",
     fontWeight: "bold",
@@ -69,7 +62,7 @@ const useStyles = makeStyles(theme => ({
 
 function ConversationDialog(props) {
   const classes = useStyles();
-  const { time, title, commentCount, conversation } = props;
+  const { title, commentCount, conversation } = props;
   const { userID, convoID } = props;
 
   const [openDialog, setOpenDialog] = useState(false);
