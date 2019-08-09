@@ -8,10 +8,10 @@ import IconButton from "@material-ui/core/IconButton";
 import PhotoCamera from "@material-ui/icons/PhotoCamera";
 import LocationOn from "@material-ui/icons/LocationOn";
 
-import defaultProfilePic from "../assets/default-profile-pic.png";
+import defaultProfilePic from "../../assets/default-profile-pic.png";
 
 import axios from "axios";
-import { StyledButton } from "../themes/theme";
+import { StyledButton } from "../../themes/theme";
 
 const useStyles = makeStyles(theme => ({
   root: {

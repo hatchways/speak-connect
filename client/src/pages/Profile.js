@@ -2,11 +2,11 @@ import React, { Component } from "react";
 import { withStyles } from "@material-ui/core/styles";
 import { Grid, Container } from "@material-ui/core";
 import NavBar from "../components/NavBar";
-import UserPanel from "../components/UserPanel";
-import AddPost from "../components/AddPost";
+import UserPanel from "../components/profile/UserPanel";
+import AddPost from "../components/profile/AddPost";
 
 import axios from "axios";
-import ConversationDialog from "../components/ConversationDialog";
+import ConversationDialog from "../components/profile/ConversationDialog";
 
 const profilePageStyle = theme => ({
   content: {
