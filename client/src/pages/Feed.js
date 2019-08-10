@@ -5,7 +5,7 @@ import { Grid, Container } from "@material-ui/core";
 import NavBar from "../components/NavBar";
 
 import axios from "axios";
-import ConversationPost from "../components/conversation/ConversationPost";
+import Conversation from "../components/conversation/Conversation";
 
 const useStyles = theme => ({
   container: {
@@ -88,7 +88,7 @@ class Feed extends Component {
     const posts = this.state.conversations.map(conversation => (
       <Grid item key={conversation._id} className={classes.item}>
         <div className={classes.post}>
-          <ConversationPost
+          <Conversation
             conversation={conversation}
             userID={userID}
             convoID={conversation._id}

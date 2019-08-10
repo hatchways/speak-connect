@@ -63,7 +63,7 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 
-function ConversationPost(props) {
+function Conversation(props) {
   const classes = useStyles();
   const {
     name,
@@ -187,4 +187,4 @@ function ConversationPost(props) {
   );
 }
 
-export default ConversationPost;
+export default Conversation;
