@@ -62,8 +62,7 @@ const useStyles = makeStyles(theme => ({
 
 function ConversationDialog(props) {
   const classes = useStyles();
-  const { title, commentCount, conversation } = props;
-  const { userID, convoID } = props;
+  const { title, commentCount, conversation, loggedInUserID } = props;
 
   const [openDialog, setOpenDialog] = useState(false);
 
@@ -115,8 +114,7 @@ function ConversationDialog(props) {
           <div className={classes.dialogContent}>
             <Conversation
               conversation={conversation}
-              userID={userID}
-              convoID={convoID}
+              loggedInUserID={loggedInUserID}
               handleConvoUpdate={convoID => props.handleConvoUpdate(convoID)}
             />
           </div>

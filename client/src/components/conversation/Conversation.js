@@ -74,17 +74,18 @@ function Conversation(props) {
     comments
   } = props.conversation;
 
-  const { userID, convoID } = props;
+  const { loggedInUserID } = props;
+  const convoID = props.conversation._id;
   const convoUserID = props.conversation.userID;
 
   const numLikes = Object.keys(props.conversation.userLikeMap).length;
   const numComments = comments.length;
-  const isLiked = props.conversation.userLikeMap[userID];
+  const isLiked = props.conversation.userLikeMap[loggedInUserID];
 
   const handleLike = async () => {
     const data = {
-      userID,
-      convoID
+      userID: loggedInUserID,
+      convoID: convoID
     };
 
     await axios
@@ -111,7 +112,7 @@ function Conversation(props) {
           username={username}
           imageUrl={imageUrl}
           userID={convoUserID}
-          loggedInUserID={userID}
+          loggedInUserID={loggedInUserID}
         />
         <Typography className={classes.title}>{title}</Typography>
         <AudioPlayer audioURL={audio} />
@@ -137,7 +138,7 @@ function Conversation(props) {
           <Grid item id="reply" className={classes.item}>
             <ReplyDialog
               name={name}
-              userID={userID}
+              userID={loggedInUserID}
               convoID={convoID}
               handleNewComment={handleNewComment}
             />
@@ -181,7 +182,7 @@ function Conversation(props) {
       <Comments
         parentUsername={username}
         comments={comments}
-        loggedInUserID={userID}
+        loggedInUserID={loggedInUserID}
       />
     </div>
   );

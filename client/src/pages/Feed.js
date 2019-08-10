@@ -90,8 +90,7 @@ class Feed extends Component {
         <div className={classes.post}>
           <Conversation
             conversation={conversation}
-            userID={userID}
-            convoID={conversation._id}
+            loggedInUserID={userID}
             handleConvoUpdate={convoID => this.updateConvo(convoID)}
           />
         </div>
