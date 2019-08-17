@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { makeStyles } from "@material-ui/core/styles";
-import { StyledButton } from "../themes/theme";
+import { StyledButton } from "../../themes/theme";
 
 import Button from "@material-ui/core/Button";
 import TextField from "@material-ui/core/TextField";
@@ -33,7 +33,6 @@ function UserEditDialog(props) {
   const [location, setLocation] = useState("");
   const [description, setDescription] = useState("");
 
-
   function handleClickOpen() {
     setLocation(props.location);
     setDescription(props.description);
@@ -44,8 +43,8 @@ function UserEditDialog(props) {
     setOpen(false);
   }
 
+  // update location and/or description
   async function handleUpdate() {
-    // console.log('picture url', picture);
     const jwt = window.localStorage.getItem("token");
     axios.defaults.headers = {
       "Content-Type": "application/json",
@@ -55,7 +54,6 @@ function UserEditDialog(props) {
     const updates = {
       location,
       description
-
     };
     await axios
       .put(`/api/users/${props.id}`, updates)
@@ -108,7 +106,6 @@ function UserEditDialog(props) {
             value={description}
             onChange={e => setDescription(e.target.value)}
           />
-
         </DialogContent>
 
         <DialogActions>

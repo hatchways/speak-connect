@@ -2,11 +2,11 @@ import React, { Component } from "react";
 import { withStyles } from "@material-ui/core/styles";
 import { Grid, Container } from "@material-ui/core";
 import NavBar from "../components/NavBar";
-import UserPanel from "../components/UserPanel";
-import AddPost from "../components/AddPost";
+import UserPanel from "../components/profile/UserPanel";
+import AddPost from "../components/profile/AddPost";
 
 import axios from "axios";
-import ConversationDialog from "../components/ConversationDialog";
+import ConversationDialog from "../components/profile/ConversationDialog";
 
 const profilePageStyle = theme => ({
   content: {
@@ -115,8 +115,6 @@ class Profile extends Component {
       );
     }
 
-    const userID = this.props.location.state.id;
-
     // else generate the created conversations
     const posts = conversations.map(conversation => (
       <Grid item key={conversation._id} className={classes.item}>
@@ -124,8 +122,7 @@ class Profile extends Component {
           title={conversation.title}
           commentCount={conversation.comments.length}
           conversation={conversation}
-          userID={userID}
-          convoID={conversation._id}
+          loggedInUserID={this.props.location.state.id}
           handleConvoUpdate={convoID => this.updateConvo(convoID)}
         />
       </Grid>

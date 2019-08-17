@@ -2,12 +2,12 @@ import React, { useState } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 
 import { Box, Grid, Typography } from "@material-ui/core";
-import playButton from "../assets/play-button.png";
-import commentImg from "../assets/comment.png";
+import playButton from "../../assets/play-button.png";
+import commentImg from "../../assets/comment.png";
 import Dialog from "@material-ui/core/Dialog";
 import DialogContent from "@material-ui/core/DialogContent";
 
-import ConversationPost from "./ConversationPost";
+import Conversation from "../conversation/Conversation";
 
 const useStyles = makeStyles(theme => ({
   panel: {
@@ -62,8 +62,7 @@ const useStyles = makeStyles(theme => ({
 
 function ConversationDialog(props) {
   const classes = useStyles();
-  const { title, commentCount, conversation } = props;
-  const { userID, convoID } = props;
+  const { title, commentCount, conversation, loggedInUserID } = props;
 
   const [openDialog, setOpenDialog] = useState(false);
 
@@ -113,10 +112,9 @@ function ConversationDialog(props) {
       >
         <DialogContent>
           <div className={classes.dialogContent}>
-            <ConversationPost
+            <Conversation
               conversation={conversation}
-              userID={userID}
-              convoID={convoID}
+              loggedInUserID={loggedInUserID}
               handleConvoUpdate={convoID => props.handleConvoUpdate(convoID)}
             />
           </div>
